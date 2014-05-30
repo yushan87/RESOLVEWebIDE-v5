@@ -4,21 +4,11 @@ package models;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * TODO: Add JavaDocs for this class.
  */
-public class Utilities {
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
-
-    public Utilities() {
-
-    }
+public class ModelUtils {
 
     // ===========================================================
     // Public Methods
@@ -77,7 +67,7 @@ public class Utilities {
                 sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
             }
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
         return sb.toString();

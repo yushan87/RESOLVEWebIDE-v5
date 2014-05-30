@@ -5,7 +5,6 @@
 # Play Generated Files
 tmp/
 modules/
-lib/
 test-result/
 logs/
 project/project/

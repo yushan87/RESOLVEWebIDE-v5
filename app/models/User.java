@@ -73,7 +73,7 @@ public class User {
         email = userEmail;
         firstName = userFirstName;
         lastName = userLastName;
-        password = Utilities.encryptPassword(userPassword);
+        password = ModelUtils.encryptPassword(userPassword);
         userType = 0;
         lastLogin = null;
         createdOn = new Date();
@@ -82,7 +82,7 @@ public class User {
         authenticated = false;
 
         // Generate confirmation code
-        confirmationCode = Utilities.generateConfirmationCode(password,email,firstName,lastName);
+        confirmationCode = ModelUtils.generateConfirmationCode(password, email, firstName, lastName);
 
         // Send email to the new user
         //Mails.confirmation(this);
@@ -118,7 +118,7 @@ public class User {
 
         // Check user password if email is found.
         if (u != null) {
-            if (!u.password.equals(Utilities.encryptPassword(password))) {
+            if (!u.password.equals(ModelUtils.encryptPassword(password))) {
                 u = null;
             }
         }
@@ -185,7 +185,7 @@ public class User {
      */
     public static void setNotAuthenticated(String email) {
         User u = findByEmail(email);
-        u.confirmationCode = Utilities.generateConfirmationCode(u.password, u.email, u.firstName, u.lastName);
+        u.confirmationCode = ModelUtils.generateConfirmationCode(u.password, u.email, u.firstName, u.lastName);
         u.authenticated = false;
         u.save();
     }
@@ -198,7 +198,7 @@ public class User {
      */
     public static void updatePassword(String email, String password) {
         User u = findByEmail(email);
-        u.password = Utilities.encryptPassword(password);
+        u.password = ModelUtils.encryptPassword(password);
         u.save();
     }
 }
