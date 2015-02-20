@@ -15,6 +15,12 @@ dist/
 out
 RUNNING_PID
 
+# Other SBT files
+activator-sbt-echo-akka-shim.sbt
+activator-sbt-idea-shim.sbt
+activator-sbt-eclipse-shim.sbt
+activator-sbt-echo-shim.sbt
+
 # Derived Java classes
 *.class
 
