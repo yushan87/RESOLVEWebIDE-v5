@@ -4,7 +4,7 @@
 
 # Play Generated Files
 tmp/
-modules/
+modules/*/target/
 test-result/
 logs/
 project/project/
