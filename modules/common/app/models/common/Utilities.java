@@ -1,4 +1,4 @@
-package models;
+package models.common;
 
 /* Libraries */
 import java.security.MessageDigest;
@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * TODO: Add JavaDocs for this class.
  */
-public class ModelUtils {
+public class Utilities {
 
     // ===========================================================
     // Public Methods

@@ -8,4 +8,11 @@ scalacOptions ++= Seq(
   "-feature" // Shows warnings in detail in the stdout
 )
 
-libraryDependencies ++= Seq()
+libraryDependencies ++= Seq(
+  javaJdbc,
+  cache,
+  javaWs,
+  javaJpa,
+  "org.hibernate" % "hibernate-entitymanager" % "3.6.9.Final",
+  "mysql" % "mysql-connector-java" % "5.1.34"
+)

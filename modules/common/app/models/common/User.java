@@ -1,4 +1,4 @@
-package models;
+package models.common;
 
 /* Libraries */
 import java.util.Date;
@@ -66,14 +66,12 @@ public class User {
     // Constructors
     // ===========================================================
 
-    public User() {}
-
     public User(String userEmail, String userPassword, String userFirstName, String userLastName) {
         // User information
         email = userEmail;
         firstName = userFirstName;
         lastName = userLastName;
-        password = ModelUtils.encryptPassword(userPassword);
+        password = Utilities.encryptPassword(userPassword);
         userType = 0;
         lastLogin = null;
         createdOn = new Date();
@@ -82,7 +80,7 @@ public class User {
         authenticated = false;
 
         // Generate confirmation code
-        confirmationCode = ModelUtils.generateConfirmationCode(password, email, firstName, lastName);
+        confirmationCode = Utilities.generateConfirmationCode(password, email, firstName, lastName);
 
         // Send email to the new user
         //Mails.confirmation(this);
@@ -118,7 +116,7 @@ public class User {
 
         // Check user password if email is found.
         if (u != null) {
-            if (!u.password.equals(ModelUtils.encryptPassword(password))) {
+            if (!u.password.equals(Utilities.encryptPassword(password))) {
                 u = null;
             }
         }
@@ -185,7 +183,7 @@ public class User {
      */
     public static void setNotAuthenticated(String email) {
         User u = findByEmail(email);
-        u.confirmationCode = ModelUtils.generateConfirmationCode(u.password, u.email, u.firstName, u.lastName);
+        u.confirmationCode = Utilities.generateConfirmationCode(u.password, u.email, u.firstName, u.lastName);
         u.authenticated = false;
         u.save();
     }
@@ -198,7 +196,7 @@ public class User {
      */
     public static void updatePassword(String email, String password) {
         User u = findByEmail(email);
-        u.password = ModelUtils.encryptPassword(password);
+        u.password = Utilities.encryptPassword(password);
         u.save();
     }
 }
