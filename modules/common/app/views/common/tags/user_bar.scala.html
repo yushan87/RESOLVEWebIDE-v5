@@ -1,0 +1,17 @@
+<div id="user_bar">
+    <span id="user_greeting" style="float: left;">
+        Welcome <b>User</b>. Current project: <b>Default_Project</b>
+    </span>
+    <span id="user_links" style="float: right;">
+        <div class="button-group">
+            <a href="#" class="button">Register</a>
+            <a href="#" class="button">Sign In</a>
+
+            <!-- Renders the help section in a new JavaScript window -->
+            <a class="button" id="help-link" href="javascript:void(0)" onclick="">Help</a>
+            <script type="text/javascript">
+                document.getElementById("help-link").onclick = function() {genHelp(); return false}
+            </script>
+        </div>
+    </span>
+</div>
