@@ -9,14 +9,16 @@ scalacOptions ++= Seq(
   "-language:reflectiveCalls" 
 )
 
-libraryDependencies ++= Seq(
-  javaJpa.exclude("org.hibernate.javax.persistence", "hibernate-jpa-2.0-api"),
-  "org.hibernate" % "hibernate-entitymanager" % "4.3.6.Final")
-
+libraryDependencies ++= Seq()
+  
+lazy val common = (project in file("modules/common"))
+  .enablePlugins(PlayJava)
+  
 lazy val admin = (project in file("modules/admin"))
   .enablePlugins(PlayJava)
+  .dependsOn(common)
 
 lazy val main = (project in file("."))
   .enablePlugins(PlayJava)
-  .dependsOn(admin)
-  .aggregate(admin)
+  .dependsOn(common, admin)
+  .aggregate(common, admin)

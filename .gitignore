@@ -70,7 +70,8 @@ nbproject/
 # Ignore the ace sources for now
 ace/
 
-# ignore the machine-specific config file
+# ignore the machine-specific config/xml file
+hibernate.cfg.xml
 conf/local-config.conf
 
 ######################
