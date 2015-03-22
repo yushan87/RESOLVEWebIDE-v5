@@ -10,5 +10,6 @@ scalacOptions ++= Seq(
 
 libraryDependencies ++= Seq(
   "org.hibernate" % "hibernate-entitymanager" % "4.3.8.Final",
-  "mysql" % "mysql-connector-java" % "5.1.34"
+  "mysql" % "mysql-connector-java" % "5.1.34",
+  "com.feth" %% "play-authenticate" % "0.6.8"
 )
