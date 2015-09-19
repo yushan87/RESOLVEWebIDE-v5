@@ -2,14 +2,16 @@ name := "RESOLVEWebIDE-common"
 
 version := "1.0"
 
-scalaVersion := "2.11.1"
+scalaVersion := "2.11.7"
 
 scalacOptions ++= Seq(
   "-feature" // Shows warnings in detail in the stdout
 )
 
+routesGenerator := InjectedRoutesGenerator
+
 libraryDependencies ++= Seq(
-  "org.hibernate" % "hibernate-entitymanager" % "4.3.8.Final",
-  "mysql" % "mysql-connector-java" % "5.1.34",
-  "com.feth" %% "play-authenticate" % "0.6.8"
+  "org.hibernate" % "hibernate-entitymanager" % "5.0.1.Final",
+  "mysql" % "mysql-connector-java" % "5.1.36"
+ // "com.feth" %% "play-authenticate_2.11" % "0.6.8"
 )
