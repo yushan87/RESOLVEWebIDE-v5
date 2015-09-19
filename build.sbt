@@ -12,8 +12,6 @@ scalacOptions ++= Seq(
 libraryDependencies ++= Seq()
 
 unmanagedBase := baseDirectory.value / "custom_lib"
-
-routesGenerator := InjectedRoutesGenerator
   
 lazy val common = (project in file("modules/common"))
   .enablePlugins(PlayJava)
@@ -26,3 +24,5 @@ lazy val main = (project in file("."))
   .enablePlugins(PlayJava)
   .dependsOn(common, admin)
   .aggregate(common, admin)
+
+routesGenerator := InjectedRoutesGenerator

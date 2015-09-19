@@ -1,10 +1,9 @@
 package controllers;
 
 //  Play Imports
-import play.mvc.*;
-
-// HTML pages from the Views package
-import views.html.*;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.index;
 
 /**
  * TODO: Write a description of this module
@@ -16,7 +15,7 @@ public class Interface extends Controller {
      *
      * @return The result of rendering the page
      */
-    public static Result index() {
+    public Result index() {
         return ok(index.render());
     }
 
