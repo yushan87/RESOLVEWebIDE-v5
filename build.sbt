@@ -15,14 +15,14 @@ unmanagedBase := baseDirectory.value / "custom_lib"
 
 routesGenerator := InjectedRoutesGenerator
   
-//lazy val common = (project in file("modules/common"))
-//  .enablePlugins(PlayJava)
+lazy val common = (project in file("modules/common"))
+  .enablePlugins(PlayJava)
   
-//lazy val admin = (project in file("modules/admin"))
-//  .enablePlugins(PlayJava)
-//  .dependsOn(common)
+lazy val admin = (project in file("modules/admin"))
+  .enablePlugins(PlayJava)
+  .dependsOn(common)
 
 lazy val main = (project in file("."))
   .enablePlugins(PlayJava)
-//  .dependsOn(common, admin)
-//  .aggregate(common, admin)
+  .dependsOn(common, admin)
+  .aggregate(common, admin)
