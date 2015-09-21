@@ -8,6 +8,13 @@ scalacOptions ++= Seq(
   "-feature" // Shows warnings in detail in the stdout
 )
 
+// Javac compiler warning
+javacOptions ++= Seq(
+  "-Xlint:unchecked",
+  "-Xlint:deprecation",
+  "-Xdiags:verbose"
+)
+
 routesGenerator := InjectedRoutesGenerator
 
 libraryDependencies ++= Seq(
