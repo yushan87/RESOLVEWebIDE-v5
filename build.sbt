@@ -9,6 +9,13 @@ scalacOptions ++= Seq(
   "-language:reflectiveCalls" 
 )
 
+// Javac compiler warning
+javacOptions ++= Seq(
+  "-Xlint:unchecked",
+  "-Xlint:deprecation",
+  "-Xdiags:verbose"
+)
+
 libraryDependencies ++= Seq()
 
 unmanagedBase := baseDirectory.value / "custom_lib"
