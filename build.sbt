@@ -18,6 +18,12 @@ javacOptions ++= Seq(
 
 libraryDependencies ++= Seq()
 
+resolvers ++= Seq(
+  "play-authenticate (snapshot)" at "https://oss.sonatype.org/content/repositories/snapshots/"
+)
+
+routesGenerator := InjectedRoutesGenerator
+
 unmanagedBase := baseDirectory.value / "custom_lib"
   
 lazy val common = (project in file("modules/common"))
@@ -31,5 +37,3 @@ lazy val main = (project in file("."))
   .enablePlugins(PlayJava)
   .dependsOn(common, admin)
   .aggregate(common, admin)
-
-routesGenerator := InjectedRoutesGenerator

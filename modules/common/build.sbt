@@ -15,10 +15,14 @@ javacOptions ++= Seq(
   "-Xdiags:verbose"
 )
 
-routesGenerator := InjectedRoutesGenerator
-
 libraryDependencies ++= Seq(
   "org.hibernate" % "hibernate-entitymanager" % "5.0.1.Final",
-  "mysql" % "mysql-connector-java" % "5.1.36"
- // "com.feth" %% "play-authenticate_2.11" % "0.6.8"
+  "mysql" % "mysql-connector-java" % "5.1.36",
+  "com.feth" %% "play-authenticate" % "0.7.0-SNAPSHOT"
 )
+
+resolvers ++= Seq(
+  "play-authenticate (snapshot)" at "https://oss.sonatype.org/content/repositories/snapshots/"
+)
+
+routesGenerator := InjectedRoutesGenerator

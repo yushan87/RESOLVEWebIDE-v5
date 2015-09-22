@@ -16,6 +16,10 @@ javacOptions ++= Seq(
   "-Xdiags:verbose"
 )
 
-routesGenerator := InjectedRoutesGenerator
-
 libraryDependencies ++= Seq()
+
+resolvers ++= Seq(
+  "play-authenticate (snapshot)" at "https://oss.sonatype.org/content/repositories/snapshots/"
+)
+
+routesGenerator := InjectedRoutesGenerator
