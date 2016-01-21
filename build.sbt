@@ -18,10 +18,6 @@ javacOptions ++= Seq(
 
 libraryDependencies ++= Seq()
 
-resolvers ++= Seq(
-  "play-authenticate (snapshot)" at "https://oss.sonatype.org/content/repositories/snapshots/"
-)
-
 routesGenerator := InjectedRoutesGenerator
 
 unmanagedBase := baseDirectory.value / "custom_lib"
