@@ -19,6 +19,20 @@ body > .container-fluid {
     padding: 55px 15px 0;
 }
 
+/* CSS for footer on help.scala.html */
+.modal .modal-body {
+    max-height: 425px;
+    overflow-y: auto;
+}
+
+.help-title {
+    text-align: center;
+}
+
+.help-content {
+    text-align: justify;
+}
+
 /* CSS for footer on footer.scala.html */
 .footer {
     position: absolute;

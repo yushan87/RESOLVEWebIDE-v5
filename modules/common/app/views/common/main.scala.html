@@ -24,7 +24,8 @@
             <!-- Content passed in gets displayed here -->
             @content
 
-            <div id="dialog_help" class="hidden"></div>
+            <!-- Code to the display help modal -->
+            @views.html.common.tags.help()
         </div>
 
         <!-- Code to the display footer -->
@@ -38,8 +39,5 @@
         <!-- Our Own JavaScripts -->
         <script src="@controllers.common.routes.Assets.versioned("javascripts/help.js")" type="text/javascript" charset="${_response_encoding}"></script>
         <script src="@controllers.common.routes.Assets.versioned("javascripts/main.js")" type="text/javascript" charset="${_response_encoding}"></script>
-        <script type="text/javascript">
-            document.getElementById("help-link").onclick = function() {genHelp(); return false}
-        </script>
     </body>
 </html>
