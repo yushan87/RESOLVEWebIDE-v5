@@ -1,4 +1,20 @@
 @views.html.common.main("RESOLVEWebIDE") {
     <!-- Code to display components bar -->
     @views.html.common.tags.component_bar()
+
+    <!-- Code to display ace editor -->
+    <div id="editor">function foo(items) {
+    var x = "All this is syntax highlighted";
+    return x;
+}</div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/theme-chrome.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/mode-javascript.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/chrome");
+        editor.getSession().setMode("ace/mode/javascript");
+    </script>
 }

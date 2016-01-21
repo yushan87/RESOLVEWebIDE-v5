@@ -20,6 +20,14 @@ body > .container-fluid {
     padding: 55px 15px 0;
 }
 
+#editor {
+    position: absolute;
+    top: 100px;
+    bottom: 40px;
+    right: 15px;
+    left: 15px;
+}
+
 /* CSS for nav bar on navbar.scala.html */
 .navbar-nav > li {
     margin-right: 10px;
