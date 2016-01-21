@@ -16,6 +16,8 @@ javacOptions ++= Seq(
 )
 
 libraryDependencies ++= Seq(
+  "com.feth" %% "play-authenticate" % "0.7.1",
+  "be.objectify" %% "deadbolt-java" % "2.4.4",
   "org.hibernate" % "hibernate-entitymanager" % "5.0.7.Final",
   "mysql" % "mysql-connector-java" % "5.1.38"
 )
