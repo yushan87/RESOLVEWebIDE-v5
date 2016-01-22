@@ -16,8 +16,9 @@ javacOptions ++= Seq(
 )
 
 libraryDependencies ++= Seq(
+  javaJpa,
   cache,
-  ws,
+  javaWs,
   "com.typesafe.play" %% "play-mailer" % "3.0.1",
   "ws.securesocial" % "securesocial_2.11" % "3.0-M4",
   "be.objectify" %% "deadbolt-java" % "2.4.4",
