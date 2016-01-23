@@ -16,6 +16,7 @@ javacOptions ++= Seq(
 )
 
 libraryDependencies ++= Seq(
+  javaJdbc,
   javaJpa,
   cache,
   javaWs,

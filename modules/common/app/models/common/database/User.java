@@ -1,9 +1,9 @@
 package models.common.database;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 import models.common.Utilities;
-import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
@@ -44,14 +44,17 @@ public class User {
     public int userType;
 
     /** <p>Last Login Date</p> */
-    @Formats.DateTime(pattern="yyyy-MM-dd")
+    @Column(name = "lastLogin", columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
     public Date lastLogin;
 
     /** <p>Account Creation Date</p> */
-    @Formats.DateTime(pattern="yyyy-MM-dd")
+    @Column(name = "createdOn", columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
     public Date createdOn;
 
     /** <p>User's Default Project</p> */
+    @Constraints.Required
     public String currentProject;
 
     /** <p>Boolean flag to check if User
@@ -66,7 +69,20 @@ public class User {
     // Constructors
     // ===========================================================
 
-    public User(String userEmail, String userPassword, String userFirstName, String userLastName) {
+    /**
+     * <p>Default constructor. JPA needs this on some occasions.</p>
+     */
+    private User() {}
+
+    /**
+     * <p>Creates a new user object.</p>
+     *
+     * @param userEmail User's email.
+     * @param userPassword User's password.
+     * @param userFirstName User's first name.
+     * @param userLastName User's last name.
+     */
+    private User(String userEmail, String userPassword, String userFirstName, String userLastName) {
         // User information
         email = userEmail;
         firstName = userFirstName;
@@ -76,6 +92,7 @@ public class User {
         lastLogin = null;
         createdOn = new Date();
         //currentProject = Project.getDefault().name;
+        currentProject = "Default_Project";
         authenticated = false;
 
         // Generate confirmation code
@@ -90,9 +107,25 @@ public class User {
     // ===========================================================
 
     /**
+     * <p>Add a new user to the database.</p>
+     *
+     * @param email Email entered by the user.
+     * @param password Password entered by the user.
+     * @param userFirstName
+     * @param userLastName
+     * @return
+     */
+    public static User addUser(String email, String password, String userFirstName, String userLastName) {
+        User u = new User(email, password, userFirstName, userLastName);
+        u.save();
+
+        return u;
+    }
+
+    /**
      * <p>Set the specified user to be authenticated.</p>
      *
-     * @param email User email.
+     * @param email Email entered by the user.
      */
     public static void authenticate(String email) {
         User u = findByEmail(email);
@@ -105,7 +138,7 @@ public class User {
      * <p>Attempts to return a user if the email exists in
      * our database and the specified password matches as well.</p>
      *
-     * @param email  Email entered by the user.
+     * @param email Email entered by the user.
      * @param password Password entered by the user.
      *
      * @return User if all the information matches, null otherwise.
@@ -127,7 +160,7 @@ public class User {
      * <p>Checks to see if the user has been authenticated
      * or not.</p>
      *
-     * @param email User email.
+     * @param email Email entered by the user.
      *
      * @return True if user is authenticated, false otherwise.
      */
@@ -139,7 +172,7 @@ public class User {
     /**
      * <p>Update the last login date.</p>
      *
-     * @param email User email.
+     * @param email Email entered by the user.
      */
     public static void lastLogin(String email) {
         User u = findByEmail(email);
@@ -163,8 +196,8 @@ public class User {
     /**
      * <p>Update the password for the specified email.</p>
      *
-     * @param email User email.
-     * @param password User's new password.
+     * @param email Email entered by the user.
+     * @param password Password entered by the user.
      */
     public static void updatePassword(String email, String password) {
         User u = findByEmail(email);
@@ -177,13 +210,6 @@ public class User {
     // ===========================================================
 
     /**
-     * <p>Delete this user.</p>
-     */
-    private void delete() {
-        JPA.em().remove(this);
-    }
-
-    /**
      * <p>Find a user by email.</p>
      *
      * @param email User email.
@@ -194,12 +220,28 @@ public class User {
     private static User findByEmail(String email) {
         Query query = JPA.em().createQuery("select u from User u where u.email = :email", User.class);
         query.setParameter("email", email);
-        return (User) query.getSingleResult();
+
+        List result = query.getResultList();
+        User user = null;
+        if (!result.isEmpty()) {
+            user = (User) result.get(0);
+        }
+
+        return user;
+    }
+
+    /**
+     * <p>Delete this user.</p>
+     */
+    @Transactional
+    private void delete() {
+        JPA.em().remove(this);
     }
 
     /**
      * <p>Store this user information.</p>
      */
+    @Transactional
     private void save() {
         JPA.em().persist(this);
     }
