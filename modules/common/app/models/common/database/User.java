@@ -113,7 +113,8 @@ public class User {
      * @param password Password entered by the user.
      * @param userFirstName
      * @param userLastName
-     * @return
+     *
+     * @return The newly created user object.
      */
     @Transactional
     public static User addUser(String email, String password, String userFirstName, String userLastName) {
