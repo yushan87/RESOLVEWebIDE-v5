@@ -3,7 +3,7 @@ package models.common.database;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
-import models.common.Utilities;
+import models.common.ModelUtilities;
 import play.data.validation.Constraints;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
@@ -87,7 +87,7 @@ public class User {
         email = userEmail;
         firstName = userFirstName;
         lastName = userLastName;
-        password = Utilities.encryptPassword(userPassword);
+        password = ModelUtilities.encryptPassword(userPassword);
         userType = 0;
         lastLogin = null;
         createdOn = new Date();
@@ -96,7 +96,7 @@ public class User {
         authenticated = false;
 
         // Generate confirmation code
-        confirmationCode = Utilities.generateConfirmationCode(password,email,firstName,lastName);
+        confirmationCode = ModelUtilities.generateConfirmationCode(password,email,firstName,lastName);
 
         // Send email to the new user
         //Mails.confirmation(this);
@@ -115,6 +115,7 @@ public class User {
      * @param userLastName
      * @return
      */
+    @Transactional
     public static User addUser(String email, String password, String userFirstName, String userLastName) {
         User u = new User(email, password, userFirstName, userLastName);
         u.save();
@@ -127,6 +128,7 @@ public class User {
      *
      * @param email Email entered by the user.
      */
+    @Transactional
     public static void authenticate(String email) {
         User u = findByEmail(email);
         u.authenticated = true;
@@ -143,12 +145,13 @@ public class User {
      *
      * @return User if all the information matches, null otherwise.
      */
+    @Transactional(readOnly = true)
     public static User connect(String email, String password) {
         User u = findByEmail(email);
 
         // Check user password if email is found.
         if (u != null) {
-            if (!u.password.equals(Utilities.encryptPassword(password))) {
+            if (!u.password.equals(ModelUtilities.encryptPassword(password))) {
                 u = null;
             }
         }
@@ -164,6 +167,7 @@ public class User {
      *
      * @return True if user is authenticated, false otherwise.
      */
+    @Transactional(readOnly = true)
     public static Boolean hasAuthenticated(String email) {
         User u = findByEmail(email);
         return u.authenticated;
@@ -174,6 +178,7 @@ public class User {
      *
      * @param email Email entered by the user.
      */
+    @Transactional
     public static void lastLogin(String email) {
         User u = findByEmail(email);
         u.lastLogin = new Date();
@@ -186,9 +191,10 @@ public class User {
      *
      * @param email Email entered by the user.
      */
+    @Transactional
     public static void setNotAuthenticated(String email) {
         User u = findByEmail(email);
-        u.confirmationCode = Utilities.generateConfirmationCode(u.password, u.email, u.firstName, u.lastName);
+        u.confirmationCode = ModelUtilities.generateConfirmationCode(u.password, u.email, u.firstName, u.lastName);
         u.authenticated = false;
         u.save();
     }
@@ -199,9 +205,10 @@ public class User {
      * @param email Email entered by the user.
      * @param password Password entered by the user.
      */
+    @Transactional
     public static void updatePassword(String email, String password) {
         User u = findByEmail(email);
-        u.password = Utilities.encryptPassword(password);
+        u.password = ModelUtilities.encryptPassword(password);
         u.save();
     }
 
@@ -216,7 +223,7 @@ public class User {
      *
      * @return The user corresponding to the query email.
      */
-    @Transactional
+    @Transactional(readOnly = true)
     private static User findByEmail(String email) {
         Query query = JPA.em().createQuery("select u from User u where u.email = :email", User.class);
         query.setParameter("email", email);

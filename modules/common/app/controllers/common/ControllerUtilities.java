@@ -1,4 +1,4 @@
-package controllers;
+package controllers.common;
 
 /* Libraries */
 import java.io.UnsupportedEncodingException;
@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * TODO: Add JavaDocs for this class.
  */
-public class ControllerUtils {
+public class ControllerUtilities {
 
     // ===========================================================
     // Public Methods

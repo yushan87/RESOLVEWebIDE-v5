@@ -4,8 +4,15 @@
              version="2.1">
 
     <persistence-unit name="RESOLVE-WebIDE" transaction-type="RESOURCE_LOCAL">
+        <description>
+            Persistence unit for RESOLVEWebIDE-v5 using MySQL.
+        </description>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <non-jta-data-source>DefaultDS</non-jta-data-source>
+
+        <!-- All database entity classes -->
+        <class>models.common.database.User</class>
+
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>

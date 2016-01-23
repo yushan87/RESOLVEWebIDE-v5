@@ -1,10 +1,11 @@
-package controllers;
+package controllers.webide;
 
 //  Play Imports
 import models.common.database.User;
+import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.index;
+import views.html.webide.index;
 
 /**
  * TODO: Write a description of this module
@@ -16,6 +17,7 @@ public class Interface extends Controller {
      *
      * @return The result of rendering the page
      */
+    @Transactional
     public Result index() {
         User u = User.connect("yushans@clemson.edu", "12345");
 

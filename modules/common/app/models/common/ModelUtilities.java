@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * TODO: Add JavaDocs for this class.
  */
-public class Utilities {
+public class ModelUtilities {
 
     // ===========================================================
     // Public Methods

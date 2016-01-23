@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /	                        controllers.Interface.index()
+->      /	                        webide.Routes
 
 # Admin module
 ->      /admin                      admin.Routes
