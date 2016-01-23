@@ -4,31 +4,39 @@
 
 <html>
     <head>
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>@title</title>
 
         <!-- CSS -->
-        <link rel="stylesheet" media="screen" href="@controllers.common.routes.Assets.at("stylesheets/main.css")">
-        <link rel="stylesheet" media="screen" href="@controllers.common.routes.Assets.at("stylesheets/css3-github-buttons/gh-buttons.css")">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/redmond/jquery-ui.css">
-
-        <!-- JavaScript Libraries -->
-        <script src="//code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
-        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
-
-        <!-- Our own JavaScripts -->
-        <script src="@controllers.common.routes.Assets.at("javascripts/help.js")" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@controllers.common.routes.Assets.at("javascripts/main.js")" type="text/javascript" charset="${_response_encoding}"></script>
+        <link rel="stylesheet" media="screen" href="@controllers.common.routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+            integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     </head>
-    <body style="margin: 0px;">
-        <div id="content">
-            <!-- Code to display user bar -->
-            @views.html.common.tags.user_bar()
+    <body>
+        <!-- Code to display navbar -->
+        @views.html.common.tags.navbar()
+
+        <div class="container-fluid">
             <!-- Content passed in gets displayed here -->
             @content
-            <!-- Code to the display footer -->
-            @views.html.common.tags.footer()
+
+            <!-- Code to the display help modal -->
+            @views.html.common.tags.help()
         </div>
-        <div id="dialog_help" class="hidden"></div>
-        <div id="background" class="background"></div>
+
+        <!-- Code to the display footer -->
+        @views.html.common.tags.footer()
+
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+        <!-- Our Own JavaScripts -->
+        <script src="@controllers.common.routes.Assets.versioned("javascripts/main.js")" type="text/javascript" charset="${_response_encoding}"></script>
     </body>
 </html>

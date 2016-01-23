@@ -1,7 +1,9 @@
 package controllers.admin;
 
 //  Play Imports
-import play.mvc.*;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.admin.index;
 
 /**
  * TODO: Write a description of this module
@@ -13,8 +15,8 @@ public class Admin extends Controller {
      *
      * @return The result of rendering the page
      */
-    public static Result index() {
-        return ok(views.html.admin.index.render());
+    public Result index() {
+        return ok(index.render());
     }
 
 }

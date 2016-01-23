@@ -1,20 +1,26 @@
 package controllers.admin;
 
 //  Play API Imports
-import play.api.mvc.*;
+import controllers.Assets.Asset;
+import javax.inject.Inject;
+import play.api.mvc.Action;
+import play.api.mvc.AnyContent;
 
 /**
  * TODO: Write a description of this module
  */
 public class Assets {
+
+	@Inject
+	private controllers.Assets myAssets;
 	
 	/**
      * <p>This renders the main interface page for the WebIDE.</p>
      *
      * @return The result of rendering the page
      */
-	public static Action<AnyContent> at(String path, String file) {
-		return controllers.Assets.at(path, file, false);
+	public Action<AnyContent> versioned(String path, Asset file) {
+		return myAssets.versioned(path, file);
 	}
 	
 }

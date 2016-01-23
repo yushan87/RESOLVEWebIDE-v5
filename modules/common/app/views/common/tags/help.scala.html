@@ -1,0 +1,69 @@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="help-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Help</h4>
+            </div>
+            <div class="modal-body">
+                <div class="help-title">
+                    <h3>RESOLVE Web IDE Overview</h3>
+                </div>
+                <div class="help-content">
+                    <h4>Web IDE Introductory Video:</h4>
+                    <p align="center">
+                        <iframe width="560" height="315" src="//www.youtube.com/embed/9vg3WuxeOkA?rel=0" frameborder="0" allowfullscreen></iframe>
+                    </p>
+                    <h4>General Information</h4>
+                    <p>This web-based environment is made up is of two parts--the upper menu bar
+                        along the top and the content tabs below. The leftmost item in the menu bar
+                        is the name of the currently selected project; any additional projects available
+                        may be seen by hovering the mouse over the currently selected name. Clicking
+                        another project name will load that project's components into the environment.
+                        The Environment item at the right of the menu bar contains controls for manipulating
+                        the environment. The environment allows users to create new components for
+                        any of the available projects, which are persistently stored locally within
+                        the web browser itself. Navigating away, restarting the browser, or rebooting
+                        the computer does not destroy these components; upon reopening the environment
+                        any user-created components will be reloaded and available through the
+                        appropriate project. Clicking Export (under Environment) will export the
+                        current state of the environment (including all user-created components)
+                        as an XML file, which can be downloaded and saved. This XML file can then
+                        be saved for backup purposes or imported back into the environment via the
+                        Import option. This import functionality can also be accessed using the
+                        floppy disk icon on the menu bar. Simply dragging and dropping the exported
+                        XML file onto the icon will load it into the environment.
+                    </p>
+                    <p>The lower portion of the environment is primarily used to display RESOLVE
+                        components through an intuitive, tab-based user interface. In contrast to
+                        typical IDE's, this environment presents components based on their relationships,
+                        not simply on their file system locations. (For more information on RESOLVE
+                        component relationships in the environment see
+                        <a href="http://www.cs.clemson.edu/group/resolve/research/reports/RSRG-11-03.pdf"
+                        target="_blank">Technical Report RSRG-11-03</a>.)
+                        There are five tabs available, each representing a type of component--facility,
+                        concept, concept realization, enhancement, or enhancement realization.
+                        To begin, only the facility and concept tabs are active, as indicated by the
+                        blue arrow on the tab. Clicking the arrow opens a dropdown menu containing
+                        any available components of that type. Selecting a component name opens
+                        it in the built-in RESOLVE editor, providing keyword highlighting and
+                        syntax error checking. Buttons to the right provide access to any available
+                        component-specific functionality.
+                    </p>
+                </div>
+                <div class="help-title">
+                    <h3>RESOLVE Verifying Compiler</h3>
+                </div>
+                <div class="help-content">
+                    <h4>General Information</h4>
+                    <p>The foundations underlying the RESOLVE Verifying Compiler are both sound
+                        and relatively complete.  The current, working implementation is sound
+                        (as far as we know, but not proved), but incomplete.   This means that
+                        some correct programs will not pass automated verification.  However,
+                        the generated verification conditions should be provable.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
