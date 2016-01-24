@@ -1,7 +1,5 @@
 package controllers.webide;
 
-//  Play Imports
-import models.common.database.User;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -19,14 +17,6 @@ public class Interface extends Controller {
      */
     @Transactional
     public Result index() {
-        User u = User.connect("yushans@clemson.edu", "12345");
-
-        if (u == null) {
-            System.out.println("Not in database");
-
-            u = User.addUser("yushans@clemson.edu", "12345", "Yu-Shan", "Sun");
-        }
-
         return ok(index.render());
     }
 
