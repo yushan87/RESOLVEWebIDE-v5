@@ -1,4 +1,7 @@
-@(title: String)(content: Html)
+@import java.util
+@import models.common.database.Project
+
+@(title: String, projects: util.List[Project], defaultProject: Project)(content: Html)
 
 <!DOCTYPE html>
 
@@ -18,7 +21,7 @@
     </head>
     <body>
         <!-- Code to display navbar -->
-        @views.html.common.tags.navbar()
+        @views.html.common.tags.navbar(projects, defaultProject)
 
         <div class="container-fluid">
             <!-- Content passed in gets displayed here -->

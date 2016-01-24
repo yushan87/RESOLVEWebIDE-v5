@@ -11,7 +11,11 @@
         <non-jta-data-source>DefaultDS</non-jta-data-source>
 
         <!-- All database entity classes -->
+        <class>models.common.database.CompilerResult</class>
+        <class>models.common.database.Project</class>
         <class>models.common.database.User</class>
+        <class>models.common.database.UserComponent</class>
+        <class>models.common.database.UserEvent</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
