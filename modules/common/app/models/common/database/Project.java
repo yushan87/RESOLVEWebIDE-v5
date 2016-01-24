@@ -1,15 +1,20 @@
 package models.common.database;
 
-import java.util.List;
-import javax.persistence.*;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import java.util.List;
+import javax.persistence.*;
 import play.data.validation.Constraints;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 
 /**
- * TODO: Add JavaDocs for this class.
+ * <p>This class is the relational mapping of a project in the database and provides
+ * methods to change the project in the database.</p>
+ *
+ * @author Chuck Cook
+ * @author Yu-Shan Sun
+ * @version 1.0
  */
 @Entity
 @Table(name="projects")
@@ -39,12 +44,10 @@ public class Project {
     public String jsonRepDate;
 
     /** <p>Check if this Project is open or not.</p> */
-    @Constraints.Required
     public boolean openProject;
 
     /** <p>Sets the visibility of the standard concept
      * templates.</p> */
-    @Constraints.Required
     public boolean standardHidden;
 
     /** <p>Check if this is the default project.</p> */

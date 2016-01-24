@@ -8,7 +8,12 @@ import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 
 /**
- * TODO: Add JavaDocs for this class.
+ * <p>This class is the relational mapping of a user component in the database and provides
+ * methods to change the user component in the database.</p>
+ *
+ * @author Chuck Cook
+ * @author Yu-Shan Sun
+ * @version 1.0
  */
 @Entity
 @Table(name="userComponents")
@@ -23,44 +28,55 @@ public class UserComponent {
     @GeneratedValue
     public Long id;
 
+    /** <p>User component content.</p> */
+    @Lob
+    public String content;
+
     /** <p>User component name.</p> */
-    @Constraints.Required
     public String name;
 
     /** <p>User component package.</p> */
-    @Constraints.Required
     public String pkg;
 
     /** <p>User component project.</p> */
-    @Constraints.Required
     public String project;
 
     /** <p>User component type.</p> */
     @Constraints.Required
     public String type;
 
-    /** <p>User component parent.</p> */
-    public String parent;
+    /** <p>User component author.</p> */
+    @ManyToOne
+    public User author;
 
     /** <p>User component creation date.</p> */
     @Column(name = "createdAt", columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     public Date createdAt;
 
-    /** <p>User component content.</p> */
-    @Lob
-    @Constraints.Required
-    public String content;
-
-    /** <p>User component author.</p> */
-    @ManyToOne
-    public User author;
+    /** <p>User component parent.</p> */
+    public String parent;
 
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    public UserComponent(String ucName, String ucPkg, String ucProject, String ucContent, String ucType) {
+    /**
+     * <p>Default constructor. JPA needs this on some occasions.</p>
+     */
+    private UserComponent() {}
+
+    /**
+     * <p>Creates a new user component object.</p>
+     *
+     * @param ucName User component filename.
+     * @param ucAuthor User component's author.
+     * @param ucPkg User component's fake package hierarchy.
+     * @param ucProject The project where this user component reside.
+     * @param ucContent User component's content.
+     * @param ucType The type of file for this user component.
+     */
+    private UserComponent(String ucName, String ucAuthor, String ucPkg, String ucProject, String ucContent, String ucType) {
         name = ucName;
         pkg = ucPkg;
         project = ucProject;
@@ -74,6 +90,33 @@ public class UserComponent {
     // Public Methods
     // ===========================================================
 
+    /**
+     * <p>Add a new user component to the database.</p>
+     *
+     * @param ucName User component filename.
+     * @param ucAuthor User component's author.
+     * @param ucPkg User component's fake package hierarchy.
+     * @param ucProject The project where this user component reside.
+     * @param ucContent User component's content.
+     * @param ucType The type of file for this user component.
+     *
+     * @return The newly created user component object.
+     */
+    @Transactional
+    public static UserComponent addUserComponent(String ucName, String ucAuthor, String ucPkg, String ucProject, String ucContent, String ucType) {
+        UserComponent uc = new UserComponent(ucName, ucAuthor, ucPkg, ucProject, ucContent, ucType);
+        uc.save();
+
+        return uc;
+    }
+
+    /**
+     * <p>This method converts the content into a formatted JSON string.
+     * The format of this is dictated by the RESOLVE compiler's WebAPI.</p>
+     *
+     * @return A formatted JSON string that contains all the relevant
+     * information about this user component.
+     */
     public String toJson(){
         StringBuilder json = new StringBuilder();
 
@@ -100,5 +143,17 @@ public class UserComponent {
         json.append("}");
 
         return json.toString();
+    }
+
+    // ===========================================================
+    // Private Methods
+    // ===========================================================
+
+    /**
+     * <p>Store this user component information.</p>
+     */
+    @Transactional
+    private void save() {
+        JPA.em().persist(this);
     }
 }
