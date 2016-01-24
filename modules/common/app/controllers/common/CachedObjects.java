@@ -76,9 +76,6 @@ public class CachedObjects {
     private List<Project> storeProjectsInCache() {
         // Cache for 15 minutes
         List<Project> projects = Project.getOpenProjects();
-
-        System.out.println(projects);
-
         myCache.set("projects", projects, 60 * 15);
 
         return projects;
