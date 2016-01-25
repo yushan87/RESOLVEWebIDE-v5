@@ -20,6 +20,10 @@ public class Interface extends Controller {
     @Inject
     private CachedObjects myCachedObjects;
 
+    /** <p>An email generator.</p> */
+    @Inject
+    private EmailGenerator myEmailGenerator;
+
     // ===========================================================
     // Public Methods
     // ===========================================================
