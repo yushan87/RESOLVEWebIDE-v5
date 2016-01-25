@@ -8,6 +8,9 @@
 # Admin module
 ->      /admin                      admin.Routes
 
+# Analytics module
+->      /analytics                  analytics.Routes
+
 # Common module
 ->      /common                     common.Routes
 
