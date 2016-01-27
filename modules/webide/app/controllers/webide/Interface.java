@@ -2,6 +2,7 @@ package controllers.webide;
 
 import controllers.common.CachedObjects;
 import javax.inject.Inject;
+import controllers.common.EmailGenerator;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;

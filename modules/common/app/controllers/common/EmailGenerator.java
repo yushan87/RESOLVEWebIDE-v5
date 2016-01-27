@@ -1,11 +1,11 @@
-package controllers.webide;
+package controllers.common;
 
 import javax.inject.Inject;
 import models.common.database.User;
 import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 import play.mvc.Http;
-import views.html.webide.email.reset;
+import views.html.common.email.reset;
 
 /**
  * TODO: Add JavaDocs for this class.
