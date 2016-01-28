@@ -1,11 +1,14 @@
 package controllers.common;
 
 import javax.inject.Inject;
-import models.common.database.User;
+import play.Play;
 import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 import play.mvc.Http;
+import views.html.common.email.confirmation;
+import views.html.common.email.lostPassword;
 import views.html.common.email.reset;
+import views.html.common.email.welcome;
 
 /**
  * TODO: Add JavaDocs for this class.
@@ -24,38 +27,80 @@ public class EmailGenerator {
     // Public Methods
     // ===========================================================
 
-    public void generateWelcomeEmail(User user) {
-        /*Email email = generateEmailObject(user.email, "Welcome to RESOLVE Web IDE", "");
-        String link = Http.Request.current().getBase() + (String)Play.configuration.get("http.path") + "/";
-        send(user, link);*/
+    /**
+     * <p>Generate and send a welcome email with
+     * the specified user information.</p>
+     *
+     * @param firstName User's first name.
+     * @param userEmail User's email.
+     */
+    public void generateWelcomeEmail(String firstName, String userEmail) {
+        String link = formCurrentWebPath();
+        Email email = generateEmailObject(userEmail, "Welcome to RESOLVE Web IDE", welcome.render(firstName, userEmail, link).body());
+        myMailerClient.send(email);
     }
 
-    public void generateConfirmationEmail(User user) {
-        /*Email email = generateEmailObject(user.email, "RESOLVE Web IDE Registration Confirmation");
-        String confirmationCode = user.confirmationCode;
-
-        String link = Http.Request.current().getBase() + (String)Play.configuration.get("http.path") + "/confirm?c_code=" + confirmationCode + "&email=" + user.email;
-        send(user, link);*/
+    /**
+     * <p>Generate and send a confirmation email with
+     * the specified user information.</p>
+     *
+     * @param firstName User's first name.
+     * @param userEmail User's email.
+     * @param confirmationCode User's generated confirmation code.
+     */
+    public void generateConfirmationEmail(String firstName, String userEmail, String confirmationCode) {
+        String link = formCurrentWebPath() + "confirm?c_code=" + confirmationCode + "&email=" + userEmail;
+        Email email = generateEmailObject(userEmail, "RESOLVE Web IDE Registration Confirmation", confirmation.render(firstName, link).body());
+        myMailerClient.send(email);
     }
 
-    public void lostPassword(User user) {
-        /*Email email = generateEmailObject(user.email, "RESOLVE Web IDE Password Recovery");
-        String confirmationCode = user.confirmationCode;
-
-        String link = Http.Request.current().getBase() + (String)Play.configuration.get("http.path") + "/reset?c_code=" + confirmationCode + "&email=" + user.email;
-        send(user, link);*/
+    /**
+     * <p>Generate and send a lost password email with
+     * the specified user information.</p>
+     *
+     * @param firstName User's first name.
+     * @param userEmail User's email.
+     * @param confirmationCode User's generated confirmation code.
+     */
+    public void generateLostPasswordEmail(String firstName, String userEmail, String confirmationCode) {
+        String link = formCurrentWebPath() + "reset?c_code=" + confirmationCode + "&email=" + userEmail;
+        Email email = generateEmailObject(userEmail, "RESOLVE Web IDE Password Recovery", lostPassword.render(firstName, link).body());
+        myMailerClient.send(email);
     }
 
-    public void resetPassword(User user) {
-        String userEmail = user.email;
-        String firstName = user.firstName;
-        Email email = generateEmailObject(user.email, "RESOLVE Web IDE Password Reset", reset.render(firstName, userEmail).body());
+    /**
+     * <p>Generate and send a reset password email with
+     * the specified user information.</p>
+     *
+     * @param firstName User's first name.
+     * @param userEmail User's email.
+     */
+    public void generateResetPasswordEmail(String firstName, String userEmail) {
+        Email email = generateEmailObject(userEmail, "RESOLVE Web IDE Password Reset", reset.render(firstName, userEmail).body());
         myMailerClient.send(email);
     }
 
     // ===========================================================
     // Private Methods
     // ===========================================================
+
+    /**
+     * <p>An helper method to generate the current web path.</p>
+     *
+     * @return A string of the format
+     */
+    private String formCurrentWebPath() {
+        String version = Http.Context.current().request().version();
+        String protocol;
+        if (version.startsWith("HTTPS")) {
+            protocol = "https://";
+        }
+        else {
+            protocol = "http://";
+        }
+
+        return protocol + Http.Context.current().request().host() + Http.Context.current().request().path();
+    }
 
     /**
      * <p>An helper method to create an email object.</p>
@@ -67,9 +112,16 @@ public class EmailGenerator {
      * @return A new email object with the sender and recipient information.
      */
     private Email generateEmailObject(String emailAddress, String subject, String body) {
+        // Obtain the email host from the configuration file
+        String host = Play.application().configuration().getString("webide.emailhost");
+        if (host == null) {
+            throw new RuntimeException("Missing configuration: Email Host");
+        }
+
+        // Generate the email
         Email email = new Email();
         email.addTo(emailAddress);
-        email.setFrom("Clemson RSRG <do_not_reply@" + Http.Context.current().request().host() + ">");
+        email.setFrom("Clemson RSRG <do_not_reply@" + host + ">");
         email.setSubject(subject);
         email.setBodyHtml(body);
 
