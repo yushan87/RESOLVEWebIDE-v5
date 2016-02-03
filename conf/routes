@@ -4,6 +4,7 @@
 
 # Home page
 ->      /	                        webide.Routes
+GET     /registration               controllers.common.authentication.Registration.index()
 
 # Admin module
 ->      /admin                      admin.Routes
