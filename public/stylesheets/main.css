@@ -28,11 +28,6 @@ body > .container-fluid {
     left: 15px;
 }
 
-/* CSS for nav bar on navbar.scala.html */
-.navbar-nav > li {
-    margin-right: 10px;
-}
-
 /* CSS for help modal on help.scala.html */
 .modal .modal-body {
     max-height: 425px;
