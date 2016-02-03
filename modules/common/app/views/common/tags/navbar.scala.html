@@ -24,9 +24,14 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>@defaultProject.name</b> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        @for(p <- projects) {
-                            @if(p.name != defaultProject.name) {
-                                <li><a href="#">@p.name</a></li>
+                        @if(projects.size == 1) {
+                            <li><p></p></li>
+                            <li><p class="text-center">None Available</p></li>
+                        } else {
+                            @for(p <- projects) {
+                                @if(p.name != defaultProject.name) {
+                                    <li><a href="#">@p.name</a></li>
+                                }
                             }
                         }
                     </ul>
