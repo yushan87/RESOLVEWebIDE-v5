@@ -1,4 +1,4 @@
-package controllers.common;
+package controllers.common.utilities;
 
 /* Libraries */
 import java.io.UnsupportedEncodingException;

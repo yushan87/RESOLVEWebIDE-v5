@@ -1,4 +1,4 @@
-package controllers.common;
+package controllers.common.utilities;
 
 import models.common.database.Project;
 import javax.inject.Inject;

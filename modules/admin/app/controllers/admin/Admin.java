@@ -1,6 +1,6 @@
 package controllers.admin;
 
-import controllers.common.CachedObjects;
+import controllers.common.utilities.CachedObjects;
 import javax.inject.Inject;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;

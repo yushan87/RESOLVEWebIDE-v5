@@ -1,8 +1,8 @@
 package controllers.webide;
 
-import controllers.common.CachedObjects;
+import controllers.common.utilities.CachedObjects;
 import javax.inject.Inject;
-import controllers.common.EmailGenerator;
+import controllers.common.utilities.EmailGenerator;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
