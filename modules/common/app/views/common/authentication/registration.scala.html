@@ -6,18 +6,47 @@
 @views.html.common.main("RESOLVEWebIDE - Registration", projects, activeProject) {
     <div class="container" style="padding-top:30px; padding-bottom:30px;">
         <div class="panel panel-primary">
-            <div class="panel-heading">Registration</div>
-            <div class="panel-body">
-                Panel content
+            <div class="panel-heading">
+                <h5>Registration Form</h5>
             </div>
-            <div class="panel-footer">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-8"></div>
-                    <div class="col-xs-6 col-md-4">
-                        <button type="button" class="btn btn-success">Create Account</button>
+            <form class="form-horizontal">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="inputFirstName" class="col-sm-2 control-label">First Name</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                        </div>
+                        <label for="inputLastName" class="col-sm-2 control-label">Last Name</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-3">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-3">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        </div>
+                        <label for="inputConfirmPassword" class="col-sm-2 control-label">Confirm Password</label>
+                        <div class="col-sm-3">
+                            <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password">
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <div class="panel-footer">
+                    <div class="form-group">
+                        <div class="col-sm-offset-5 col-sm-2">
+                            <button type="submit" class="btn btn-success">Create Account</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 }
