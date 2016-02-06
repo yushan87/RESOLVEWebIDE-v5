@@ -3,7 +3,7 @@
 
 @(projects: util.List[Project], activeProject: Project)
 
-@views.html.common.main("RESOLVEWebIDE", projects, activeProject) {
+@views.html.common.main("RESOLVEWebIDE", projects, activeProject, true) {
     <!-- Code to display components bar -->
     @views.html.common.tags.component_bar()
 
