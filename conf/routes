@@ -4,13 +4,12 @@
 
 # Home page
 ->      /	                        webide.Routes
-GET     /registration               controllers.common.authentication.Registration.index(p: Int ?=0)
-
-# Admin module
-->      /admin                      admin.Routes
 
 # Common module
 ->      /common                     common.Routes
+
+# Admin module
+->      /admin                      admin.Routes
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file)

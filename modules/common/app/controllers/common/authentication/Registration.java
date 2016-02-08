@@ -4,6 +4,8 @@ import controllers.common.utilities.CachedObjects;
 import javax.inject.Inject;
 import java.util.List;
 import models.common.database.Project;
+import play.data.DynamicForm;
+import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -45,5 +47,13 @@ public class Registration extends Controller {
         }
 
         return ok(registration.render(projectList, activeProject));
+    }
+
+    public Result handleSubmit() {
+        DynamicForm requestData = Form.form().bindFromRequest();
+        String firstname = requestData.get("firstName");
+        String lastname = requestData.get("lastName");
+
+        return ok("Hello " + firstname + " " + lastname);
     }
 }
