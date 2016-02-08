@@ -1,4 +1,4 @@
-package controllers.common.utilities;
+package controllers.common.email;
 
 import javax.inject.Inject;
 import play.Play;
