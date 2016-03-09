@@ -2,6 +2,8 @@ package models.common.database;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+
 import play.data.validation.Constraints;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
@@ -140,6 +142,22 @@ public class CompilerResult {
         cr.save();
 
         return cr;
+    }
+
+    /**
+     * <p>Find compiler results by name.</p>
+     *
+     * @param name CompilerResult name.
+     *
+     * @return The CompilerResults corresponding to the query name.
+     */
+    @Transactional(readOnly = true)
+    public static List<CompilerResult> findByName(String name) {
+        Query query = JPA.em()
+                .createQuery("select cr from CompilerResult cr where cr.name = :name", CompilerResult.class);
+        query.setParameter("name", name);
+
+        return query.getResultList();
     }
 
     // ===========================================================
