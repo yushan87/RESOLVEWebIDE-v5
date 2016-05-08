@@ -1,5 +1,7 @@
 RESOLVE WebIDE (Version 5)
 ==============
+[![Build Status](https://travis-ci.org/ClemsonRSRG/RESOLVEWebIDE-v5.svg?branch=master)](https://travis-ci.org/ClemsonRSRG/RESOLVEWebIDE-v5)
+<img align="right" src="public/images/resolve_logo.png"/>
 
 (* Description of RESOLVE WebIDE goes here *)
 
@@ -11,9 +13,6 @@ Instructions on how to install Play Framework and setup your favorite developmen
 (* Add more instructions when they are needed *)
 
 ##What is RESOLVE?
-==============
-[![Build Status](https://travis-ci.org/ClemsonRSRG/RESOLVEWebIDE-v5.svg?branch=master)](https://travis-ci.org/ClemsonRSRG/RESOLVEWebIDE-v5)
-<img align="right" src="public/images/resolve_logo.png"/>
 
 RESOLVE (REusable SOftware Language with VErification) is a programming and
 specification language designed for verifying correctness of object oriented
