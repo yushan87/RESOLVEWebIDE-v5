@@ -2,7 +2,9 @@ name := "RESOLVEWebIDE"
 
 version := "5.0"
 
-scalaVersion := "2.11.7"
+def commonSettings = Seq(
+  scalaVersion := "2.11.7"
+)
 
 scalacOptions ++= Seq(
   "-feature", // Shows warnings in detail in the stdout
@@ -24,16 +26,20 @@ unmanagedBase := baseDirectory.value / "custom_lib"
   
 lazy val common = (project in file("modules/common"))
   .enablePlugins(PlayJava)
+  .settings(commonSettings: _*)
   
 lazy val admin = (project in file("modules/admin"))
   .enablePlugins(PlayJava)
   .dependsOn(common)
+  .settings(commonSettings: _*)
   
 lazy val webide = (project in file("modules/webide"))
   .enablePlugins(PlayJava)
   .dependsOn(common)
+  .settings(commonSettings: _*)
 
 lazy val main = (project in file("."))
   .enablePlugins(PlayJava)
   .dependsOn(common, admin, webide)
   .aggregate(common, admin, webide)
+  .settings(commonSettings: _*)

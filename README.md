@@ -1,33 +1,49 @@
-## RESOLVE WebIDE (Version 5)
+RESOLVE WebIDE (Version 5)
 ==============
 
 (* Description of RESOLVE WebIDE goes here *)
 
-### Setting up
+##Setting up
 
-As a first step, you will need to download Play Framework 2.4.6. 
+As a first step, you will need to download Play Framework 2.5.3. 
 Instructions on how to install Play Framework and setup your favorite development IDE can be found [here](http://www.playframework.com/).
 
 (* Add more instructions when they are needed *)
 
-### Learn More
+##What is RESOLVE?
+==============
+[![Build Status](https://travis-ci.org/ClemsonRSRG/RESOLVEWebIDE-v5.svg?branch=master)](https://travis-ci.org/ClemsonRSRG/RESOLVEWebIDE-v5)
+<img align="right" src="public/images/resolve_logo.png"/>
 
-(* Need to fill this section *)
+RESOLVE (REusable SOftware Language with VErification) is a programming and
+specification language designed for verifying correctness of object oriented
+programs.
 
-### Authors and major contributors
+The RESOLVE language is designed from the ground up to facilitate *mathematical
+reasoning*. As such, the language provides syntactic slots for assertions such
+as pre-post conditions that are capable of abstractly describing a program's
+intended behavior. In writing these assertions, users are free to draw from from
+a variety of pre-existing and user-defined mathematical theories containing
+fundamental axioms, definitions, and results necessary/useful in establishing
+program correctness.
 
+All phases of the verification process spanning verification condition (VC)
+generation to proving are performed in-house, while RESOLVE programs are
+translated to Java and run on the JVM.
+
+##Authors and major contributors
 The creation and continual evolution of the RESOLVE language is owed to an
 ongoing joint effort between Clemson University, The Ohio State University, and
 countless educators and researchers from a variety of [other]
-(http://www.cs.clemson.edu/resolve/about.html) institutions.
+(https://www.cs.clemson.edu/resolve/about.html) institutions.
 
-Developers of this particular test/working-iteration of the RESOLVE WebIDE
+Developers of this particular test/working-iteration of the RESOLVE compiler
 include:
 
-* [The Reusable Software Research Group (RSRG)]
-(http://www.cs.clemson.edu/resolve/) - School of Computing, Clemson University
+* [The Resuable Software Research Group (RSRG)]
+(https://www.cs.clemson.edu/resolve/) - School of Computing, Clemson University
 
-### Copyright and License
+##Copyright and license
 
 Copyright (c) Clemson University, 2016. All rights reserved. The use and
 distribution terms for this software are covered by the BSD 3-clause license
