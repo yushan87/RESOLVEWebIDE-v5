@@ -13,7 +13,7 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
-
+	  
 # Play Framework 2.x only works with Java SDK8
 language: java
 jdk:
