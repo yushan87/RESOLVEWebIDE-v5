@@ -14,6 +14,13 @@ jdk:
 # The following settings allow us to execute "sbt test" command.
 # It also caches things related to SBT. If caching errors occur, please clear the cache on the
 # Travis CI website.
+env:
+  - SBT_VERSION=0.13.11
+  - JAVA_OPTS="-Xmx2G -Xss2M -XX:MaxMetaspaceSize=512M -XX:ReservedCodeCacheSize=192M -Dfile.encoding=UTF-8"
+before_script:
+  - wget --output-document=$HOME/.sbt/launchers/"$SBT_VERSION"/sbt-launch.jar https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/"$SBT_VERSION"/sbt-launch.jar
+  - which sbt
+  - sbt sbt-version
 script:
   - sbt test
 cache:
