@@ -23,7 +23,7 @@ jdk:
 env:
   - JAVA_OPTS="-Xmx2G -Xss2M -XX:MaxMetaspaceSize=512M -XX:ReservedCodeCacheSize=192M -Dfile.encoding=UTF-8"
 before_script:
-  - curl -L -o --create-dirs $HOME/.sbt/launchers/0.13.11/sbt-launch.jar https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.11/sbt-launch.jar
+  #- curl -L -o --create-dirs $HOME/.sbt/launchers/0.13.11/sbt-launch.jar https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.11/sbt-launch.jar
   - which sbt
   - sbt sbt-version
 script:
