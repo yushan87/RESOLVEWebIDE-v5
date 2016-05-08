@@ -5,15 +5,13 @@ sudo: false
 branches:
   only:
     - master
-	
-# This is needed as long as the travis build environment is JDK 1.8.0 < u40 (at time of writing it is u31)
-# Otherwise, FSpec fails due to deadlocks caused by CompletableFuture.thenCompose blocking in the trampoline 
-# executor.
+
+# Need the latest Java SDK8
 addons:
   apt:
     packages:
-      - oracle-java8-installer
-	  
+    - oracle-java8-installer
+
 # Play Framework 2.x only works with Java SDK8
 language: java
 jdk:
