@@ -1,0 +1,27 @@
+#
+# Continuous integration settings for Travis CI
+#
+sudo: false
+branches:
+  only:
+    - master
+
+# Play Framework 2.x only works with Java SDK8
+language: java
+jdk:
+  - oraclejdk8
+
+# The following settings allow us to execute "sbt test" command.
+# It also caches things related to SBT. If caching errors occur, please clear the cache on the
+# Travis CI website.
+script:
+  - sbt test
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+before_cache:
+  # Ensure changes to the cache aren't persisted (From Play Framework's .travis.yml)
+  - rm -rf $HOME/.ivy2/cache/com.typesafe.play/*
+  - rm -rf $HOME/.ivy2/cache/scala_*/sbt_*/com.typesafe.play/*
+  # Delete all ivydata files since ivy touches them on each build (From Play Framework's .travis.yml)
+  - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print0 | xargs -n10 -0 rm
