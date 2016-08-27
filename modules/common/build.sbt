@@ -16,21 +16,12 @@ javacOptions ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  // Play Framework
   javaJdbc,
   javaJpa,
   cache,
   javaWs,
-
-  // Email
-  "org.jvnet.mock-javamail" % "mock-javamail" % "1.9" % "test",
-  "com.typesafe.play" %% "play-mailer" % "3.0.1",
-
-  // Authenticator
-  "be.objectify" %% "deadbolt-java" % "2.4.4",
-
-  // Database
-  "org.hibernate" % "hibernate-entitymanager" % "5.0.7.Final",
+  "com.typesafe.play" %% "play-mailer" % "5.0.0-M1",
+  "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final",
   "mysql" % "mysql-connector-java" % "5.1.38"
 )
 
