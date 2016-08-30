@@ -18,7 +18,7 @@ libraryDependencies ++= Seq(
   javaJpa,
   cache,
   javaWs,
-  "com.typesafe.play" %% "play-mailer" % "5.0.0-M1",
+  "com.typesafe.play" %% "play-mailer" % "5.0.0",
   "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final",
   "mysql" % "mysql-connector-java" % "5.1.38"
 )
