@@ -3,7 +3,7 @@
 # ~~~~
 
 # Registration page
-GET     /registration               controllers.common.authentication.Registration.index(p: Int ?=0)
+GET     /registration               controllers.common.authentication.Registration.index()
 POST    /registration               controllers.common.authentication.Registration.handleSubmit()
 
 # Map static resources from the /public folder to the /assets URL path
