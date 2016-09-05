@@ -1,8 +1,3 @@
-@import java.util
-@import models.common.database.Project
-
-@(projects: util.List[Project], activeProject: Project, renderComponentBar: Boolean)
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <!-- Welcome information -->
@@ -20,38 +15,6 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="general-nav">
-            <!-- Component bar -->
-            @if(renderComponentBar) {
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default navbar-btn" style="margin-bottom: 0px ;">
-                                <a href="?p=@activeProject.id">@activeProject.name</a>
-                            </button>
-                            <button type="button" class="btn btn-default navbar-btn dropdown-toggle" style="margin-bottom: 0px ;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                            @if(projects.size == 1) {
-                                <li><p></p></li>
-                                <li><p class="text-center">None Available</p></li>
-                            } else {
-                                @for(p <- projects) {
-                                    @if(p.name != activeProject.name) {
-                                        <li><a href="?p=@p.id">@p.name</a></li>
-                                    }
-                                }
-                            }
-                            </ul>
-                        </div>
-                    </li>
-                    <button type="button" class="btn btn-default navbar-btn" style="margin-left: 10px ; margin-bottom: 0px ;">
-                        <a href="#">Components</a>
-                    </button>
-                </ul>
-            }
-
             <!-- Links bar -->
             <ul class="nav navbar-nav navbar-right">
                 <li>

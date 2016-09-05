@@ -1,6 +1,5 @@
 package controllers.webide;
 
-import controllers.common.utilities.CachedObjects;
 import java.util.List;
 import javax.inject.Inject;
 import controllers.common.email.EmailGenerator;
