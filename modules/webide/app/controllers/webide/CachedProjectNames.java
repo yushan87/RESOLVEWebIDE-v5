@@ -15,7 +15,7 @@ import play.db.jpa.Transactional;
  * @version 1.0
  */
 @Singleton
-public class CachedObjects {
+public class CachedProjectNames {
 
     // ===========================================================
     // Global Variables

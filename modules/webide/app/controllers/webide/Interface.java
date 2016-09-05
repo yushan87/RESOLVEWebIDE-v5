@@ -20,7 +20,7 @@ public class Interface extends Controller {
 
     /** <p>Collection of cached objects</p> */
     @Inject
-    private CachedObjects myCachedObjects;
+    private CachedProjectNames myCachedObjects;
 
     /** <p>An email generator.</p> */
     @Inject
