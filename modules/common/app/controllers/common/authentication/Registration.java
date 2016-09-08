@@ -1,5 +1,7 @@
 package controllers.common.authentication;
 
+import controllers.common.email.EmailGenerator;
+import javax.inject.Inject;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -10,6 +12,14 @@ import views.html.common.authentication.registration;
  * TODO: Add JavaDocs for this class.
  */
 public class Registration extends Controller {
+
+    // ===========================================================
+    // Global Variables
+    // ===========================================================
+
+    /** <p>An email generator.</p> */
+    @Inject
+    private EmailGenerator myEmailGenerator;
 
     // ===========================================================
     // Public Methods

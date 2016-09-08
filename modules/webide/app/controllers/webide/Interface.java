@@ -2,7 +2,6 @@ package controllers.webide;
 
 import java.util.List;
 import javax.inject.Inject;
-import controllers.common.email.EmailGenerator;
 import models.common.database.Project;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
@@ -21,10 +20,6 @@ public class Interface extends Controller {
     /** <p>Collection of cached objects</p> */
     @Inject
     private CachedProjectNames myCachedObjects;
-
-    /** <p>An email generator.</p> */
-    @Inject
-    private EmailGenerator myEmailGenerator;
 
     // ===========================================================
     // Public Methods
