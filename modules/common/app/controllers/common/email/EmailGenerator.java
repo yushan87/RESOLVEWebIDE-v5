@@ -1,7 +1,7 @@
 package controllers.common.email;
 
 import javax.inject.Inject;
-import play.Play;
+import play.Configuration;
 import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 import play.mvc.Http;
@@ -22,6 +22,10 @@ public class EmailGenerator {
     /** <p>Play framework's simple emailer</p> */
     @Inject
     private MailerClient myMailerClient;
+
+    /** <p>Class that retrieves configurations</p> */
+    @Inject
+    private Configuration myConfiguration;
 
     // ===========================================================
     // Public Methods
@@ -113,7 +117,7 @@ public class EmailGenerator {
      */
     private Email generateEmailObject(String emailAddress, String subject, String body) {
         // Obtain the email host from the configuration file
-        String host = Play.application().configuration().getString("webide.emailhost");
+        String host = myConfiguration.getString("webide.emailhost");
         if (host == null) {
             throw new RuntimeException("Missing configuration: Email Host");
         }
