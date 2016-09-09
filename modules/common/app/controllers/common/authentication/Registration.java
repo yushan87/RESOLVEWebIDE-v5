@@ -4,6 +4,7 @@ import controllers.common.email.EmailGenerator;
 import javax.inject.Inject;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.common.authentication.registration;
@@ -21,6 +22,10 @@ public class Registration extends Controller {
     @Inject
     private EmailGenerator myEmailGenerator;
 
+    /** <p>Form factory</p> */
+    @Inject
+    private FormFactory myFormFactory;
+
     // ===========================================================
     // Public Methods
     // ===========================================================
@@ -35,7 +40,7 @@ public class Registration extends Controller {
     }
 
     public Result handleSubmit() {
-        DynamicForm requestData = Form.form().bindFromRequest();
+        DynamicForm requestData = myFormFactory.form().bindFromRequest();
         String firstname = requestData.get("firstName");
         String lastname = requestData.get("lastName");
 
