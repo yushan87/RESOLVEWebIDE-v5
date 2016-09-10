@@ -2,6 +2,8 @@ package controllers.common.authentication;
 
 import controllers.common.email.EmailGenerator;
 import javax.inject.Inject;
+
+import models.common.ModelUtilities;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
@@ -43,6 +45,10 @@ public class Registration extends Controller {
         DynamicForm requestData = myFormFactory.form().bindFromRequest();
         String firstname = requestData.get("firstName");
         String lastname = requestData.get("lastName");
+        String email = requestData.get("email");
+        String encryptedPassword = ModelUtilities.encryptPassword(requestData.get("password"));
+
+        myEmailGenerator.generateConfirmationEmail(firstname, email, "d");
 
         return ok("Hello " + firstname + " " + lastname);
     }
