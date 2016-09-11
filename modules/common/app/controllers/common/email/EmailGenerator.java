@@ -122,9 +122,6 @@ public class EmailGenerator {
             throw new RuntimeException("Missing configuration: Email Host");
         }
 
-        System.out.println(emailAddress);
-        System.out.println(host);
-
         // Generate the email
         Email email = new Email();
         email.addTo(emailAddress);
