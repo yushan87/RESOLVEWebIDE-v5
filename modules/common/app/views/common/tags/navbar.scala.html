@@ -1,35 +1,28 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Welcome information -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#general-nav" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <p class="navbar-text">
-                Welcome <b>User</b>.
-            </p>
-        </div>
+<header id="page-header">
+    <nav class="navbar navbar-dark bg-inverse navbar-fixed-top">
+        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#general-nav" aria-controls="general-nav" aria-expanded="false" aria-label="Toggle navigation">
+                &#9776;
+        </button>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="general-nav">
-            <!-- Links bar -->
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="@controllers.webide.routes.Interface.index()"><i class="fa fa-home fa-fw"></i> Home</a>
+        <div class="collapse navbar-toggleable-xs" id="general-nav">
+            <div class="navbar-brand">
+                Welcome <b>User</b>.
+            </div>
+            <ul class="nav navbar-nav pull-xs-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="@controllers.webide.routes.Interface.index()"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home</a>
                 </li>
-                <li>
-                    <a href="@controllers.common.authentication.routes.Registration.index()"><i class="fa fa-user fa-fw"></i> Register</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="@controllers.common.authentication.routes.Registration.index()"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Register</a>
                 </li>
-                <li>
-                    <a href="#"><i class="fa fa-sign-in fa-fw"></i> Sign In</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> Sign In</a>
                 </li>
-                <li style="margin-right: 10px">
-                    <button type="button" class="btn btn-info navbar-btn" data-toggle="modal" data-target=".bs-example-modal-lg">Help</button>
+                <li class="nav-item">
+                    <a class="nav-link" href="#help-modal" data-toggle="modal" data-target="#help-modal"><i class="fa fa-info" aria-hidden="true"></i> Help</a>
                 </li>
             </ul>
         </div>
-    </div>
-</nav>
+    </nav>
+</header>

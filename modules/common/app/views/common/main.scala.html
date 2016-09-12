@@ -43,5 +43,10 @@
 
         <!-- Our Own JavaScripts -->
         <script src="@controllers.common.routes.Assets.versioned("javascripts/main.js")" type="text/javascript" charset="${_response_encoding}"></script>
+        <script type="text/javascript">
+            $('#help-modal').on('hidden.bs.modal', function () {
+                $('#yt-player').stopVideo();
+            });
+        </script>
     </body>
 </html>
