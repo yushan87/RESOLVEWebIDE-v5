@@ -50,15 +50,20 @@
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
             // Create YouTube player(s) after the API code downloads.
-            var player;
+            var player1, player2;
             function onYouTubeIframeAPIReady() {
-                player = new YT.Player('yt-player', {
+                player1 = new YT.Player('webide-video1', {
+                    height: '315', width: '560', videoId: 'sif9MnpvQZE'
+                });
+
+                player2 = new YT.Player('webide-video2', {
                     height: '315', width: '560', videoId: '9vg3WuxeOkA'
                 });
             }
 
             $('#help-modal').on('hidden.bs.modal', function() {
-                player.pauseVideo();
+                player1.pauseVideo();
+                player2.pauseVideo();
             });
         </script>
     </body>
