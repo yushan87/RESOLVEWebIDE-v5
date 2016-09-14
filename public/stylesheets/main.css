@@ -36,10 +36,10 @@ body {
 /* CSS for Ace Editor */
 #editor {
     position: absolute;
-    top: 100px;
-    bottom: 40px;
-    right: 15px;
-    left: 15px;
+    top: 110px;
+    bottom: 45px;
+    right: 30px;
+    left: 30px;
 }
 
 /* CSS for help modal in help.scala.html */
