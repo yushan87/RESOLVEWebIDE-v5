@@ -38,8 +38,8 @@ body {
     position: absolute;
     top: 110px;
     bottom: 45px;
-    right: 30px;
-    left: 30px;
+    right: 15px;
+    left: 15px;
 }
 
 /* CSS for help modal in help.scala.html */

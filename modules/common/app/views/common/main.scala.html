@@ -23,13 +23,11 @@
         @views.html.common.tags.header()
 
         <section id="page-main">
-            <div class="container-fluid">
-                <!-- Content passed in gets displayed here -->
-                @content
+            <!-- Content passed in gets displayed here -->
+            @content
 
-                <!-- Code to display the help modal -->
-                @views.html.common.tags.help()
-            </div>
+            <!-- Code to display the help modal -->
+            @views.html.common.tags.help()
         </section>
 
         <!-- Code to display the footer -->
