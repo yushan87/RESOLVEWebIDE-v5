@@ -3,9 +3,9 @@
 
 @(projects: util.List[Project], activeProject: Project)
 
-<nav class="navbar" aria-label="components-toolbar">
+<nav class="navbar navbar-light bg-faded" aria-label="components-toolbar">
     <ul class="nav navbar-nav">
-        <li class="dropdown">
+        <li class="nav-item dropdown">
             <div class="btn-group">
                 <button type="button" class="btn btn-default navbar-btn" style="margin-bottom: 0px ;">
                     <a href="?p=@activeProject.id">@activeProject.name</a>
@@ -28,8 +28,10 @@
                 </ul>
             </div>
         </li>
-        <button type="button" class="btn btn-default navbar-btn" style="margin-left: 10px ; margin-bottom: 0px ;">
-            <a href="#">Components</a>
-        </button>
+        <li class="nav-item">
+            <button type="button" class="btn btn-default navbar-btn" style="margin-left: 10px ; margin-bottom: 0px ;">
+                <a href="#">Components</a>
+            </button>
+        </li>
     </ul>
 </nav>
