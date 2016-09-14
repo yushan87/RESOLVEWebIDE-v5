@@ -3,33 +3,32 @@
 
 @(projects: util.List[Project], activeProject: Project)
 
-<nav class="navbar navbar-light bg-faded" aria-label="components-toolbar">
+<nav id="components-toolbar" class="navbar navbar-full" aria-label="components-toolbar">
     <ul class="nav navbar-nav">
         <li class="nav-item dropdown">
-            <div class="btn-group">
-                <button type="button" class="btn btn-default navbar-btn" style="margin-bottom: 0px ;">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-secondary navbar-btn">
                     <a href="?p=@activeProject.id">@activeProject.name</a>
                 </button>
-                <button type="button" class="btn btn-default navbar-btn dropdown-toggle" style="margin-bottom: 0px ;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn btn-secondary navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
-                <ul class="dropdown-menu">
+                <div class="dropdown-menu" aria-labelledby="workspace-ids">
                 @if(projects.size == 1) {
-                    <li><p></p></li>
-                    <li><p class="text-center">None Available</p></li>
+                    <p class="text-center">None Available</p>
                 } else {
                     @for(p <- projects) {
                         @if(p.name != activeProject.name) {
-                            <li><a href="?p=@p.id">@p.name</a></li>
+                            <a class="dropdown-item" href="?p=@p.id">@p.name</a>
                         }
                     }
                 }
-                </ul>
+                </div>
             </div>
         </li>
         <li class="nav-item">
-            <button type="button" class="btn btn-default navbar-btn" style="margin-left: 10px ; margin-bottom: 0px ;">
+            <button type="button" class="btn btn-secondary navbar-btn">
                 <a href="#">Components</a>
             </button>
         </li>
