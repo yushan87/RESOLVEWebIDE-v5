@@ -19,18 +19,18 @@
             integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
     </head>
     <body>
-        <!-- Code to display navbar -->
-        @views.html.common.tags.navbar()
+        <!-- Code to display the header -->
+        @views.html.common.tags.header()
 
         <div class="container-fluid">
             <!-- Content passed in gets displayed here -->
             @content
 
-            <!-- Code to the display help modal -->
+            <!-- Code to display the help modal -->
             @views.html.common.tags.help()
         </div>
 
-        <!-- Code to the display footer -->
+        <!-- Code to display the footer -->
         @views.html.common.tags.footer()
 
         <!-- JavaScript Libraries -->
