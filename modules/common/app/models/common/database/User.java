@@ -30,6 +30,7 @@ public class User {
     public Long id;
 
     /** <p>User's Email and Login User Name</p> */
+    @Constraints.Required
     @Constraints.Email
     public String email;
 

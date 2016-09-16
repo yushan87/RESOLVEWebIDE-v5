@@ -29,14 +29,15 @@ public class RegistrationForm {
     private String myLastName;
 
     /** <p>New user's email</p> */
+    @Constraints.Required
     @Constraints.Email
     private String myEmail;
 
-    /** <p>New user's password (encrypted)</p> */
+    /** <p>New user's password</p> */
     @Constraints.Required
     private String myPassword;
 
-    /** <p>New user's retype of password (encrypted)</p> */
+    /** <p>New user's retype of password</p> */
     @Constraints.Required
     private String myRetypePassword;
 
@@ -99,8 +100,7 @@ public class RegistrationForm {
     }
 
     /**
-     * <p>Password field in the registration form. Note that
-     * we automatically encrypt the password.</p>
+     * <p>Password field in the registration form./p>
      *
      * @return A string.
      */
@@ -114,12 +114,11 @@ public class RegistrationForm {
      * @param password Password
      */
     public void setPassword(String password) {
-        myPassword = ModelUtilities.encryptPassword(password);
+        myPassword = password;
     }
 
     /**
-     * <p>Retype password field in the registration form. Note that
-     * we automatically encrypt the password.</p>
+     * <p>Retype password field in the registration form.</p>
      *
      * @return A string.
      */
@@ -133,7 +132,7 @@ public class RegistrationForm {
      * @param retypePassword Retyped password
      */
     public final void setRetypePassword(String retypePassword) {
-        myRetypePassword = ModelUtilities.encryptPassword(retypePassword);
+        myRetypePassword = retypePassword;
     }
 
     /**
