@@ -1,9 +1,7 @@
 package models.common.form;
 
-import models.common.ModelUtilities;
 import play.data.validation.Constraints;
 import play.data.validation.ValidationError;
-
 import java.util.ArrayList;
 import java.util.List;
 
