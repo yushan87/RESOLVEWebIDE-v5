@@ -169,6 +169,27 @@ public class User {
     }
 
     /**
+     * <p>Find a user by email.</p>
+     *
+     * @param email User email.
+     *
+     * @return The user corresponding to the query email.
+     */
+    @Transactional(readOnly = true)
+    public static User findByEmail(String email) {
+        Query query = JPA.em().createQuery("select u from User u where u.email = :email", User.class);
+        query.setParameter("email", email);
+
+        List result = query.getResultList();
+        User user = null;
+        if (!result.isEmpty()) {
+            user = (User) result.get(0);
+        }
+
+        return user;
+    }
+
+    /**
      * <p>Checks to see if the user has been authenticated
      * or not.</p>
      *
@@ -226,31 +247,11 @@ public class User {
     // ===========================================================
 
     /**
-     * <p>Find a user by email.</p>
-     *
-     * @param email User email.
-     *
-     * @return The user corresponding to the query email.
-     */
-    @Transactional(readOnly = true)
-    private static User findByEmail(String email) {
-        Query query = JPA.em().createQuery("select u from User u where u.email = :email", User.class);
-        query.setParameter("email", email);
-
-        List result = query.getResultList();
-        User user = null;
-        if (!result.isEmpty()) {
-            user = (User) result.get(0);
-        }
-
-        return user;
-    }
-
-    /**
      * <p>Store this user information.</p>
      */
     @Transactional
     private void save() {
         JPA.em().persist(this);
     }
+
 }
