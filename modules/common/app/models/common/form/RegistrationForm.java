@@ -1,9 +1,10 @@
 package models.common.form;
 
-import play.data.validation.Constraints;
-import play.data.validation.ValidationError;
 import java.util.ArrayList;
 import java.util.List;
+import models.common.database.User;
+import play.data.validation.Constraints;
+import play.data.validation.ValidationError;
 
 /**
  * <p>This class serves as a model class for registration form and allows
@@ -141,6 +142,20 @@ public class RegistrationForm {
      */
     public final List<ValidationError> validate() {
         List<ValidationError> errors = new ArrayList<>();
+
+        // Check for a registered user with the same email.
+        if (User.findByEmail(myEmail) != null) {
+            errors.add(new ValidationError("email", "This e-mail is already registered."));
+        }
+
+        // Check that the password has a minimum length of 6
+        if (myPassword.length() < 6) {
+            errors.add(new ValidationError("passwordLength", "The password needs to be at least 6 characters long."));
+        } else {
+            if (!myPassword.equals(myRetypePassword)) {
+                errors.add(new ValidationError("notSamePassword", "The two password fields do not match."));
+            }
+        }
 
         return errors.isEmpty() ? null : errors;
     }
