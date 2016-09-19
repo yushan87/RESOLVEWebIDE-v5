@@ -1,10 +1,7 @@
 package controllers.common.authentication;
 
-import controllers.common.email.EmailGenerator;
 import javax.inject.Inject;
-
-import models.common.ModelUtilities;
-import play.data.DynamicForm;
+import models.common.form.RegistrationForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -20,10 +17,6 @@ public class Registration extends Controller {
     // Global Variables
     // ===========================================================
 
-    /** <p>An email generator.</p> */
-    @Inject
-    private EmailGenerator myEmailGenerator;
-
     /** <p>Form factory</p> */
     @Inject
     private FormFactory myFormFactory;
@@ -35,21 +28,25 @@ public class Registration extends Controller {
     /**
      * <p>This renders the registration page for the WebIDE.</p>
      *
-     * @return The result of rendering the page
+     * @return The result of rendering the page.
      */
     public Result index() {
         return ok(registration.render());
     }
 
+    /**
+     * <p>This handles the registration form submission for the WebIDE.</p>
+     *
+     * @return The result of rendering the page.
+     */
     public Result handleSubmit() {
-        DynamicForm requestData = myFormFactory.form().bindFromRequest();
-        String firstname = requestData.get("firstName");
-        String lastname = requestData.get("lastName");
-        String email = requestData.get("email");
-        String encryptedPassword = ModelUtilities.encryptPassword(requestData.get("password"));
-
-        myEmailGenerator.generateConfirmationEmail(firstname, email, "d");
-
-        return ok("Hello " + firstname + " " + lastname);
+        Form<RegistrationForm> userForm = myFormFactory.form(RegistrationForm.class).bindFromRequest();
+        if (userForm.hasErrors()) {
+            return badRequest(registration.render(userForm));
+        } else {
+            RegistrationForm form = userForm.get();
+            return ok("Hello " + form.getFirstName() + " " + form.getLastName());
+        }
     }
+    
 }
