@@ -31,7 +31,7 @@ public class Registration extends Controller {
      * @return The result of rendering the page.
      */
     public Result index() {
-        return ok(registration.render());
+        return ok(registration.render(null));
     }
 
     /**
@@ -48,5 +48,5 @@ public class Registration extends Controller {
             return ok("Hello " + form.getFirstName() + " " + form.getLastName());
         }
     }
-    
+
 }
