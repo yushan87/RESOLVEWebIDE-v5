@@ -1,6 +1,7 @@
+@import helper._
 @import models.common.form.RegistrationForm
 
-@(form: play.data.Form[RegistrationForm])
+@(form: play.data.Form[RegistrationForm], token: String)
 
 @views.html.common.main("RESOLVEWebIDE - Registration") {
     <div class="container" style="padding-top: 2.5rem;">
@@ -14,6 +15,7 @@
                 </div>
             }
             @helper.form(action = controllers.common.authentication.routes.Registration.handleSubmit()) {
+                @CSRF.formField
                 <div class="card-block">
                     <div class="form-group row @if(form.error("firstName") != null) {has-danger}">
                         <label for="inputFirstName" class="col-xs-2 col-form-label">First Name</label>

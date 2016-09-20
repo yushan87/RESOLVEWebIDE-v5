@@ -5,6 +5,9 @@ import models.common.form.RegistrationForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.jpa.Transactional;
+import play.filters.csrf.AddCSRFToken;
+import play.filters.csrf.CSRF;
+import play.filters.csrf.RequireCSRFCheck;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.common.authentication.registration;
@@ -32,8 +35,10 @@ public class Registration extends Controller {
      *
      * @return The result of rendering the page.
      */
+    @AddCSRFToken
     public Result index() {
-        return ok(registration.render(myFormFactory.form(RegistrationForm.class)));
+        String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+        return ok(registration.render(myFormFactory.form(RegistrationForm.class), token));
     }
 
     /**
@@ -41,11 +46,14 @@ public class Registration extends Controller {
      *
      * @return The result of rendering the page.
      */
+    @AddCSRFToken
+    @RequireCSRFCheck
     @Transactional(readOnly = true)
     public Result handleSubmit() {
         Form<RegistrationForm> userForm = myFormFactory.form(RegistrationForm.class).bindFromRequest();
         if (userForm.hasErrors()) {
-            return badRequest(registration.render(userForm));
+            String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+            return badRequest(registration.render(userForm, token));
         } else {
             RegistrationForm form = userForm.get();
             return ok(registrationSuccess.render());

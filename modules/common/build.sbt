@@ -18,6 +18,7 @@ libraryDependencies ++= Seq(
   javaJdbc,
   javaJpa,
   cache,
+  filters,
   javaWs,
   "com.typesafe.play" %% "play-mailer" % "5.0.0",
 
