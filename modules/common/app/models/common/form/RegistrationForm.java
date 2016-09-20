@@ -5,6 +5,7 @@ import java.util.List;
 import models.common.database.User;
 import play.data.validation.Constraints;
 import play.data.validation.ValidationError;
+import play.db.jpa.Transactional;
 
 /**
  * <p>This class serves as a model class for registration form and allows
@@ -140,12 +141,13 @@ public class RegistrationForm {
      * @return A list of {@link ValidationError} if there are errors
      * in the registration form, {@code null} otherwise.
      */
+    @Transactional(readOnly = true)
     public final List<ValidationError> validate() {
         List<ValidationError> errors = new ArrayList<>();
 
         // Check for a registered user with the same email.
         if (User.findByEmail(email) != null) {
-            errors.add(new ValidationError("email", "This e-mail is already registered."));
+            errors.add(new ValidationError("registeredEmail", "This e-mail is already registered."));
         }
 
         // Check that the password has a minimum length of 6 and a maximum of 20

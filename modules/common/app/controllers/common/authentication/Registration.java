@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import models.common.form.RegistrationForm;
 import play.data.Form;
 import play.data.FormFactory;
+import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.common.authentication.registration;
@@ -39,6 +40,7 @@ public class Registration extends Controller {
      *
      * @return The result of rendering the page.
      */
+    @Transactional(readOnly = true)
     public Result handleSubmit() {
         Form<RegistrationForm> userForm = myFormFactory.form(RegistrationForm.class).bindFromRequest();
         if (userForm.hasErrors()) {

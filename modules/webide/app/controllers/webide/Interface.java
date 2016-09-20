@@ -32,7 +32,7 @@ public class Interface extends Controller {
      *
      * @return The result of rendering the page
      */
-    @Transactional
+    @Transactional(readOnly = true)
     public Result index(int selectedProject) {
         List<Project> projectList = myCachedObjects.getProjects();
         Project activeProject;
