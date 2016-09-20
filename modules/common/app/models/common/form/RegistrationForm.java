@@ -148,9 +148,9 @@ public class RegistrationForm {
             errors.add(new ValidationError("email", "This e-mail is already registered."));
         }
 
-        // Check that the password has a minimum length of 6
-        if (password.length() < 6) {
-            errors.add(new ValidationError("passwordLength", "The password needs to be at least 6 characters long."));
+        // Check that the password has a minimum length of 6 and a maximum of 20
+        if (password.length() < 6 || password.length() > 20) {
+            errors.add(new ValidationError("passwordLength", "The password must be 6-20 characters long."));
         } else {
             if (!password.equals(confirmPassword)) {
                 errors.add(new ValidationError("notSamePassword", "The two password fields do not match."));

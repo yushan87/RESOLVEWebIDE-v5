@@ -3,45 +3,47 @@
 @(form: play.data.Form[RegistrationForm])
 
 @views.html.common.main("RESOLVEWebIDE - Registration") {
-    <div class="container" style="padding-top:30px; padding-bottom:30px;">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h5>Registration Form</h5>
-            </div>
-            @helper.form(action = controllers.common.authentication.routes.Registration.handleSubmit(), 'class -> "form-horizontal") {
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label for="inputFirstName" class="col-sm-2 control-label">First Name</label>
+    <div class="container" style="padding-top: 2.5rem;">
+        <div class="card card-outline-secondary">
+            <h5 class="card-header text-xs-center">Registration Form</h5>
+            @helper.form(action = controllers.common.authentication.routes.Registration.handleSubmit()) {
+                <div class="card-block">
+                    <div class="form-group row">
+                        <label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="inputFirstName" name="firstName" placeholder="First Name">
                         </div>
-                        <label for="inputLastName" class="col-sm-2 control-label">Last Name</label>
+                        <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="inputLastName" name="lastName" placeholder="Last Name">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                    <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-3">
                             <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-3">
                             <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password">
+                            <small id="passwordHelpInline" class="text-muted">
+                                Must be 6-20 characters long.
+                            </small>
                         </div>
-                        <label for="inputConfirmPassword" class="col-sm-2 control-label">Confirm Password</label>
+                        <label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm Password</label>
                         <div class="col-sm-3">
                             <input type="password" class="form-control" id="inputConfirmPassword" name="confirmPassword" placeholder="Confirm Password">
                         </div>
                     </div>
                 </div>
 
-                <div class="panel-footer">
-                    <div class="form-group">
-                        <div class="col-sm-offset-5 col-sm-2">
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="text-xs-center">
                             <button type="submit" class="btn btn-success">Create Account</button>
+                            <a class="btn btn-danger" href="@controllers.webide.routes.Interface.index()">Cancel</a>
                         </div>
                     </div>
                 </div>
