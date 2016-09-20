@@ -1,11 +1,6 @@
 package models.common.form;
 
-import java.util.ArrayList;
-import java.util.List;
-import models.common.database.User;
 import play.data.validation.Constraints;
-import play.data.validation.ValidationError;
-import play.db.jpa.Transactional;
 
 /**
  * <p>This class serves as a model class for registration form and allows
@@ -40,6 +35,10 @@ public class RegistrationForm {
     /** <p>New user's confirmation of password</p> */
     @Constraints.Required
     private String confirmPassword;
+
+    /** <p>reCaptcha response value</p> */
+    @Constraints.Required
+    private String reCaptcha;
 
     // ===========================================================
     // Public Methods
@@ -127,7 +126,7 @@ public class RegistrationForm {
     }
 
     /**
-     * <p>Stores the retype password field.</p>
+     * <p>Stores the confirm password field.</p>
      *
      * @param confirmPassword Retyped password
      */
@@ -136,30 +135,21 @@ public class RegistrationForm {
     }
 
     /**
-     * <p>Validation method for the form.</p>
+     * <p>reCaptcha field in the registration form.</p>
      *
-     * @return A list of {@link ValidationError} if there are errors
-     * in the registration form, {@code null} otherwise.
+     * @return A string.
      */
-    @Transactional(readOnly = true)
-    public final List<ValidationError> validate() {
-        List<ValidationError> errors = new ArrayList<>();
+    public final String getReCaptcha() {
+        return reCaptcha;
+    }
 
-        // Check for a registered user with the same email.
-        if (User.findByEmail(email) != null) {
-            errors.add(new ValidationError("registeredEmail", "This e-mail is already registered."));
-        }
-
-        // Check that the password has a minimum length of 6 and a maximum of 20
-        if (password.length() < 6 || password.length() > 20) {
-            errors.add(new ValidationError("passwordLength", "The password must be 6-20 characters long."));
-        } else {
-            if (!password.equals(confirmPassword)) {
-                errors.add(new ValidationError("notSamePassword", "The two password fields do not match."));
-            }
-        }
-
-        return errors.isEmpty() ? null : errors;
+    /**
+     * <p>Stores the reCaptcha field.</p>
+     *
+     * @param reCaptcha reCaptcha
+     */
+    public final void setReCaptcha(String reCaptcha) {
+        this.reCaptcha = reCaptcha;
     }
 
 }
