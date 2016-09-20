@@ -14,7 +14,10 @@ import views.html.common.authentication.registration;
 import views.html.common.authentication.registrationSuccess;
 
 /**
- * TODO: Add JavaDocs for this class.
+ * <p>This class serves as a controller class for registering new users.</p>
+ *
+ * @author Yu-Shan Sun
+ * @version 1.0
  */
 public class Registration extends Controller {
 
