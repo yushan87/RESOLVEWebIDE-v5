@@ -31,7 +31,7 @@ public class Registration extends Controller {
      * @return The result of rendering the page.
      */
     public Result index() {
-        return ok(registration.render(null));
+        return ok(registration.render(myFormFactory.form(RegistrationForm.class)));
     }
 
     /**

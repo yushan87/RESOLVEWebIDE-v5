@@ -21,24 +21,24 @@ public class RegistrationForm {
 
     /** <p>New user's first name</p> */
     @Constraints.Required
-    private String myFirstName;
+    private String firstName;
 
     /** <p>New user's last name</p> */
     @Constraints.Required
-    private String myLastName;
+    private String lastName;
 
     /** <p>New user's email</p> */
     @Constraints.Required
     @Constraints.Email
-    private String myEmail;
+    private String email;
 
     /** <p>New user's password</p> */
     @Constraints.Required
-    private String myPassword;
+    private String password;
 
-    /** <p>New user's retype of password</p> */
+    /** <p>New user's confirmation of password</p> */
     @Constraints.Required
-    private String myRetypePassword;
+    private String confirmPassword;
 
     // ===========================================================
     // Public Methods
@@ -50,7 +50,7 @@ public class RegistrationForm {
      * @return A string.
      */
     public final String getFirstName() {
-        return myFirstName;
+        return firstName;
     }
 
     /**
@@ -59,7 +59,7 @@ public class RegistrationForm {
      * @param firstName First name.
      */
     public final void setFirstName(String firstName) {
-        myFirstName = firstName;
+        this.firstName = firstName;
     }
 
     /**
@@ -68,7 +68,7 @@ public class RegistrationForm {
      * @return A string.
      */
     public final String getLastName() {
-        return myLastName;
+        return lastName;
     }
 
     /**
@@ -77,7 +77,7 @@ public class RegistrationForm {
      * @param lastName Last name.
      */
     public final void setLastName(String lastName) {
-        myLastName = lastName;
+        this.lastName = lastName;
     }
 
     /**
@@ -86,7 +86,7 @@ public class RegistrationForm {
      * @return A string.
      */
     public final String getEmail() {
-        return myEmail;
+        return email;
     }
 
     /**
@@ -95,7 +95,7 @@ public class RegistrationForm {
      * @param email Email
      */
     public final void setEmail(String email) {
-        myEmail = email;
+        this.email = email;
     }
 
     /**
@@ -104,7 +104,7 @@ public class RegistrationForm {
      * @return A string.
      */
     public final String getPassword() {
-        return myPassword;
+        return password;
     }
 
     /**
@@ -113,25 +113,25 @@ public class RegistrationForm {
      * @param password Password
      */
     public void setPassword(String password) {
-        myPassword = password;
+        this.password = password;
     }
 
     /**
-     * <p>Retype password field in the registration form.</p>
+     * <p>Confirm password field in the registration form.</p>
      *
      * @return A string.
      */
-    public final String getRetypePassword() {
-        return myRetypePassword;
+    public final String getConfirmPassword() {
+        return confirmPassword;
     }
 
     /**
      * <p>Stores the retype password field.</p>
      *
-     * @param retypePassword Retyped password
+     * @param confirmPassword Retyped password
      */
-    public final void setRetypePassword(String retypePassword) {
-        myRetypePassword = retypePassword;
+    public final void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     /**
@@ -144,15 +144,15 @@ public class RegistrationForm {
         List<ValidationError> errors = new ArrayList<>();
 
         // Check for a registered user with the same email.
-        if (User.findByEmail(myEmail) != null) {
+        if (User.findByEmail(email) != null) {
             errors.add(new ValidationError("email", "This e-mail is already registered."));
         }
 
         // Check that the password has a minimum length of 6
-        if (myPassword.length() < 6) {
+        if (password.length() < 6) {
             errors.add(new ValidationError("passwordLength", "The password needs to be at least 6 characters long."));
         } else {
-            if (!myPassword.equals(myRetypePassword)) {
+            if (!password.equals(confirmPassword)) {
                 errors.add(new ValidationError("notSamePassword", "The two password fields do not match."));
             }
         }
