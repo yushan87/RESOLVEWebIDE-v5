@@ -8,6 +8,7 @@ import java.util.concurrent.CompletionStage;
 import javax.inject.Inject;
 import models.common.database.User;
 import models.common.form.RegistrationForm;
+import play.Configuration;
 import play.data.Form;
 import play.data.FormFactory;
 import play.data.validation.ValidationError;
@@ -51,6 +52,10 @@ public class Registration extends Controller {
     /** <p>JPA API</p> */
     @Inject
     private JPAApi myJpaApi;
+
+    /** <p>Class that retrieves configurations</p> */
+    @Inject
+    private Configuration myConfiguration;
 
     // ===========================================================
     // Public Methods
@@ -119,7 +124,12 @@ public class Registration extends Controller {
     private CompletionStage<List<ValidationError>> validate(RegistrationForm form) {
         // Check the reCaptcha server to see if this form contains a valid
         // user response token provided by reCaptcha.
-        String postData = "secret=" + "6LfPmRcTAAAAAOkZxLlOOrL9sa1_z7d3CDenChdi" + "&response=" + form.getReCaptcha();
+        // Obtain the email host from the configuration file
+        String secret = myConfiguration.getString("webide.recaptchasecret");
+        if (secret == null) {
+            throw new RuntimeException("Missing configuration: Email Host");
+        }
+        String postData = "secret=" + secret + "&response=" + form.getReCaptcha();
         CompletionStage<JsonNode> responsePromise = myWSClient.url("https://www.google.com/recaptcha/api/siteverify").
                 setContentType("application/x-www-form-urlencoded").
                 post(postData).thenApply(WSResponse::asJson);
