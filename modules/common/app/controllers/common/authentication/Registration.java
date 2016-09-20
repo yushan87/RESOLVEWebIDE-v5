@@ -8,6 +8,7 @@ import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.common.authentication.registration;
+import views.html.common.authentication.registrationSuccess;
 
 /**
  * TODO: Add JavaDocs for this class.
@@ -47,7 +48,7 @@ public class Registration extends Controller {
             return badRequest(registration.render(userForm));
         } else {
             RegistrationForm form = userForm.get();
-            return ok("Hello " + form.getFirstName() + " " + form.getLastName());
+            return ok(registrationSuccess.render());
         }
     }
 
