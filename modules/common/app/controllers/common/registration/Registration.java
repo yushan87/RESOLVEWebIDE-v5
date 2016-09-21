@@ -1,4 +1,4 @@
-package controllers.common.authentication;
+package controllers.common.registration;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import java.util.ArrayList;
@@ -22,8 +22,8 @@ import play.libs.ws.WSClient;
 import play.libs.ws.WSResponse;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.common.authentication.registration;
-import views.html.common.authentication.registrationSuccess;
+import views.html.common.registration.registration;
+import views.html.common.registration.registrationSuccess;
 
 /**
  * <p>This class serves as a controller class for registering new users.</p>
@@ -96,17 +96,17 @@ public class Registration extends Controller {
             // If there are no errors, we display the success page.
             CompletionStage<List<ValidationError>> resultPromise = validate(form);
             return resultPromise.thenApplyAsync(result -> {
-                    if (result != null) {
-                        String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
-                        for (ValidationError error : result) {
-                            userForm.reject(error);
-                        }
-                        return badRequest(registration.render(userForm, token));
+                if (result != null) {
+                    String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+                    for (ValidationError error : result) {
+                        userForm.reject(error);
                     }
-                    else {
-                        return ok(registrationSuccess.render());
-                    }
-                }, myHttpExecutionContext.current());
+                    return badRequest(registration.render(userForm, token));
+                }
+                else {
+                    return ok(registrationSuccess.render());
+                }
+            }, myHttpExecutionContext.current());
         }
     }
 
@@ -116,6 +116,8 @@ public class Registration extends Controller {
 
     /**
      * <p>Our own custom validation method for the registration form.</p>
+     *
+     * @param form The current registration form we are processing.
      *
      * @return A {@link CompletionStage} with a list of {@link ValidationError}
      * if there are errors in the registration form, {@code null} otherwise.

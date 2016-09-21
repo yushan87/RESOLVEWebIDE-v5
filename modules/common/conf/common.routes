@@ -3,12 +3,12 @@
 # ~~~~
 
 # Registration page
-GET     /registration               controllers.common.authentication.Registration.index()
-POST    /registration               controllers.common.authentication.Registration.handleSubmit()
+GET     /registration               controllers.common.registration.Registration.index()
+POST    /registration               controllers.common.registration.Registration.handleSubmit()
 
 # Password Recovery page
-GET     /passwordrecovery           controllers.common.authentication.PasswordRecovery.index()
-POST    /passwordrecovery           controllers.common.authentication.PasswordRecovery.handleSubmit()
+GET     /passwordrecovery           controllers.common.passwordrecovery.PasswordRecovery.index()
+POST    /passwordrecovery           controllers.common.passwordrecovery.PasswordRecovery.handleSubmit()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.common.Assets.versioned(path="/public", file)

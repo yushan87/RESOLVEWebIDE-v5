@@ -15,7 +15,7 @@
                     </div>
                 </div>
             }
-            @helper.form(action = controllers.common.authentication.routes.Registration.handleSubmit()) {
+            @helper.form(action = controllers.common.registration.routes.Registration.handleSubmit()) {
                 @CSRF.formField
                 <div class="card-block">
                     <div class="form-group row @if(form.error("firstName") != null) {has-danger}">
@@ -36,7 +36,7 @@
                             <input type="email" class="form-control @if((form.error("email") != null) || (form.error("registeredEmail") != null)) {form-control-danger}" id="inputEmail" name="email" placeholder="Email" @if(form.field("email").value() != null) {value="@form.field("email").value()"}>
                             @if(form.error("registeredEmail") != null) {
                                 <div class="form-control-feedback">
-                                    Sorry, email already in use. Try completing the <a href="@controllers.common.authentication.routes.PasswordRecovery.index()">Password Reset</a>
+                                    Sorry, email already in use. Try completing the <a href="@controllers.common.passwordrecovery.routes.PasswordRecovery.index()">Password Reset</a>
                                     form instead.
                                 </div>
                             }

@@ -1,4 +1,4 @@
-package controllers.common.authentication;
+package controllers.common.passwordrecovery;
 
 /**
  * TODO: Add JavaDocs for this class.
