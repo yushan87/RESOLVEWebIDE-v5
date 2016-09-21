@@ -40,7 +40,7 @@ public class EmailGenerator {
      */
     public void generateWelcomeEmail(String firstName, String userEmail) {
         String link = formCurrentWebPath();
-        Email email = generateEmailObject(userEmail, "Welcome to RESOLVE Web IDE", welcome.render(firstName, userEmail, link).body());
+        Email email = generateEmailObject(userEmail, "Welcome to RESOLVE WebIDE", welcome.render(firstName, userEmail, link).body());
         myMailerClient.send(email);
     }
 
@@ -54,7 +54,7 @@ public class EmailGenerator {
      */
     public void generateConfirmationEmail(String firstName, String userEmail, String confirmationCode) {
         String link = formCurrentWebPath() + "confirm?c_code=" + confirmationCode + "&email=" + userEmail;
-        Email email = generateEmailObject(userEmail, "RESOLVE Web IDE Registration Confirmation", confirmation.render(firstName, link).body());
+        Email email = generateEmailObject(userEmail, "RESOLVE WebIDE Registration Confirmation", confirmation.render(firstName, link).body());
         myMailerClient.send(email);
     }
 
@@ -68,7 +68,7 @@ public class EmailGenerator {
      */
     public void generateLostPasswordEmail(String firstName, String userEmail, String confirmationCode) {
         String link = formCurrentWebPath() + "reset?c_code=" + confirmationCode + "&email=" + userEmail;
-        Email email = generateEmailObject(userEmail, "RESOLVE Web IDE Password Recovery", lostPassword.render(firstName, link).body());
+        Email email = generateEmailObject(userEmail, "RESOLVE WebIDE Password Recovery", lostPassword.render(firstName, link).body());
         myMailerClient.send(email);
     }
 
@@ -80,7 +80,7 @@ public class EmailGenerator {
      * @param userEmail User's email.
      */
     public void generateResetPasswordEmail(String firstName, String userEmail) {
-        Email email = generateEmailObject(userEmail, "RESOLVE Web IDE Password Reset", reset.render(firstName, userEmail).body());
+        Email email = generateEmailObject(userEmail, "RESOLVE WebIDE Password Reset", reset.render(firstName, userEmail).body());
         myMailerClient.send(email);
     }
 
