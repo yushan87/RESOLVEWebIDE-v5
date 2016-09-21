@@ -1,12 +1,15 @@
 package models.common;
 
-/* Libraries */
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 /**
- * TODO: Add JavaDocs for this class.
+ * <p>This class contains different utility methods for the various
+ * different model classes.</p>
+ *
+ * @author Yu-Shan Sun
+ * @version 1.0
  */
 public class ModelUtilities {
 
@@ -72,4 +75,5 @@ public class ModelUtilities {
 
         return sb.toString();
     }
+
 }

@@ -6,12 +6,15 @@ import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 import play.mvc.Http;
 import views.html.common.email.confirmation;
-import views.html.common.email.lostPassword;
-import views.html.common.email.reset;
+import views.html.common.email.resetPassword;
+import views.html.common.email.resetSuccess;
 import views.html.common.email.welcome;
 
 /**
- * TODO: Add JavaDocs for this class.
+ * <p>This class contains different email utility methods.</p>
+ *
+ * @author Yu-Shan Sun
+ * @version 1.0
  */
 public class EmailGenerator {
 
@@ -19,7 +22,7 @@ public class EmailGenerator {
     // Global Variables
     // ===========================================================
 
-    /** <p>Play framework's simple emailer</p> */
+    /** <p>Play Framework's simple mailer client</p> */
     @Inject
     private MailerClient myMailerClient;
 
@@ -40,7 +43,8 @@ public class EmailGenerator {
      */
     public void generateWelcomeEmail(String firstName, String userEmail) {
         String link = formCurrentWebPath();
-        Email email = generateEmailObject(userEmail, "Welcome to RESOLVE WebIDE", welcome.render(firstName, userEmail, link).body());
+        Email email = generateEmailObject(userEmail, "Welcome to RESOLVE WebIDE",
+                welcome.render(firstName, userEmail, link).body());
         myMailerClient.send(email);
     }
 
@@ -53,34 +57,37 @@ public class EmailGenerator {
      * @param confirmationCode User's generated confirmation code.
      */
     public void generateConfirmationEmail(String firstName, String userEmail, String confirmationCode) {
-        String link = formCurrentWebPath() + "confirm?c_code=" + confirmationCode + "&email=" + userEmail;
-        Email email = generateEmailObject(userEmail, "RESOLVE WebIDE Registration Confirmation", confirmation.render(firstName, link).body());
+        String link = formCurrentWebPath() + "/confirm?c_code=" + confirmationCode + "&email=" + userEmail;
+        Email email = generateEmailObject(userEmail, "RESOLVE WebIDE Registration Confirmation",
+                confirmation.render(firstName, link).body());
         myMailerClient.send(email);
     }
 
     /**
-     * <p>Generate and send a lost password email with
-     * the specified user information.</p>
+     * <p>Generate and send an email with the necessary information to resetSuccess the
+     * password for the specified user.</p>
      *
      * @param firstName User's first name.
      * @param userEmail User's email.
      * @param confirmationCode User's generated confirmation code.
      */
-    public void generateLostPasswordEmail(String firstName, String userEmail, String confirmationCode) {
-        String link = formCurrentWebPath() + "reset?c_code=" + confirmationCode + "&email=" + userEmail;
-        Email email = generateEmailObject(userEmail, "RESOLVE WebIDE Password Recovery", lostPassword.render(firstName, link).body());
+    public void generateResetPasswordEmail(String firstName, String userEmail, String confirmationCode) {
+        String link = formCurrentWebPath() + "/reset?c_code=" + confirmationCode + "&email=" + userEmail;
+        Email email = generateEmailObject(userEmail, "RESOLVE WebIDE Password Recovery",
+                resetPassword.render(firstName, link).body());
         myMailerClient.send(email);
     }
 
     /**
-     * <p>Generate and send a reset password email with
-     * the specified user information.</p>
+     * <p>Generate and send an email confirming that we have successfully resetSuccess the
+     * password for the specified user.</p>
      *
      * @param firstName User's first name.
      * @param userEmail User's email.
      */
-    public void generateResetPasswordEmail(String firstName, String userEmail) {
-        Email email = generateEmailObject(userEmail, "RESOLVE WebIDE Password Reset", reset.render(firstName, userEmail).body());
+    public void generateResetSuccessEmail(String firstName, String userEmail) {
+        Email email = generateEmailObject(userEmail, "RESOLVE WebIDE Password Successfully Reset",
+                resetSuccess.render(firstName, userEmail).body());
         myMailerClient.send(email);
     }
 
@@ -131,4 +138,5 @@ public class EmailGenerator {
 
         return email;
     }
+
 }
