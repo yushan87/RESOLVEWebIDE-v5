@@ -24,7 +24,7 @@ public class UserEvent {
 
     /** <p>Unique ID for each user event.</p> */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     /** <p>User event author.</p> */

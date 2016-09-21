@@ -24,7 +24,7 @@ import play.libs.ws.WSClient;
 import play.libs.ws.WSResponse;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.common.passwordrecovery.accountError;
+import views.html.common.errors.accountError;
 import views.html.common.passwordrecovery.passwordRecovery;
 import views.html.common.passwordrecovery.resetSuccess;
 import views.html.common.passwordrecovery.submitSuccess;
@@ -147,7 +147,7 @@ public class PasswordRecovery extends Controller {
         // display the error page.
         User user = User.findByEmail(email);
         if (user != null && user.confirmationCode.equals(confirmationCode)) {
-            // Render password resetSuccess page
+            // Render password reset success page
             return ok(updatePassword.render(myFormFactory.form(UpdatePasswordForm.class), token, email));
         } else {
             // Render the account error page

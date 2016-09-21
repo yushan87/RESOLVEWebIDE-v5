@@ -25,7 +25,7 @@ public class UserComponent {
 
     /** <p>Unique ID for each user component.</p> */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     /** <p>User component content.</p> */

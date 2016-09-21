@@ -5,6 +5,7 @@
 # Registration pages
 GET     /registration               controllers.common.registration.Registration.index()
 POST    /registration               controllers.common.registration.Registration.handleSubmit()
+GET     /registration/confirm       controllers.common.registration.Registration.processRequest(c_code: String, email: String)
 
 # Password Recovery pages
 GET     /passwordrecovery           controllers.common.passwordrecovery.PasswordRecovery.index()

@@ -1,6 +1,7 @@
 package controllers.common.registration;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import controllers.common.email.EmailGenerator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -22,6 +23,9 @@ import play.libs.ws.WSClient;
 import play.libs.ws.WSResponse;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.common.errors.accountError;
+import views.html.common.registration.authenticationSuccess;
+import views.html.common.registration.expired;
 import views.html.common.registration.registration;
 import views.html.common.registration.registrationSuccess;
 
@@ -40,6 +44,10 @@ public class Registration extends Controller {
     /** <p>Play Framework's WS API client</p> */
     @Inject
     private WSClient myWSClient;
+
+    /** <p>Email generator</p> */
+    @Inject
+    private EmailGenerator myEmailGenerator;
 
     /** <p>Form factory</p> */
     @Inject
@@ -79,7 +87,7 @@ public class Registration extends Controller {
      */
     @AddCSRFToken
     @RequireCSRFCheck
-    @Transactional(readOnly = true)
+    @Transactional
     public CompletionStage<Result> handleSubmit() {
         Form<RegistrationForm> userForm = myFormFactory.form(RegistrationForm.class).bindFromRequest();
 
@@ -104,9 +112,48 @@ public class Registration extends Controller {
                     return badRequest(registration.render(userForm, token));
                 }
                 else {
+                    // Create and add an user to the database. This should generate an email
+                    // confirming this action.
+                    // Note 1: "addUser" expects a JPA entity manager,
+                    // which is not present if we don't wrap the call using
+                    // "withTransaction()".
+                    // Note 2: It is possible that that this will fail if we fail to
+                    // retrieve data from the database. We are ignoring this for now.
+                    User user = myJpaApi.withTransaction(() -> User.addUser(
+                            form.getEmail(), form.getPassword(), form.getFirstName(), form.getLastName()));
+                    myEmailGenerator.generateConfirmationEmail(user.firstName, user.email, user.confirmationCode);
+
                     return ok(registrationSuccess.render());
                 }
             }, myHttpExecutionContext.current());
+        }
+    }
+
+    /**
+     * <p>This processes the confirmation step to authenticate the user.</p>
+     *
+     * @return The result of rendering the page.
+     */
+    @Transactional
+    public Result processRequest(String confirmationCode, String email) {
+        // Check to see if the email exists. If it does not return
+        // a valid "User", then we display the error page.
+        User user = User.findByEmail(email);
+        if (user != null) {
+            if (user.confirmationCode.equals(confirmationCode)) {
+                user = User.authenticate(email);
+                myEmailGenerator.generateWelcomeEmail(user.firstName, user.email);
+
+                // Render authentication success page
+                return ok(authenticationSuccess.render(email, user.firstName, user.lastName));
+            }
+            else {
+                // Render expired confirmation link page
+                return ok(expired.render());
+            }
+        } else {
+            // Render the account error page
+            return ok(accountError.render());
         }
     }
 

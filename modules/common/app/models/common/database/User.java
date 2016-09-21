@@ -26,7 +26,7 @@ public class User {
 
     /** <p>Unique ID for each user.</p> */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     /** <p>User's Email and Login User Name</p> */

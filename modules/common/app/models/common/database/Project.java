@@ -26,7 +26,7 @@ public class Project {
 
     /** <p>Unique ID for each project.</p> */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     /** <p>Name of Project</p> */

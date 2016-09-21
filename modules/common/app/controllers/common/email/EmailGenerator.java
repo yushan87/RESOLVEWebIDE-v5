@@ -42,9 +42,8 @@ public class EmailGenerator {
      * @param userEmail User's email.
      */
     public void generateWelcomeEmail(String firstName, String userEmail) {
-        String link = formCurrentWebPath();
         Email email = generateEmailObject(userEmail, "Welcome to RESOLVE WebIDE",
-                welcome.render(firstName, userEmail, link).body());
+                welcome.render(firstName, userEmail, formIndexPageLink()).body());
         myMailerClient.send(email);
     }
 
@@ -111,6 +110,30 @@ public class EmailGenerator {
         }
 
         return protocol + Http.Context.current().request().host() + Http.Context.current().request().path();
+    }
+
+    /**
+     * <p>An helper method to generate the index page link.</p>
+     *
+     * @return A string of the format
+     */
+    private String formIndexPageLink() {
+        String version = Http.Context.current().request().version();
+        String protocol;
+        if (version.startsWith("HTTPS")) {
+            protocol = "https://";
+        }
+        else {
+            protocol = "http://";
+        }
+
+        // Obtain the email host from the configuration file
+        String context = myConfiguration.getString("play.http.context");
+        if (context == null) {
+            throw new RuntimeException("Missing configuration: Play HTTP Context");
+        }
+
+        return protocol + Http.Context.current().request().host() + context + "/";
     }
 
     /**
