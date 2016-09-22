@@ -1,4 +1,6 @@
-@(title: String)(content: Html)
+@import models.common.database.User
+
+@(title: String, currentUser: User)(content: Html)
 
 <!DOCTYPE html>
 
@@ -20,7 +22,7 @@
     </head>
     <body>
         <!-- Code to display the header -->
-        @views.html.common.tags.header()
+        @views.html.common.tags.header(currentUser)
 
         <section id="page-main">
             <!-- Content passed in gets displayed here -->

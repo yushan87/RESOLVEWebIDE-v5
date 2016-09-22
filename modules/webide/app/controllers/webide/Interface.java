@@ -3,6 +3,7 @@ package controllers.webide;
 import java.util.List;
 import javax.inject.Inject;
 import models.common.database.Project;
+import models.common.database.User;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -34,6 +35,7 @@ public class Interface extends Controller {
      */
     @Transactional(readOnly = true)
     public Result index(int selectedProject) {
+        // Retrieve the list of projects in the database
         List<Project> projectList = myCachedObjects.getProjects();
         Project activeProject;
         if (selectedProject == 0) {
@@ -43,6 +45,13 @@ public class Interface extends Controller {
             activeProject = projectList.get(selectedProject-1);
         }
 
-        return ok(index.render(projectList, activeProject));
+        // Retrieve the current user (if logged in)
+        String email = session("connected");
+        User currentUser = null;
+        if(email != null) {
+            currentUser = User.findByEmail(email);
+        }
+
+        return ok(index.render(projectList, activeProject, currentUser));
     }
 }

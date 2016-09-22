@@ -1,9 +1,10 @@
 @import java.util
 @import models.common.database.Project
+@import models.common.database.User
 
-@(projects: util.List[Project], activeProject: Project)
+@(projects: util.List[Project], activeProject: Project, currentUser: User)
 
-@views.html.common.main("RESOLVEWebIDE") {
+@views.html.common.main("RESOLVEWebIDE", currentUser) {
     <!-- Code to display components bar -->
     @views.html.webide.tags.component_bar(projects, activeProject)
 
