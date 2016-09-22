@@ -9,6 +9,7 @@
 GET     /login                      controllers.common.security.Security.index()
 POST    /login                      controllers.common.security.Security.login()
 GET     /login/newconfirm           controllers.common.security.Security.generateNewConfirmation(email: String)
+GET     /logout                     controllers.common.security.Security.logout()
 
 # Registration pages
 GET     /registration               controllers.common.registration.Registration.index()

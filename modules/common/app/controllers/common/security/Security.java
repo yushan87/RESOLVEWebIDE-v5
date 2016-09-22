@@ -62,7 +62,7 @@ public class Security extends Controller {
     // ===========================================================
 
     /**
-     * <p>This renders the login page for the WebIDE.</p>
+     * <p>This renders the login page for the Web IDE.</p>
      *
      * @return The result of rendering the page.
      */
@@ -72,7 +72,7 @@ public class Security extends Controller {
         // that has logged in already.
         String user = session().remove("connected");
         if (user != null) {
-            // Obtain the email host from the configuration file
+            // Obtain the http context from the configuration file
             String context = myConfiguration.getString("play.http.context");
             if (context == null) {
                 context = "";
@@ -89,7 +89,7 @@ public class Security extends Controller {
     }
 
     /**
-     * <p>This handles the login form submission for the WebIDE.</p>
+     * <p>This handles the login form submission for the Web IDE.</p>
      *
      * @return The result of rendering the page.
      */
@@ -124,7 +124,10 @@ public class Security extends Controller {
                     // Add a new user event
                     myJpaApi.withTransaction(() -> UserEvent.addRegularEvent("login", "", updatedUser));
 
-                    // Obtain the email host from the configuration file
+                    // Stores the email as session value
+                    session("connected", form.getEmail());
+
+                    // Obtain the http context from the configuration file
                     String context = myConfiguration.getString("play.http.context");
                     if (context == null) {
                         context = "";
@@ -151,6 +154,22 @@ public class Security extends Controller {
                         myHttpExecutionContext.current());
             }
         }
+    }
+
+    /**
+     * <p>This handles the logout action for the Web IDE.</p>
+     */
+    public Result logout() {
+        // Clear the session
+        session().clear();
+
+        // Obtain the http context from the configuration file
+        String context = myConfiguration.getString("play.http.context");
+        if (context == null) {
+            context = "";
+        }
+
+        return redirect(context + "/");
     }
 
     /**

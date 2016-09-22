@@ -11,18 +11,30 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-toggleable-xs" id="general-nav">
             <div class="navbar-brand">
-                Welcome <b>User</b>.
+                Welcome @if(currentUser != null) {<b>@currentUser.firstName</b>} else {<b>User</b>}.
             </div>
             <ul class="nav navbar-nav pull-xs-right">
                 <li class="nav-item">
                     <a class="nav-link" href="@controllers.webide.routes.Interface.index()"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="@controllers.common.registration.routes.Registration.index()"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="@controllers.common.security.routes.Security.index()"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> Sign In</a>
-                </li>
+                @if(currentUser == null) {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@controllers.common.registration.routes.Registration.index()"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@controllers.common.security.routes.Security.index()"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> Sign In</a>
+                    </li>
+                } else {
+                    @if(currentUser.userType == 2) {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@controllers.admin.routes.Admin.index()"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i>
+                                Admin</a>
+                        </li>
+                    }
+                    <li class="nav-item">
+                        <a class="nav-link" href="@controllers.common.security.routes.Security.logout()"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Logout</a>
+                    </li>
+                }
                 <li class="nav-item">
                     <a class="nav-link" href="#help-modal" data-toggle="modal" data-target="#help-modal"><i class="fa fa-question-circle" aria-hidden="true"></i> Help</a>
                 </li>
