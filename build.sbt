@@ -24,9 +24,9 @@ routesGenerator := InjectedRoutesGenerator
 
 unmanagedBase := baseDirectory.value / "custom_lib"
   
-lazy val common = (project in file("modules/common"))
+lazy val common: Project = (project in file("modules/common"))
   .enablePlugins(PlayJava)
-  .settings(commonSettings: _*)
+  .settings(commonSettings, aggregateReverseRoutes := Seq(admin, webide))
   
 lazy val admin = (project in file("modules/admin"))
   .enablePlugins(PlayJava)

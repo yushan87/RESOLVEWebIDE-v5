@@ -1,7 +1,6 @@
-@import java.util
-@import models.common.database.Project
+@import models.common.database.User
 
-@(title: String, projects: util.List[Project], defaultProject: Project)(content: Html)
+@(title: String, currentUser: User)(content: Html)
 
 <!DOCTYPE html>
 
@@ -9,37 +8,65 @@
     <head>
         <!-- Meta -->
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <title>@title</title>
 
         <!-- CSS -->
         <link rel="stylesheet" media="screen" href="@controllers.common.routes.Assets.versioned("stylesheets/main.css")">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-            integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css"
+            integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+            integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
     </head>
     <body>
-        <!-- Code to display navbar -->
-        @views.html.common.tags.navbar(projects, defaultProject)
+        <!-- Code to display the header -->
+        @views.html.common.tags.header(currentUser)
 
-        <div class="container-fluid">
+        <section id="page-main">
             <!-- Content passed in gets displayed here -->
             @content
 
-            <!-- Code to the display help modal -->
+            <!-- Code to display the help modal -->
             @views.html.common.tags.help()
-        </div>
+        </section>
 
-        <!-- Code to the display footer -->
+        <!-- Code to display the footer -->
         @views.html.common.tags.footer()
 
         <!-- JavaScript Libraries -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"
+            integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"
+            integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"
+            integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
 
         <!-- Our Own JavaScripts -->
         <script src="@controllers.common.routes.Assets.versioned("javascripts/main.js")" type="text/javascript" charset="${_response_encoding}"></script>
+        <script type="text/javascript">
+            var tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            // Create YouTube player(s) after the API code downloads.
+            var player1, player2;
+            function onYouTubeIframeAPIReady() {
+                player1 = new YT.Player('webide-video1', {
+                    height: '315', width: '560', videoId: 'sif9MnpvQZE'
+                });
+
+                player2 = new YT.Player('webide-video2', {
+                    height: '315', width: '560', videoId: '9vg3WuxeOkA'
+                });
+            }
+
+            $('#help-modal').on('hidden.bs.modal', function() {
+                player1.pauseVideo();
+                player2.pauseVideo();
+            });
+        </script>
     </body>
 </html>

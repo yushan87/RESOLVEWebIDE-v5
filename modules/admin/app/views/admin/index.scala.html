@@ -1,8 +1,7 @@
-@import java.util
-@import models.common.database.Project
+@import models.common.database.User
 
-@(projects: util.List[Project], defaultProject: Project)
+@(currentUser: User)
 
-@views.html.common.main("RESOLVEWebIDE-Admin", projects, defaultProject) {
-    <div>Admin Page</div>
+@views.html.common.main("RESOLVEWebIDE - Admin", currentUser) {
+    <div class="container" style="padding-top: 2.5rem;">Admin Page</div>
 }

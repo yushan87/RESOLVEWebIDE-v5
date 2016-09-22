@@ -1,0 +1,104 @@
+@import helper._
+@import models.common.form.RegistrationForm
+
+@(form: play.data.Form[RegistrationForm], token: String)
+
+@views.html.common.main("RESOLVEWebIDE - Registration", null) {
+    <div class="container" style="padding-top: 2.5rem;">
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <div class="card card-outline-secondary">
+            <h5 class="card-header text-xs-center">Registration Form</h5>
+            @if(form.hasErrors) {
+                <div class="card-block">
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Error(s) detected!</strong> Please correct the errors and submit the form again.
+                    </div>
+                </div>
+            }
+            @helper.form(action = controllers.common.registration.routes.Registration.handleSubmit()) {
+                @CSRF.formField
+                <div class="card-block">
+                    <div class="form-group row @if(form.error("firstName") != null) {has-danger}">
+                        <label for="inputFirstName" class="col-xs-2 col-form-label">First Name</label>
+                        <div class="col-xs-10">
+                            <input type="text" class="form-control @if(form.error("firstName") != null) {form-control-danger}" id="inputFirstName" name="firstName" placeholder="First Name" @if(form.field("firstName").value() != null) {value="@form.field("firstName").value()"}>
+                        </div>
+                    </div>
+                    <div class="form-group row @if(form.error("lastName") != null) {has-danger}">
+                        <label for="inputLastName" class="col-xs-2 col-form-label">Last Name</label>
+                        <div class="col-xs-10">
+                            <input type="text" class="form-control @if(form.error("lastName") != null) {form-control-danger}" id="inputLastName" name="lastName" placeholder="Last Name" @if(form.field("lastName").value() != null) {value="@form.field("lastName").value()"}>
+                        </div>
+                    </div>
+                    <div class="form-group row @if((form.error("email") != null) || (form.error("registeredEmail") != null)) {has-danger}">
+                        <label for="inputEmail" class="col-xs-2 col-form-label">Email</label>
+                        <div class="col-xs-10">
+                            <input type="email" class="form-control @if((form.error("email") != null) || (form.error("registeredEmail") != null)) {form-control-danger}" id="inputEmail" name="email" placeholder="Email" @if(form.field("email").value() != null) {value="@form.field("email").value()"}>
+                            @if(form.error("registeredEmail") != null) {
+                                <div class="form-control-feedback">
+                                    Sorry, email already in use. Try completing the <a href="@controllers.common.passwordrecovery.routes.PasswordRecovery.index()">Password Reset</a>
+                                    form instead.
+                                </div>
+                            }
+                            <small id="emailHelpInline" class="text-muted">
+                                Must be a valid email.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group row @if((form.error("password") != null) || (form.error("passwordLength") != null)) {has-danger}">
+                        <label for="inputPassword" class="col-xs-2 col-form-label">Password</label>
+                        <div class="col-xs-10">
+                            <input type="password" class="form-control @if((form.error("password") != null) || (form.error("passwordLength") != null)) {form-control-danger}" id="inputPassword" name="password" placeholder="Password">
+                            @if(form.error("passwordLength") != null) {
+                                <div class="form-control-feedback">
+                                    @form.error("passwordLength").message()
+                                </div>
+                            }
+                            <small id="passwordHelpInline" class="text-muted">
+                                Must be 6-20 characters long.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group row @if((form.error("confirmPassword") != null) || (form.error("notSamePassword") != null)) {has-danger}">
+                        <label for="inputConfirmPassword" class="col-xs-2 col-form-label">Confirm Password</label>
+                        <div class="col-xs-10">
+                            <input type="password" class="form-control @if((form.error("confirmPassword") != null) || (form.error("notSamePassword") != null)) {form-control-danger}" id="inputConfirmPassword" name="confirmPassword" placeholder="Confirm Password">
+                            @if(form.error("notSamePassword") != null) {
+                                <div class="form-control-feedback">
+                                    @form.error("notSamePassword").message()
+                                </div>
+                            }
+                            <small id="confirmPasswordHelpInline" class="text-muted">
+                                Must match the password field.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="g-recaptcha" data-sitekey="6LfrQAcUAAAAANqp7L5VsUud_EBXilQPRdut9UNw" data-callback="captchaCallback"></div>
+                        @if(form.error("reCaptchaFailure") != null) {
+                            <div class="form-control-feedback">
+                            @form.error("reCaptchaFailure").message()
+                            </div>
+                        }
+                        <input type="hidden" name="reCaptcha" id="reCaptcha">
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="text-xs-center">
+                            <button type="submit" class="btn btn-success">Create Account</button>
+                            <a class="btn btn-danger" href="@controllers.webide.routes.Interface.index()">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script>
+        function captchaCallback() {
+            document.getElementById("reCaptcha").value = document.getElementById("g-recaptcha-response").value;
+        }
+    </script>
+}

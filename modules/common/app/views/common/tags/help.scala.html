@@ -1,20 +1,21 @@
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="help-modal">
+<div id="help-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="help-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Help</h4>
             </div>
             <div class="modal-body">
                 <div class="help-title">
-                    <h3>RESOLVE Web IDE Overview</h3>
+                    <h4>RESOLVE Web IDE Overview</h4>
                 </div>
                 <div class="help-content">
-                    <h4>Web IDE Introductory Video:</h4>
-                    <p align="center">
-                        <iframe width="560" height="315" src="//www.youtube.com/embed/9vg3WuxeOkA?rel=0" frameborder="0" allowfullscreen></iframe>
-                    </p>
-                    <h4>General Information</h4>
+                    <h5>Web IDE Introductory Videos</h5>
+                    <div align="center">
+                        <div id="webide-video1"></div>
+                        <div id="webide-video2"></div>
+                    </div>
+                    <hr class="m-y-1">
+                    <h5>General Information</h5>
                     <p>This web-based environment is made up is of two parts--the upper menu bar
                         along the top and the content tabs below. The leftmost item in the menu bar
                         is the name of the currently selected project; any additional projects available
@@ -39,7 +40,7 @@
                         typical IDE's, this environment presents components based on their relationships,
                         not simply on their file system locations. (For more information on RESOLVE
                         component relationships in the environment see
-                        <a href="http://www.cs.clemson.edu/group/resolve/research/reports/RSRG-11-03.pdf"
+                        <a href="https://www.cs.clemson.edu/group/resolve/research/reports/RSRG-11-03.pdf"
                         target="_blank">Technical Report RSRG-11-03</a>.)
                         There are five tabs available, each representing a type of component--facility,
                         concept, concept realization, enhancement, or enhancement realization.
@@ -51,15 +52,16 @@
                         component-specific functionality.
                     </p>
                 </div>
+                <hr class="m-y-1">
                 <div class="help-title">
-                    <h3>RESOLVE Verifying Compiler</h3>
+                    <h4>RESOLVE Verifying Compiler</h4>
                 </div>
                 <div class="help-content">
-                    <h4>General Information</h4>
+                    <h5>General Information</h5>
                     <p>The foundations underlying the RESOLVE Verifying Compiler are both sound
-                        and relatively complete.  The current, working implementation is sound
-                        (as far as we know, but not proved), but incomplete.   This means that
-                        some correct programs will not pass automated verification.  However,
+                        and relatively complete. The current, working implementation is sound
+                        (as far as we know, but not proved), but incomplete. This means that
+                        some correct programs will not pass automated verification. However,
                         the generated verification conditions should be provable.
                     </p>
                 </div>

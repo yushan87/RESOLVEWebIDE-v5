@@ -2,7 +2,7 @@ package models.common.database;
 
 import java.util.Date;
 import javax.persistence.*;
-import controllers.common.ControllerUtilities;
+import controllers.common.utilities.ControllerUtilities;
 import play.data.validation.Constraints;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
@@ -25,7 +25,7 @@ public class UserComponent {
 
     /** <p>Unique ID for each user component.</p> */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     /** <p>User component content.</p> */
