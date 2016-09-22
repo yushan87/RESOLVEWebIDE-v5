@@ -2,6 +2,7 @@ package controllers.common.security;
 
 import javax.inject.Inject;
 import models.common.form.LoginForm;
+import play.Configuration;
 import play.data.FormFactory;
 import play.db.jpa.Transactional;
 import play.filters.csrf.AddCSRFToken;
@@ -28,6 +29,10 @@ public class Security extends Controller {
     @Inject
     private FormFactory myFormFactory;
 
+    /** <p>Class that retrieves configurations</p> */
+    @Inject
+    private Configuration myConfiguration;
+
     // ===========================================================
     // Public Methods
     // ===========================================================
@@ -39,8 +44,22 @@ public class Security extends Controller {
      */
     @AddCSRFToken
     public Result index() {
-        String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
-        return ok(index.render(myFormFactory.form(LoginForm.class), token));
+        // Check the session to see if the request comes from an user
+        // that has logged in already.
+        String user = session().remove("connected");
+        if (user != null) {
+            // Obtain the email host from the configuration file
+            String context = myConfiguration.getString("play.http.context");
+            if (context == null) {
+                throw new RuntimeException("Missing configuration: Play HTTP Context");
+            }
+
+            return redirect(context + "/");
+        }
+        else {
+            String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+            return ok(index.render(myFormFactory.form(LoginForm.class), token));
+        }
     }
 
     /**
