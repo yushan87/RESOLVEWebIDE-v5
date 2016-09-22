@@ -2,6 +2,10 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+# Login/Logout
+GET     /login                      controllers.common.security.Security.index()
+POST    /login                      controllers.common.security.Security.login()
+
 # Registration pages
 GET     /registration               controllers.common.registration.Registration.index()
 POST    /registration               controllers.common.registration.Registration.handleSubmit()
