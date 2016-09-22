@@ -18,16 +18,16 @@
             @helper.form(action = controllers.common.security.routes.Security.login()) {
                 @CSRF.formField
                 <div class="card-block">
-                    <div class="form-group row @if(form.error("email") != null) {has-danger}">
+                    <div class="form-group row @if(form.hasErrors) {has-danger}">
                         <div class="input-group col-xs-7">
                             <span class="input-group-addon" id="fa-user-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                            <input type="email" class="form-control @if(form.error("email") != null) {form-control-danger}" id="inputEmail" name="email" placeholder="Email Address">
+                            <input type="email" class="form-control @if(form.hasErrors) {form-control-danger}" id="inputEmail" name="email" placeholder="Email Address" @if(form.field("email").value() != null) {value="@form.field("email").value()"}>
                         </div>
                     </div>
-                    <div class="form-group row @if(form.error("password") != null) {has-danger}">
+                    <div class="form-group row @if(form.hasErrors) {has-danger}">
                         <div class="input-group col-xs-7">
                             <span class="input-group-addon" id="fa-lock-icon"><i class="fa fa-lock" aria-hidden="true"></i></span>
-                            <input type="password" class="form-control @if(form.error("password") != null) {form-control-danger}" id="inputPassword" name="password" placeholder="Password">
+                            <input type="password" class="form-control @if(form.hasErrors) {form-control-danger}" id="inputPassword" name="password" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-check">

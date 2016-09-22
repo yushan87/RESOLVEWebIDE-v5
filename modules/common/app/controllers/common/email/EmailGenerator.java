@@ -42,8 +42,8 @@ public class EmailGenerator {
      * @param userEmail User's email.
      */
     public void generateWelcomeEmail(String firstName, String userEmail) {
-        Email email = generateEmailObject(userEmail, "Welcome to RESOLVE WebIDE",
-                welcome.render(firstName, userEmail, formIndexPageLink()).body());
+        Email email = generateEmailObject(userEmail, "Welcome to RESOLVE Web IDE",
+                welcome.render(firstName, userEmail, formBaseWebPath()).body());
         myMailerClient.send(email);
     }
 
@@ -56,14 +56,14 @@ public class EmailGenerator {
      * @param confirmationCode User's generated confirmation code.
      */
     public void generateConfirmationEmail(String firstName, String userEmail, String confirmationCode) {
-        String link = formCurrentWebPath() + "/confirm?c_code=" + confirmationCode + "&email=" + userEmail;
-        Email email = generateEmailObject(userEmail, "RESOLVE WebIDE Registration Confirmation",
+        String link = formBaseWebPath() + "common/registration/confirm?c_code=" + confirmationCode + "&email=" + userEmail;
+        Email email = generateEmailObject(userEmail, "RESOLVE Web IDE Registration Confirmation",
                 confirmation.render(firstName, link).body());
         myMailerClient.send(email);
     }
 
     /**
-     * <p>Generate and send an email with the necessary information to resetSuccess the
+     * <p>Generate and send an email with the necessary information to reset the
      * password for the specified user.</p>
      *
      * @param firstName User's first name.
@@ -71,21 +71,21 @@ public class EmailGenerator {
      * @param confirmationCode User's generated confirmation code.
      */
     public void generateResetPasswordEmail(String firstName, String userEmail, String confirmationCode) {
-        String link = formCurrentWebPath() + "/reset?c_code=" + confirmationCode + "&email=" + userEmail;
-        Email email = generateEmailObject(userEmail, "RESOLVE WebIDE Password Recovery",
+        String link = formBaseWebPath() + "common/passwordrecovery/reset?c_code=" + confirmationCode + "&email=" + userEmail;
+        Email email = generateEmailObject(userEmail, "RESOLVE Web IDE Password Recovery",
                 resetPassword.render(firstName, link).body());
         myMailerClient.send(email);
     }
 
     /**
-     * <p>Generate and send an email confirming that we have successfully resetSuccess the
+     * <p>Generate and send an email confirming that we have successfully reset the
      * password for the specified user.</p>
      *
      * @param firstName User's first name.
      * @param userEmail User's email.
      */
     public void generateResetSuccessEmail(String firstName, String userEmail) {
-        Email email = generateEmailObject(userEmail, "RESOLVE WebIDE Password Successfully Reset",
+        Email email = generateEmailObject(userEmail, "RESOLVE Web IDE Password Successfully Reset",
                 resetSuccess.render(firstName, userEmail).body());
         myMailerClient.send(email);
     }
@@ -95,29 +95,11 @@ public class EmailGenerator {
     // ===========================================================
 
     /**
-     * <p>An helper method to generate the current web path.</p>
+     * <p>An helper method that forms the base web path to our application.</p>
      *
      * @return A string of the format
      */
-    private String formCurrentWebPath() {
-        String version = Http.Context.current().request().version();
-        String protocol;
-        if (version.startsWith("HTTPS")) {
-            protocol = "https://";
-        }
-        else {
-            protocol = "http://";
-        }
-
-        return protocol + Http.Context.current().request().host() + Http.Context.current().request().path();
-    }
-
-    /**
-     * <p>An helper method to generate the index page link.</p>
-     *
-     * @return A string of the format
-     */
-    private String formIndexPageLink() {
+    private String formBaseWebPath() {
         String version = Http.Context.current().request().version();
         String protocol;
         if (version.startsWith("HTTPS")) {
@@ -130,7 +112,7 @@ public class EmailGenerator {
         // Obtain the email host from the configuration file
         String context = myConfiguration.getString("play.http.context");
         if (context == null) {
-            throw new RuntimeException("Missing configuration: Play HTTP Context");
+            context = "";
         }
 
         return protocol + Http.Context.current().request().host() + context + "/";

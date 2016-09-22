@@ -207,10 +207,12 @@ public class User {
      * @param email Email entered by the user.
      */
     @Transactional
-    public static void lastLogin(String email) {
+    public static User lastLogin(String email) {
         User u = findByEmail(email);
         u.lastLogin = new Date();
         u.save();
+
+        return u;
     }
 
     /**
