@@ -14,6 +14,9 @@ javacOptions ++= Seq(
   "-Xdiags:verbose"
 )
 
-libraryDependencies ++= Seq()
+libraryDependencies ++= Seq(
+  // Deadbolt 2 (Authentication/Restriction)
+  "be.objectify" %% "deadbolt-java" % "2.5.0"
+)
 
 routesGenerator := InjectedRoutesGenerator
