@@ -26,8 +26,8 @@ libraryDependencies ++= Seq(
   "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final",
   "mysql" % "mysql-connector-java" % "5.1.39",
 
-  // Deadbolt 2 (Authentication/Restriction)
-  "be.objectify" %% "deadbolt-java" % "2.5.0"
+  // Deadbolt 2 (Authenticator)
+  "be.objectify" % "deadbolt-java_2.11" % "2.5.1"
 )
 
 routesGenerator := InjectedRoutesGenerator
