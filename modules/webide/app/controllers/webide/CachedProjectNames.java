@@ -1,8 +1,9 @@
-package controllers.common;
+package controllers.webide;
 
 import models.common.database.Project;
-import javax.inject.Inject;
 import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import play.cache.CacheApi;
 import play.db.jpa.Transactional;
 
@@ -13,7 +14,8 @@ import play.db.jpa.Transactional;
  * @author Yu-Shan Sun
  * @version 1.0
  */
-public class CachedObjects {
+@Singleton
+public class CachedProjectNames {
 
     // ===========================================================
     // Global Variables

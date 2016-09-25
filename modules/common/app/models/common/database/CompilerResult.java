@@ -26,7 +26,7 @@ public class CompilerResult {
 
     /** <p>Unique ID for each compiler result.</p> */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     /** <p>Compiling file's content.</p> */

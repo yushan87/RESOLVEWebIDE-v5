@@ -1,7 +1,9 @@
 package controllers.webide;
 
-import controllers.common.CachedObjects;
+import java.util.List;
 import javax.inject.Inject;
+import models.common.database.Project;
+import models.common.database.User;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -18,7 +20,7 @@ public class Interface extends Controller {
 
     /** <p>Collection of cached objects</p> */
     @Inject
-    private CachedObjects myCachedObjects;
+    private CachedProjectNames myCachedObjects;
 
     // ===========================================================
     // Public Methods
@@ -27,10 +29,29 @@ public class Interface extends Controller {
     /**
      * <p>This renders the main interface page for the WebIDE.</p>
      *
+     * @param selectedProject The project selected by the user.
+     *
      * @return The result of rendering the page
      */
-    @Transactional
-    public Result index() {
-        return ok(index.render(myCachedObjects.getProjects(), myCachedObjects.getDefaultProject()));
+    @Transactional(readOnly = true)
+    public Result index(int selectedProject) {
+        // Retrieve the list of projects in the database
+        List<Project> projectList = myCachedObjects.getProjects();
+        Project activeProject;
+        if (selectedProject == 0) {
+            activeProject = myCachedObjects.getDefaultProject();
+        }
+        else {
+            activeProject = projectList.get(selectedProject-1);
+        }
+
+        // Retrieve the current user (if logged in)
+        String email = session("connected");
+        User currentUser = null;
+        if(email != null) {
+            currentUser = User.findByEmail(email);
+        }
+
+        return ok(index.render(projectList, activeProject, currentUser));
     }
 }
