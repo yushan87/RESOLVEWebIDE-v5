@@ -25,6 +25,12 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
     // Constructors
     // ===========================================================
 
+    /**
+     * <p>This creates the {@link DeadboltHandler} that handles authorization
+     * for the entire RESOLVE WebIDE application.</p>
+     *
+     * @param ecProvider the execution context
+     */
     public WebIDEDeadboltHandler(ExecutionContextProvider ecProvider) {
         super(ecProvider);
     }
