@@ -51,7 +51,7 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
      * test condition is), this will be null otherwise the restriction won't be applied.
      */
     @Override
-    public CompletionStage<Optional<Result>> beforeAuthCheck(Http.Context context) {
+    public final CompletionStage<Optional<Result>> beforeAuthCheck(Http.Context context) {
         return null;
     }
 
@@ -63,7 +63,7 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
      * @return the current subject
      */
     @Override
-    public CompletionStage<Optional<? extends Subject>> getSubject(Http.Context context) {
+    public final CompletionStage<Optional<? extends Subject>> getSubject(Http.Context context) {
         return null;
     }
 
@@ -77,7 +77,7 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
      * @return the action result
      */
     @Override
-    public CompletionStage<Result> onAuthFailure(Http.Context context, Optional<String> content) {
+    public final CompletionStage<Result> onAuthFailure(Http.Context context, Optional<String> content) {
         return null;
     }
 
@@ -89,7 +89,7 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
      * @return the handler for restricted resources. May be null.
      */
     @Override
-    public CompletionStage<Optional<DynamicResourceHandler>> getDynamicResourceHandler(Http.Context context) {
+    public final CompletionStage<Optional<DynamicResourceHandler>> getDynamicResourceHandler(Http.Context context) {
         return null;
     }
 
@@ -99,8 +99,8 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
      * @return whatever the implementor considers the canonical name of the handler to be.
      */
     @Override
-    public String handlerName() {
-        return null;
+    public final String handlerName() {
+        return "RESOLVEWebIDE DeadboltHandler";
     }
 
     /**
@@ -111,7 +111,7 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
      * @return a non-null list containing the permissions associated with the role.
      */
     @Override
-    public CompletionStage<List<? extends Permission>> getPermissionsForRole(String roleName) {
+    public final CompletionStage<List<? extends Permission>> getPermissionsForRole(String roleName) {
         return null;
     }
 
