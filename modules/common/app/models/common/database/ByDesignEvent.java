@@ -1,22 +1,23 @@
 package models.common.database;
 
-import java.util.Date;
-import javax.persistence.*;
 import play.data.validation.Constraints;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 
+import javax.persistence.*;
+import java.util.Date;
+
 /**
  * <p>This class is the relational mapping of a user event in the database and provides
- * methods to change the user events in the database.</p>
+ * methods to change the {@code byDesign} events in the database.</p>
  *
  * @author Chuck Cook
  * @author Yu-Shan Sun
  * @version 1.0
  */
 @Entity
-@Table(name="userEvents")
-public class UserEvent {
+@Table(name="byDesignEvents")
+public class ByDesignEvent {
 
     // ===========================================================
     // Global Variables
@@ -62,7 +63,7 @@ public class UserEvent {
     /**
      * <p>Default constructor. JPA needs this on some occasions.</p>
      */
-    private UserEvent() {}
+    private ByDesignEvent() {}
 
     /**
      * <p>Creates a compiler related user event object.</p>
@@ -74,8 +75,8 @@ public class UserEvent {
      * @param ueContent The compiling object's content.
      * @param ueAuthor The user that generated this event.
      */
-    private UserEvent(String ueName, String uePkg, String ueProject, String ueEventType,
-                     String ueContent, User ueAuthor) {
+    private ByDesignEvent(String ueName, String uePkg, String ueProject, String ueEventType,
+                          String ueContent, User ueAuthor) {
         name = ueName;
         pkg = uePkg;
         project = ueProject;
@@ -92,7 +93,7 @@ public class UserEvent {
      * @param ueProject The name of the current project the user is on.
      * @param ueAuthor The user that generated this event.
      */
-    private UserEvent(String ueEventType, String ueProject, User ueAuthor) {
+    private ByDesignEvent(String ueEventType, String ueProject, User ueAuthor) {
         project = ueProject;
         eventType = ueEventType;
         eventDate = new Date();
@@ -116,8 +117,8 @@ public class UserEvent {
      * @return The newly created user event object.
      */
     @Transactional
-    public static UserEvent addCompilerEvent(String filename, String pkg, String projectName, String eventType, String filecontent, User author) {
-        UserEvent ue = new UserEvent(filename, pkg, projectName, eventType, filecontent, author);
+    public static ByDesignEvent addCompilerEvent(String filename, String pkg, String projectName, String eventType, String filecontent, User author) {
+        ByDesignEvent ue = new ByDesignEvent(filename, pkg, projectName, eventType, filecontent, author);
         ue.save();
 
         return ue;
@@ -133,8 +134,8 @@ public class UserEvent {
      * @return The newly created user event object.
      */
     @Transactional
-    public static UserEvent addRegularEvent(String eventType, String projectName, User author) {
-        UserEvent ue = new UserEvent(eventType, projectName, author);
+    public static ByDesignEvent addRegularEvent(String eventType, String projectName, User author) {
+        ByDesignEvent ue = new ByDesignEvent(eventType, projectName, author);
         ue.save();
 
         return ue;
