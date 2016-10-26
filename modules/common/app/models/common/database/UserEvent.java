@@ -27,29 +27,29 @@ public class UserEvent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    /** <p>User event author.</p> */
+    /** <p>Author associated with this user event.</p> */
     @ManyToOne
     @Constraints.Required
     public User author;
 
-    /** <p>User event type.</p> */
+    /** <p>Event type associated with this user event.</p> */
     @Constraints.Required
     public String eventType;
 
-    /** <p>User event content.</p> */
+    /** <p>Content associated with this user event.</p> */
     @Lob
     public String content;
 
-    /** <p>User event file name.</p> */
+    /** <p>File name associated with this user event.</p> */
     public String name;
 
-    /** <p>User event file package.</p> */
+    /** <p>Package name associated with this user event.</p> */
     public String pkg;
 
-    /** <p>User event file project.</p> */
+    /** <p>Project associated with this user event.</p> */
     public String project;
 
-    /** <p>User event date.</p> */
+    /** <p>Date associated with this user event.</p> */
     @Constraints.Required
     @Column(name = "eventDate", columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
@@ -116,7 +116,8 @@ public class UserEvent {
      * @return The newly created user event object.
      */
     @Transactional
-    public static UserEvent addCompilerEvent(String filename, String pkg, String projectName, String eventType, String filecontent, User author) {
+    public static UserEvent addCompilerEvent(String filename, String pkg, String projectName,
+                                             String eventType, String filecontent, User author) {
         UserEvent ue = new UserEvent(filename, pkg, projectName, eventType, filecontent, author);
         ue.save();
 
