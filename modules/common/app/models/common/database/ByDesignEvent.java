@@ -21,13 +21,12 @@ public class ByDesignEvent {
     // Global Variables
     // ===========================================================
 
-    /** <p>Unique ID for each user event.</p> */
+    /** <p>Unique ID for each {@code byDesign} event.</p> */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    /** <p>Author associated with this {@code byDesign} event.</p> */
-    @ManyToOne
+    /** <p>Author ID associated with this {@code byDesign} event.</p> */
     @Constraints.Required
     public long author;
 
