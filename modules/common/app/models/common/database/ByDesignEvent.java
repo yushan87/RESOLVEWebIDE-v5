@@ -32,7 +32,6 @@ public class ByDesignEvent {
     public long author;
 
     /** <p>Code associated with this {@code byDesign} event.</p> */
-    @Constraints.Required
     @Lob
     public String code;
 
@@ -44,11 +43,9 @@ public class ByDesignEvent {
     public boolean correct;
 
     /** <p>Lesson name associated with this {@code byDesign} event.</p> */
-    @Constraints.Required
     public String lesson;
 
     /** <p>Module name associated with this {@code byDesign} event.</p> */
-    @Constraints.Required
     public String module;
 
     /** <p>Points associated with this {@code byDesign} event.</p> */
@@ -60,7 +57,6 @@ public class ByDesignEvent {
     public long time;
 
     /** <p>Date associated with this {@code byDesign} event.</p> */
-    @Constraints.Required
     @Column(name = "eventDate", columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     public Date eventDate;
