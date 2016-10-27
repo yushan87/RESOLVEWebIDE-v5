@@ -26,9 +26,14 @@ unmanagedBase := baseDirectory.value / "custom_lib"
   
 lazy val common: Project = (project in file("modules/common"))
   .enablePlugins(PlayJava)
-  .settings(commonSettings, aggregateReverseRoutes := Seq(admin, webide))
+  .settings(commonSettings, aggregateReverseRoutes := Seq(admin, bydesign, webide))
   
 lazy val admin = (project in file("modules/admin"))
+  .enablePlugins(PlayJava)
+  .dependsOn(common)
+  .settings(commonSettings: _*)
+
+lazy val bydesign = (project in file("modules/bydesign"))
   .enablePlugins(PlayJava)
   .dependsOn(common)
   .settings(commonSettings: _*)
@@ -40,6 +45,6 @@ lazy val webide = (project in file("modules/webide"))
 
 lazy val main = (project in file("."))
   .enablePlugins(PlayJava)
-  .dependsOn(common, admin, webide)
-  .aggregate(common, admin, webide)
+  .dependsOn(common, admin, bydesign, webide)
+  .aggregate(common, admin, bydesign, webide)
   .settings(commonSettings: _*)
