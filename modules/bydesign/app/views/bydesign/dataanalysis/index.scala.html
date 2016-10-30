@@ -4,26 +4,44 @@
 @(currentUser: User)
 
 @views.html.common.main("RESOLVEWebIDE - byDesign", currentUser) {
-    <div class="container" style="padding-top: 2.5rem;">
-        @helper.form(action = controllers.bydesign.dataanalysis.routes.Index.upload(), 'enctype -> "multipart/form-data") {
-            @CSRF.formField
+    <div class="container-fluid custom-padding-top">
+        <div class="card">
+            <h4 class="card-header text-xs-center">Data Analysis</h4>
+
             <div class="card-block">
-                <div class="form-group row">
-                    <label for="idFile" class="col-xs-2 col-form-label">ID File (CSV)</label>
-                    <div class="col-xs-10">
-                        <input type="file" class="form-control" id="idFile" name="idFile">
+                <div class="row align-middle">
+                    <div class="col-xs-7">
+                        <span class="tag tag-default">Currently Analysing: </span>
+                        <span>Test</span>
+                    </div>
+                    <div class="col-xs-5">
+                        @helper.form(action = controllers.bydesign.dataanalysis.routes.Index.upload(),
+                            'enctype -> "multipart/form-data", 'class -> "form-inline") {
+                            @CSRF.formField
+
+                            <div class="row align-middle">
+                                <div class="col-xs-4">
+                                    <span class="tag tag-default">Upload a New ID File (CSV): </span>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label class="custom-file">
+                                        <input type="file" id="idFile" name="idFile" class="custom-file-input">
+                                        <span class="custom-file-control"></span>
+                                    </label>
+                                </div>
+                                <div class="col-xs-2">
+                                    <button type="submit" class="btn btn-success">Upload</button>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
 
-            <div class="card-footer">
-                <div class="row">
-                    <div class="text-xs-center">
-                        <button type="submit" class="btn btn-success">Upload</button>
-                        <a class="btn btn-danger" href="@controllers.bydesign.core.routes.Index.index()">Cancel</a>
-                    </div>
-                </div>
+            <div class="card-block row">
+                <div class="col-xs-3" style="border-style: dashed;">.col-xs-6 .col-md-4</div>
+                <div class="col-xs-9" style="border-style: dashed;">.col-xs-12 .col-sm-6 .col-md-8</div>
             </div>
-        }
+        </div>
     </div>
 }
