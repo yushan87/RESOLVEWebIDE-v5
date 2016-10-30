@@ -33,6 +33,12 @@ body {
     text-align: center;
 }
 
+/* CSS for page-main */
+#page-main {
+    padding-top: 2.5rem;
+    font-size: 1.25rem;
+}
+
 /* CSS for Ace Editor */
 #editor {
     position: absolute;
