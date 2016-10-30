@@ -8,35 +8,24 @@
         <div class="card">
             <h4 class="card-header text-xs-center">Data Analysis</h4>
 
-            <div class="card-block">
-                <div class="row align-middle">
-                    <div class="col-xs-7">
-                        <span class="tag tag-default">Currently Analysing: </span>
-                        <span>Test</span>
-                    </div>
-                    <div class="col-xs-5">
-                        @helper.form(action = controllers.bydesign.dataanalysis.routes.Index.upload(),
-                            'enctype -> "multipart/form-data", 'class -> "form-inline") {
-                            @CSRF.formField
+            <nav id="data-analysis-toolbar" class="navbar navbar-full" aria-label="data-analysis-toolbar">
+                <span class="tag tag-default">
+                    Currently Analysing:
+                </span>
+                <span class="navbar-text">
+                    Test
+                </span>
 
-                            <div class="row align-middle">
-                                <div class="col-xs-4">
-                                    <span class="tag tag-default">Upload a New ID File (CSV): </span>
-                                </div>
-                                <div class="col-xs-6">
-                                    <label class="custom-file">
-                                        <input type="file" id="idFile" name="idFile" class="custom-file-input">
-                                        <span class="custom-file-control"></span>
-                                    </label>
-                                </div>
-                                <div class="col-xs-2">
-                                    <button type="submit" class="btn btn-success">Upload</button>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
+                @helper.form(action = controllers.bydesign.dataanalysis.routes.Index.upload(),
+                    'enctype -> "multipart/form-data", 'class -> "form-inline float-xs-right") {
+                    @CSRF.formField
+                    <label class="custom-file">
+                        <input type="file" id="idFile" name="idFile" class="custom-file-input">
+                        <span class="custom-file-control"></span>
+                    </label>
+                    <button type="submit" class="btn btn-success">Upload</button>
+                }
+            </nav>
 
             <div class="card-block row">
                 <div class="col-xs-3" style="border-style: dashed;">.col-xs-6 .col-md-4</div>
