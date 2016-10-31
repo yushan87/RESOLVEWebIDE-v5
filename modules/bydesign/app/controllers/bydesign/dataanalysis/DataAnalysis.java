@@ -1,11 +1,14 @@
 package controllers.bydesign.dataanalysis;
 
+import models.common.database.ByDesignEvent;
 import models.common.database.User;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import play.db.jpa.Transactional;
@@ -43,7 +46,7 @@ public class DataAnalysis extends Controller {
         if(email != null) {
             User currentUser = User.findByEmail(email);
 
-            return ok(dataanalysis.render(currentUser, "", false));
+            return ok(dataanalysis.render(currentUser, "", false, new HashMap<>()));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
@@ -68,6 +71,7 @@ public class DataAnalysis extends Controller {
             // Variables used to render the page
             String fileName = "";
             boolean hasError = true;
+            Map<Long, List<ByDesignEvent>> eventsMap = new HashMap<>();
 
             // Retrieve the file that was posted to the backend
             MultipartFormData<File> body = request().body().asMultipartFormData();
@@ -95,7 +99,7 @@ public class DataAnalysis extends Controller {
                     try {
                         // Attempt to parse the ID file
                         List<Long> idList = parseIDFile(idFile.getFile());
-                        System.out.println(idList);
+                        eventsMap = formEventsMap(idList);
 
                         // No error detected
                         hasError = false;
@@ -109,7 +113,7 @@ public class DataAnalysis extends Controller {
                 }
             }
 
-            return ok(dataanalysis.render(currentUser, fileName, hasError));
+            return ok(dataanalysis.render(currentUser, fileName, hasError, eventsMap));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
@@ -118,6 +122,24 @@ public class DataAnalysis extends Controller {
     // ===========================================================
     // Private Methods
     // ===========================================================
+
+    /**
+     * <p>Returns a map containing all the events we can find for each
+     * of the provided users.</p>
+     *
+     * @param idList The list of user IDs.
+     *
+     * @return A map of from {@link Long} user IDs to {@link List<ByDesignEvent>}.
+     */
+    @Transactional(readOnly = true)
+    private Map<Long, List<ByDesignEvent>> formEventsMap(List<Long> idList) {
+        Map<Long, List<ByDesignEvent>> userEventsMap = new HashMap<>();
+        for (Long id : idList) {
+            userEventsMap.put(id, ByDesignEvent.getUserEvents(id));
+        }
+
+        return userEventsMap;
+    }
 
     /**
      * <p>This helper method converts a CSV file containing IDs (as a {@link String})
