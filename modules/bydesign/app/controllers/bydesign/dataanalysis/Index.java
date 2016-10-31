@@ -33,7 +33,7 @@ public class Index extends Controller {
         if(email != null) {
             User currentUser = User.findByEmail(email);
 
-            return ok(index.render(currentUser));
+            return ok(index.render(currentUser, "", false));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
@@ -47,20 +47,33 @@ public class Index extends Controller {
      */
     @AddCSRFToken
     @RequireCSRFCheck
+    @Transactional(readOnly = true)
     public Result upload() {
-        MultipartFormData<File> body = request().body().asMultipartFormData();
-        FilePart<File> idFile = body.getFile("idFile");
-        if (idFile != null) {
-            String fileName = idFile.getFilename();
-            String contentType = idFile.getContentType();
-            File file = idFile.getFile();
+        // Retrieve the current user (if logged in)
+        String email = session("connected");
+        if(email != null) {
+            User currentUser = User.findByEmail(email);
 
-            return ok("File uploaded");
-        } else {
-            flash("error", "Missing file");
+            // Variables used to render the page
+            String fileName = "";
+            boolean hasError = true;
 
-            return badRequest();
+            // Retrieve the file that was posted to the backend
+            MultipartFormData<File> body = request().body().asMultipartFormData();
+            FilePart<File> idFile = body.getFile("idFile");
+            if (idFile != null) {
+                fileName = idFile.getFilename();
+                hasError = false;
+
+                // TODO: Do some logic to retrieve and display the data
+                String contentType = idFile.getContentType();
+                File file = idFile.getFile();
+            }
+
+            return ok(index.render(currentUser, fileName, hasError));
         }
+
+        return redirect(controllers.common.security.routes.Security.index());
     }
 
 }
