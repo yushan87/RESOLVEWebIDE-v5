@@ -2,6 +2,12 @@ package controllers.bydesign.dataanalysis;
 
 import models.common.database.User;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import play.db.jpa.Transactional;
 import play.filters.csrf.AddCSRFToken;
 import play.filters.csrf.RequireCSRFCheck;
@@ -86,10 +92,20 @@ public class DataAnalysis extends Controller {
                     hasError = true;
                 }
                 else {
-                    hasError = false;
+                    try {
+                        // Attempt to parse the ID file
+                        List<Long> idList = parseIDFile(idFile.getFile());
+                        System.out.println(idList);
 
-                    // TODO: Do some logic to retrieve and display the data
-                    File file = idFile.getFile();
+                        // No error detected
+                        hasError = false;
+                    } catch (IOException | IllegalArgumentException e) {
+                        // If we encounter any kind of exception, then we
+                        // render the error alert and don't display a file name
+                        // as the file we are currently analyzing.
+                        fileName = "";
+                        hasError = true;
+                    }
                 }
             }
 
@@ -97,6 +113,46 @@ public class DataAnalysis extends Controller {
         }
 
         return redirect(controllers.common.security.routes.Security.index());
+    }
+
+    // ===========================================================
+    // Private Methods
+    // ===========================================================
+
+    /**
+     * <p>This helper method converts a CSV file containing IDs (as a {@link String})
+     * to a list of IDs as {@link Long}.</p>
+     *
+     * @param idFile The CSV file object containing the user IDs.
+     *
+     * @return A list of IDs as {@link Long}.
+     *
+     * @throws IOException This exception (or a more specific exception that inherits
+     * from {@link IOException}) is thrown when an error occurs while reading the file.
+     *
+     * @throws IllegalArgumentException This exception (or a more specific exception that inherits
+     * from {@link IllegalArgumentException}) is thrown when the file is not consistent with the
+     * column headers or if we contain anything other than strings of long values.
+     */
+    private List<Long> parseIDFile(File idFile) throws IOException, IllegalArgumentException {
+        List<Long> idList = new LinkedList<>();
+
+        // We perform the following transformations to the provided CSVFormat
+        // 1. Manually set the header to ID.
+        // 2. We check to see if each line is consistent with the header provided.
+        //    (ie. It is an error if it contains more values on the same line.)
+        Iterable<CSVRecord> csvRecords = CSVFormat.RFC4180
+                .withHeader("ID").parse(new FileReader(idFile));
+        for (CSVRecord record : csvRecords) {
+            // Make sure we only have one column
+            if (!record.isConsistent()) {
+                throw new IllegalArgumentException();
+            }
+
+            idList.add(Long.parseLong(record.get("ID")));
+        }
+
+        return idList;
     }
 
 }
