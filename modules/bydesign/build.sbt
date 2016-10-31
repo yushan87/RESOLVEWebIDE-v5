@@ -14,6 +14,9 @@ javacOptions ++= Seq(
   "-Xdiags:verbose"
 )
 
-libraryDependencies ++= Seq()
+libraryDependencies ++= Seq(
+  // Apache Commons CSV
+  "org.apache.commons" % "commons-csv" % "1.4"
+)
 
 routesGenerator := InjectedRoutesGenerator
