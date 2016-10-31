@@ -23,7 +23,7 @@
                     @selectedFilename
                 </span>
 
-                @helper.form(action = controllers.bydesign.dataanalysis.routes.Index.upload(),
+                @helper.form(action = controllers.bydesign.dataanalysis.routes.DataAnalysis.upload(),
                     'enctype -> "multipart/form-data", 'class -> "form-inline float-xs-right", 'id -> "fileUpload") {
                     @CSRF.formField
                     <input type="file" id="idFile" name="idFile" accept=".csv, text/csv" required>
