@@ -12,7 +12,7 @@ import play.mvc.Result;
 import views.html.bydesign.dataanalysis.dataanalysis;
 
 /**
- * <p>This class serves as a controller class for analysing
+ * <p>This class serves as a controller class for analyzing
  * data retrieved from the database for the various users.</p>
  *
  * @author Yu-Shan Sun
@@ -67,12 +67,30 @@ public class DataAnalysis extends Controller {
             MultipartFormData<File> body = request().body().asMultipartFormData();
             FilePart<File> idFile = body.getFile("idFile");
             if (idFile != null) {
+                // Obtain the extension from the file
+                // Note that we are disallowing file names that begin with "dot"
+                String extension = "";
                 fileName = idFile.getFilename();
-                hasError = false;
+                int lastDotIndex = fileName.lastIndexOf(".");
+                if (lastDotIndex > 0) {
+                    extension = fileName.substring(lastDotIndex, fileName.length());
+                }
 
-                // TODO: Do some logic to retrieve and display the data
+                // Only deal with CSV files
                 String contentType = idFile.getContentType();
-                File file = idFile.getFile();
+                if (!contentType.equals("application/vnd.ms-excel") || !extension.equals(".csv")) {
+                    // Make sure that we render the error alert and
+                    // don't display a file name as the file we are currently
+                    // analyzing.
+                    fileName = "";
+                    hasError = true;
+                }
+                else {
+                    hasError = false;
+
+                    // TODO: Do some logic to retrieve and display the data
+                    File file = idFile.getFile();
+                }
             }
 
             return ok(dataanalysis.render(currentUser, fileName, hasError));
