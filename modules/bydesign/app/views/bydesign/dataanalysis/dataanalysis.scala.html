@@ -53,24 +53,19 @@
                                 </tr>
                             </thead>
                             <tbody class="text-xs-center">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                </tr>
+                                @for(key <- eventsMap.keySet()) {
+                                    @for(event <- eventsMap.get(key)) {
+                                        <tr>
+                                            <td>@event.author</td>
+                                            <td><a class="btn btn-primary btn-sm" href="#" role="button">Show Code</a></td>
+                                            <td>@event.correct</td>
+                                            <td>@event.module</td>
+                                            <td>@event.lesson</td>
+                                            <td>@event.points</td>
+                                            <td>@event.time</td>
+                                        </tr>
+                                    }
+                                }
                             </tbody>
                         </table>
                     </div>
