@@ -9,21 +9,25 @@ import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
-import views.html.bydesign.dataanalysis.index;
+import views.html.bydesign.dataanalysis.dataanalysis;
 
 /**
- * TODO: Write a description of this module
+ * <p>This class serves as a controller class for analysing
+ * data retrieved from the database for the various users.</p>
+ *
+ * @author Yu-Shan Sun
+ * @version 1.0
  */
-public class Index extends Controller {
+public class DataAnalysis extends Controller {
 
     // ===========================================================
     // Public Methods
     // ===========================================================
 
     /**
-     * <p>This renders the {@code byDesign} index page.</p>
+     * <p>This renders the {@code byDesign} data analysis page.</p>
      *
-     * @return The result of rendering the page
+     * @return The result of rendering the page.
      */
     @AddCSRFToken
     @Transactional(readOnly = true)
@@ -33,7 +37,7 @@ public class Index extends Controller {
         if(email != null) {
             User currentUser = User.findByEmail(email);
 
-            return ok(index.render(currentUser, "", false));
+            return ok(dataanalysis.render(currentUser, "", false));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
@@ -41,7 +45,8 @@ public class Index extends Controller {
 
     /**
      * <p>This handles file upload that contains the {@code byDesign}
-     * user IDs.</p>
+     * user IDs and displays all relevant data from the database for
+     * all the different IDs.</p>
      *
      * @return The result of rendering the page.
      */
@@ -70,7 +75,7 @@ public class Index extends Controller {
                 File file = idFile.getFile();
             }
 
-            return ok(index.render(currentUser, fileName, hasError));
+            return ok(dataanalysis.render(currentUser, fileName, hasError));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
