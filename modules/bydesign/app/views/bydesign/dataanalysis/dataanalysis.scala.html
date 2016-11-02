@@ -38,7 +38,18 @@
 
             @if(!invalidFile && !eventsMap.isEmpty) {
                 <div class="card-block row">
-                    <div class="col-xs-2" style="border-style: dashed;">.col-xs-2</div>
+                    <div class="col-xs-2">
+                        <div class="card-block px-0 pt-0">
+                            <div class="card">
+                                <h5 class="card-title text-xs-center">Filters</h5>
+                                <p class="card-text">Filter options will go here...</p>
+                            </div>
+                            <div class="card">
+                                <h5 class="card-title text-xs-center">Sorting</h5>
+                                <p class="card-text">Sorting options will go here...</p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-xs-10">
                         <table class="table table-sm">
                             <thead class="thead-default">
