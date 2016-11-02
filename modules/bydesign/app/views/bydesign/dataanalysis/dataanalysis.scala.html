@@ -4,13 +4,13 @@
 @import models.common.database.ByDesignEvent
 @import models.common.database.User
 
-@(currentUser: User, selectedFilename: lang.String,
-        invalidFile: lang.Boolean, eventsMap: util.Map[lang.Long, util.List[ByDesignEvent]])
+@(currentUser: User, selectedFilename: lang.String, invalidFile: lang.Boolean,
+        eventsMap: util.Map[lang.Long, util.List[ByDesignEvent]], dateGenerated: util.Date)
 
 @views.html.common.main("RESOLVEWebIDE - byDesign", currentUser) {
-    <div class="container-fluid py-2">
-        <div class="card">
-            <h4 class="card-header text-xs-center">Data Analysis</h4>
+    <div class="container-fluid">
+        <div class="card mt-2 mb-3">
+            <h4 class="card-header text-xs-center text-uppercase">Data Analysis</h4>
 
             <div class="alert alert-danger alert-dismissible fade in" role="alert" @if(!invalidFile) { style="display: none;" }>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -78,6 +78,12 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+            }
+
+            @if(dateGenerated != null) {
+                <div class="card-footer text-xs-center text-muted">
+                    <span class="font-weight-bold">Generated:</span> @dateGenerated.toString
                 </div>
             }
         </div>

@@ -5,10 +5,7 @@ import models.common.database.User;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import play.db.jpa.Transactional;
@@ -46,7 +43,7 @@ public class DataAnalysis extends Controller {
         if(email != null) {
             User currentUser = User.findByEmail(email);
 
-            return ok(dataanalysis.render(currentUser, "", false, new HashMap<>()));
+            return ok(dataanalysis.render(currentUser, "", false, new HashMap<>(), null));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
@@ -113,7 +110,7 @@ public class DataAnalysis extends Controller {
                 }
             }
 
-            return ok(dataanalysis.render(currentUser, fileName, hasError, eventsMap));
+            return ok(dataanalysis.render(currentUser, fileName, hasError, eventsMap, new Date()));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
