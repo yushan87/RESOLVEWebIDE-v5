@@ -35,11 +35,6 @@ body {
     text-align: center;
 }
 
-/* Helper CSS for page-main */
-.custom-padding-top {
-    padding-top: 2.5rem;
-}
-
 /* CSS for Ace Editor */
 #editor {
     position: absolute;
