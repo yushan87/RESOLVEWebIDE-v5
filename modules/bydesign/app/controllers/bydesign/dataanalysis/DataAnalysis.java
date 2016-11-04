@@ -2,10 +2,10 @@ package controllers.bydesign.dataanalysis;
 
 import models.common.database.ByDesignEvent;
 import models.common.database.User;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import play.db.jpa.Transactional;
@@ -98,6 +98,39 @@ public class DataAnalysis extends Controller {
                         List<Long> idList = parseIDFile(idFile.getFile());
                         eventsMap = formEventsMap(idList);
 
+                        /* Temporary code to export the data
+                        String csvFile = "data.csv";
+                        List<String> lessons = Arrays.asList("tutorial/tutorial1.json", "tutorial/tutorial2.json", "problems/problem1.json",
+                                "problems/problem1a.json", "problems/problem1b.json", "problems/problem2.json", "problems/problem2a.json",
+                                "problems/problem3.json", "problems/problem3a.json", "problems/problem3aa.json", "problems/problem3b.json",
+                                "problems/problem4.json", "problems/problem4a.json", "problems/problem5.json", "problems/problem6.json",
+                                "challenges/challenge1.json", "challenges/challenge2.json");
+                        FileWriter writer = new FileWriter(csvFile);
+                        List<String> topBar = new ArrayList<>(lessons.size());
+                        topBar.addAll(lessons);
+                        topBar.add(0, "AuthorID");
+                        CSVUtils.writeLine(writer, topBar);
+                        for (Long id : eventsMap.keySet()) {
+                            List<Integer> data = Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                            for (ByDesignEvent bde : eventsMap.get(id)) {
+                                boolean found = false;
+                                for (int i = 0; i < lessons.size() && !found; i++) {
+                                    if (bde.lesson.equals(lessons.get(i))) {
+                                        data.set(i, data.get(i) + 1);
+                                        found = true;
+                                    }
+                                }
+                            }
+
+                            // Specify the size of the list up front to prevent resizing.
+                            List<String> newList = new ArrayList<>(data.size());
+                            newList.addAll(data.stream().map(String::valueOf).collect(Collectors.toList()));
+                            newList.add(0, id.toString());
+                            CSVUtils.writeLine(writer, newList);
+                        }
+                        writer.flush();
+                        writer.close();*/
+
                         // No error detected
                         hasError = false;
                     } catch (IOException | IllegalArgumentException e) {
@@ -173,5 +206,64 @@ public class DataAnalysis extends Controller {
 
         return idList;
     }
+
+    /*
+     * <p>Source: https://www.mkyong.com/java/how-to-export-data-to-csv-file-java/</p>
+     *
+     * Note: In the future, we might need to write our own.
+     *
+    static class CSVUtils {
+
+        private static final char DEFAULT_SEPARATOR = ',';
+
+        static void writeLine(Writer w, List<String> values) throws IOException {
+            writeLine(w, values, DEFAULT_SEPARATOR, ' ');
+        }
+
+        static void writeLine(Writer w, List<String> values, char separators) throws IOException {
+            writeLine(w, values, separators, ' ');
+        }
+
+        //https://tools.ietf.org/html/rfc4180
+        private static String followCVSformat(String value) {
+
+            String result = value;
+            if (result.contains("\"")) {
+                result = result.replace("\"", "\"\"");
+            }
+            return result;
+
+        }
+
+        static void writeLine(Writer w, List<String> values, char separators, char customQuote) throws IOException {
+
+            boolean first = true;
+
+            //default customQuote is empty
+
+            if (separators == ' ') {
+                separators = DEFAULT_SEPARATOR;
+            }
+
+            StringBuilder sb = new StringBuilder();
+            for (String value : values) {
+                if (!first) {
+                    sb.append(separators);
+                }
+                if (customQuote == ' ') {
+                    sb.append(followCVSformat(value));
+                } else {
+                    sb.append(customQuote).append(followCVSformat(value)).append(customQuote);
+                }
+
+                first = false;
+            }
+            sb.append("\n");
+            w.append(sb.toString());
+
+
+        }
+
+    }*/
 
 }
