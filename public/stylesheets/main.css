@@ -1,7 +1,7 @@
 /*
  * These are the CSS used by the RESOLVE WebIDE
  * Created by: Yu-Shan Sun
- * Last Modified: 09/14/2016
+ * Last Modified: 11/03/2016
  */
 
 /* Main CSS */
@@ -44,12 +44,4 @@ body {
 .modal .modal-body {
     max-height: 425px;
     overflow-y: auto;
-}
-
-.help-title {
-    text-align: center;
-}
-
-.help-content {
-    text-align: justify;
 }
