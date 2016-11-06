@@ -67,7 +67,7 @@
                                     @for(event <- eventsMap.get(key)) {
                                         <tr>
                                             <td>@event.author</td>
-                                            <td><a class="btn btn-primary btn-sm" href="#" role="button">Show Code</a></td>
+                                            <td><a class="btn btn-primary btn-sm" href="#code-modal" role="button" data-toggle="modal" data-target="#code-modal">Show Code</a></td>
                                             <td>@event.correct</td>
                                             <td>@event.module</td>
                                             <td>@event.lesson</td>
