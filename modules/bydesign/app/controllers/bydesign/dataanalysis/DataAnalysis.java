@@ -40,10 +40,31 @@ public class DataAnalysis extends Controller {
     public Result index() {
         // Retrieve the current user (if logged in)
         String email = session("connected");
-        if(email != null) {
+        if (email != null) {
             User currentUser = User.findByEmail(email);
 
             return ok(dataanalysis.render(currentUser, "", false, new HashMap<>(), null));
+        }
+
+        return redirect(controllers.common.security.routes.Security.index());
+    }
+
+    /**
+     * <p>This retrieves the user code associated with the specified
+     * {@code byDesign} event.</p>
+     *
+     * @param eventID The ID for a {@code byDesign} event.
+     *
+     * @return The code associated with the event.
+     */
+    @AddCSRFToken
+    @RequireCSRFCheck
+    @Transactional(readOnly = true)
+    public Result getCode(long eventID) {
+        // Retrieve the current user (if logged in)
+        String email = session("connected");
+        if (email != null) {
+            return ok();
         }
 
         return redirect(controllers.common.security.routes.Security.index());
@@ -62,7 +83,7 @@ public class DataAnalysis extends Controller {
     public Result upload() {
         // Retrieve the current user (if logged in)
         String email = session("connected");
-        if(email != null) {
+        if (email != null) {
             User currentUser = User.findByEmail(email);
 
             // Variables used to render the page

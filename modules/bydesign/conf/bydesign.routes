@@ -8,6 +8,7 @@ GET     /                           controllers.bydesign.core.Index.index()
 # byDesign data analysis
 GET     /dataanalysis               controllers.bydesign.dataanalysis.DataAnalysis.index()
 POST    /dataanalysis               controllers.bydesign.dataanalysis.DataAnalysis.upload()
+GET     /dataanalysis/:id           controllers.bydesign.dataanalysis.DataAnalysis.getCode(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.bydesign.Assets.versioned(path="/public", file)
