@@ -62,7 +62,7 @@ public class DataAnalysis extends Controller {
         // Retrieve the current user (if logged in)
         String email = session("connected");
         if (email != null) {
-            return ok();
+            return ok(Long.toString(eventID));
         }
 
         return redirect(controllers.common.security.routes.Security.index());

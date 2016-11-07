@@ -54,6 +54,7 @@
                         <table class="table table-sm table-bordered">
                             <thead class="thead-default">
                                 <tr>
+                                    <th class="text-xs-center">Event ID</th>
                                     <th class="text-xs-center">Author ID</th>
                                     <th class="text-xs-center">Code</th>
                                     <th class="text-xs-center">Correct</th>
@@ -66,8 +67,9 @@
                                 @for(key <- eventsMap.keySet()) {
                                     @for(event <- eventsMap.get(key)) {
                                         <tr>
+                                            <td>@event.id</td>
                                             <td>@event.author</td>
-                                            <td><a class="btn btn-primary btn-sm event-code" href="@controllers.bydesign.dataanalysis.routes.DataAnalysis.getCode(event.id)" role="button">Show Code</a></td>
+                                            <td><a class="btn btn-primary btn-sm event-code" href="@controllers.bydesign.dataanalysis.routes.DataAnalysis.getCode(event.id)" role="button" data-id="@event.id">Show Code</a></td>
                                             <td>@event.correct</td>
                                             <td>@event.module</td>
                                             <td>@event.lesson</td>
@@ -94,10 +96,35 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h5 class="modal-title" id="code-modal-title">Showing Code</h5>
+                    <h4 id="code-modal-title" class="modal-title text-xs-center"></h4>
                 </div>
-                <div class="modal-body"></div>
+                <div id="code-modal-body" class="modal-body"></div>
             </div>
         </div>
     </div>
+
+    <script>
+        $(".event-code").click(function(e) {
+            // Make sure we don't navigate to the link.
+            e.preventDefault();
+
+            // Display the code modal
+            $("#code-modal-title").html( "Showing Code for Event ID " + $(this).attr('data-id'));
+            $("#code-modal-body").html( "<span class='font-weight-bold'>Loading data...</span>" );
+            $("#code-modal").modal('show');
+
+            // Retrieve the data by using AJAX get request
+            $.ajax({
+                type: 'GET',
+                url: $(this).attr('href'),
+                dataType: "text",
+                success: function(data) {
+                    $("#code-modal-body").html( "<span class='font-weight-bold'>Data: </span>" + data );
+                },
+                error: function() {
+                    $("#code-modal-body").html( "<span>Unknown error has occurred.</span>" );
+                }
+            });
+        });
+    </script>
 }
