@@ -57,8 +57,6 @@ public class DataAnalysis extends Controller {
      *
      * @return The code associated with the event.
      */
-    @AddCSRFToken
-    @RequireCSRFCheck
     @Transactional(readOnly = true)
     public Result getCode(long eventID) {
         // Retrieve the current user (if logged in)
