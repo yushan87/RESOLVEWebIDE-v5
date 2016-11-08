@@ -3,7 +3,6 @@ package models.common.database;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
-
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import play.data.validation.Constraints;
@@ -133,7 +132,7 @@ public class ByDesignEvent {
      */
     @Transactional(readOnly = true)
     public static String getUserEventCode(Long id) {
-        Query query = JPA.em().createQuery("select bde.code from ByDesignEvent bde where bde.id = :id", ByDesignEvent.class);
+        Query query = JPA.em().createQuery("select bde.code from ByDesignEvent bde where bde.id = :id", String.class);
         query.setParameter("id", id);
         query.setMaxResults(1);
 
