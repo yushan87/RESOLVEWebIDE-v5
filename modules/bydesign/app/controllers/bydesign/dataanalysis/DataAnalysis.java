@@ -4,8 +4,6 @@ import models.common.database.ByDesignEvent;
 import models.common.database.User;
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
-
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import play.db.jpa.Transactional;
@@ -62,7 +60,7 @@ public class DataAnalysis extends Controller {
         // Retrieve the current user (if logged in)
         String email = session("connected");
         if (email != null) {
-            return ok(Long.toString(eventID));
+            return ok(ByDesignEvent.getUserEventCode(eventID));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
