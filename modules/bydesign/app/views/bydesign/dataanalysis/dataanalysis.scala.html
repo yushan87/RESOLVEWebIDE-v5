@@ -17,7 +17,7 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <strong>Error:</strong> @if(errorKind == null) { @errorKind.message }
+                <strong>Error:</strong> @if(errorKind != null) { @errorKind.message }
             </div>
 
             <nav id="data-analysis-toolbar" class="navbar navbar-full" aria-label="data-analysis-toolbar">
