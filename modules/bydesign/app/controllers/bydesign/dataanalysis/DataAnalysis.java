@@ -85,6 +85,7 @@ public class DataAnalysis extends Controller {
             // Variables used to render the page
             String fileName = "";
             boolean hasError = true;
+            Date lastGeneratedDate = null;
             Map<Long, List<ByDesignEvent>> eventsMap = new HashMap<>();
 
             // Retrieve the file that was posted to the backend
@@ -150,6 +151,7 @@ public class DataAnalysis extends Controller {
 
                         // No error detected
                         hasError = false;
+                        lastGeneratedDate = new Date();
                     } catch (IOException | IllegalArgumentException e) {
                         // If we encounter any kind of exception, then we
                         // render the error alert and don't display a file name
@@ -160,7 +162,7 @@ public class DataAnalysis extends Controller {
                 }
             }
 
-            return ok(dataanalysis.render(currentUser, fileName, hasError, eventsMap, new Date()));
+            return ok(dataanalysis.render(currentUser, fileName, hasError, eventsMap, lastGeneratedDate));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
