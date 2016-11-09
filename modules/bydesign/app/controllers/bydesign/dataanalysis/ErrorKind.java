@@ -14,19 +14,14 @@ public enum ErrorKind {
     // ===========================================================
 
     /**
-     * <p>Error 1: Invalid CSRF Token.</p>
+     * <p>Error 1: Invalid Input File.</p>
      */
-    INVALID_CSRF_TOKEN(1, "Invalid CSRF Token."),
-
-    /**
-     * <p>Error 2: Invalid Input File.</p>
-     */
-    INVALID_INPUT_FILE(2, "The input file is not a valid CSV file."),
+    INVALID_INPUT_FILE(1, "The input file is not a valid CSV file."),
 
     /**
      * <p>Error 3: Error Retrieving Data from the Database.</p>
      */
-    DATABASE_ERROR(3, "An error occurred while retrieving data from the database.");
+    DATABASE_ERROR(2, "An error occurred while retrieving data from the database.");
 
     // ===========================================================
     // Global Variables

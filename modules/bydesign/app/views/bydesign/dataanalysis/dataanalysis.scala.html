@@ -1,10 +1,11 @@
+@import controllers.bydesign.dataanalysis.ErrorKind
 @import helper._
 @import java.lang
 @import java.util
 @import models.common.database.ByDesignEvent
 @import models.common.database.User
 
-@(currentUser: User, selectedFilename: lang.String, invalidFile: lang.Boolean,
+@(currentUser: User, selectedFilename: lang.String, errorKind: ErrorKind,
         eventsMap: util.Map[lang.Long, util.List[ByDesignEvent]], dateGenerated: util.Date)
 
 @views.html.common.main("RESOLVEWebIDE - byDesign", currentUser) {
@@ -12,11 +13,11 @@
         <div class="card mt-2 mb-3">
             <h4 class="card-header text-xs-center text-uppercase">Data Analysis</h4>
 
-            <div class="alert alert-danger alert-dismissible fade in" role="alert" @if(!invalidFile) { style="display: none;" }>
+            <div class="alert alert-danger alert-dismissible fade in" role="alert" @if(errorKind == null) { style="display: none;" }>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <strong>Invalid file!</strong> The ID file must be a valid CSV file with user IDs.
+                <strong>Error:</strong> @if(errorKind == null) { @errorKind.message }
             </div>
 
             <nav id="data-analysis-toolbar" class="navbar navbar-full" aria-label="data-analysis-toolbar">
@@ -36,7 +37,7 @@
                 }
             </nav>
 
-            @if(!invalidFile && !eventsMap.isEmpty) {
+            @if(errorKind == null && !eventsMap.isEmpty) {
                 <div class="card-block row">
                     <div class="col-xs-2">
                         <div class="card-block px-0 pt-0">

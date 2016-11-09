@@ -41,7 +41,7 @@ public class DataAnalysis extends Controller {
         if (email != null) {
             User currentUser = User.findByEmail(email);
 
-            return ok(dataanalysis.render(currentUser, "", false, new HashMap<>(), null));
+            return ok(dataanalysis.render(currentUser, "", null, new HashMap<>(), null));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
@@ -84,7 +84,7 @@ public class DataAnalysis extends Controller {
 
             // Variables used to render the page
             String fileName = "";
-            boolean hasError = true;
+            ErrorKind errorKind = null;
             Date lastGeneratedDate = null;
             Map<Long, List<ByDesignEvent>> eventsMap = new HashMap<>();
 
@@ -108,7 +108,7 @@ public class DataAnalysis extends Controller {
                     // don't display a file name as the file we are currently
                     // analyzing.
                     fileName = "";
-                    hasError = true;
+                    errorKind = ErrorKind.INVALID_INPUT_FILE;
                 }
                 else {
                     try {
@@ -150,19 +150,18 @@ public class DataAnalysis extends Controller {
                         writer.close();*/
 
                         // No error detected
-                        hasError = false;
                         lastGeneratedDate = new Date();
                     } catch (IOException | IllegalArgumentException e) {
                         // If we encounter any kind of exception, then we
                         // render the error alert and don't display a file name
                         // as the file we are currently analyzing.
                         fileName = "";
-                        hasError = true;
+                        errorKind = ErrorKind.DATABASE_ERROR;
                     }
                 }
             }
 
-            return ok(dataanalysis.render(currentUser, fileName, hasError, eventsMap, lastGeneratedDate));
+            return ok(dataanalysis.render(currentUser, fileName, errorKind, eventsMap, lastGeneratedDate));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
