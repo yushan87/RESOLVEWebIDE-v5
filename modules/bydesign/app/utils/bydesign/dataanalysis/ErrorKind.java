@@ -1,4 +1,4 @@
-package controllers.bydesign.dataanalysis;
+package utils.bydesign.dataanalysis;
 
 /**
  * <p>This file contains the various different errors we might encounter during

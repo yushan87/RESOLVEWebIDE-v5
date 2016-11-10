@@ -1,9 +1,9 @@
-@import controllers.bydesign.dataanalysis.ErrorKind
 @import helper._
 @import java.lang
 @import java.util
 @import models.common.database.ByDesignEvent
 @import models.common.database.User
+@import utils.bydesign.dataanalysis.ErrorKind
 
 @(currentUser: User, selectedFilename: lang.String, errorKind: ErrorKind,
         eventsMap: util.Map[lang.Long, util.List[ByDesignEvent]], dateGenerated: util.Date)
