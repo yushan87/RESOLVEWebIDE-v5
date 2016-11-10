@@ -13,6 +13,7 @@ import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
+import utils.bydesign.dataanalysis.ErrorKind;
 import views.html.bydesign.dataanalysis.dataanalysis;
 
 /**
