@@ -120,7 +120,8 @@
                 url: $(this).attr('href'),
                 dataType: "text",
                 success: function(data) {
-                    $("#code-modal-body").html( "<span class='font-weight-bold'>Data: </span>" + data );
+                    $("#code-modal-body").css("height", "500px");
+                    $("#code-modal-body").html( "<div id='editor'>" + data + "</div>" );
                 },
                 error: function() {
                     $("#code-modal-body").html( "<span>Unknown error has occurred.</span>" );
