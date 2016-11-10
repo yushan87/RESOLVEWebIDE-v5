@@ -103,7 +103,7 @@ public class DataAnalysis extends Controller {
 
                 // Only deal with CSV files
                 String contentType = idFile.getContentType();
-                if (!contentType.equals("application/vnd.ms-excel") || !extension.equals(".csv")) {
+                if (!isValidInput(contentType, extension)) {
                     // Make sure that we render the error alert and
                     // don't display a file name as the file we are currently
                     // analyzing.
@@ -187,6 +187,28 @@ public class DataAnalysis extends Controller {
         }
 
         return userEventsMap;
+    }
+
+    /**
+     * <p>This performs basic checks on the input file.</p>
+     *
+     * @param contentType The content type specified by the request.
+     * @param extension The file extension.
+     *
+     * @return {@code true} if it is a valid input file, {@code false} otherwise.
+     */
+    private boolean isValidInput(String contentType, String extension) {
+        // Check to see if it is a ".csv" extension
+        boolean result = extension.equals(".csv");
+
+        // Only check the content type if it is a csv file.
+        if (result) {
+            // Check to see if the content type is either "application/vnd.ms-excel"
+            // if the client is using Windows or "text/csv" on MacOS/Linux.
+            result = contentType.equals("application/vnd.ms-excel") || contentType.equals("text/csv");
+        }
+
+        return result;
     }
 
     /**
