@@ -104,6 +104,9 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js" type="text/javascript" integrity="sha256-xx76EmQ2A+LP9GzPIVjY5UDJJMbR/BSiTvMWi0as4/I=" crossorigin="anonymous"></script>
+    <script src="@controllers.common.routes.Assets.versioned("javascripts/ace-editor/mode-resolve.js")" type="text/javascript" charset="${_response_encoding}"></script>
+    <script src="@controllers.common.routes.Assets.versioned("javascripts/ace-editor/editorUpdate.js")" type="text/javascript" charset="${_response_encoding}"></script>
     <script>
         $(".event-code").click(function(e) {
             // Make sure we don't navigate to the link.
@@ -122,6 +125,22 @@
                 success: function(data) {
                     $("#code-modal-body").css("height", "500px");
                     $("#code-modal-body").html( "<div id='editor'>" + data + "</div>" );
+
+                    // ACE Editor settings
+                    var editor = ace.edit("editor");
+                    editor.setTheme("ace/theme/monokai");
+                    editor.setReadOnly(true);
+                    editor.setFontSize(18);
+
+                    // ACE Editor CSS
+                    $("#editor").css("top", "0");
+                    $("#editor").css("right", "0");
+                    $("#editor").css("bottom", "0");
+                    $("#editor").css("left", "0");
+
+                    // Set this to RESOLVE mode
+                    var ResolveMode = ace.require("ace/mode/resolve").Mode;
+                    editor.session.setMode(new ResolveMode());
                 },
                 error: function() {
                     $("#code-modal-body").html( "<span>Unknown error has occurred.</span>" );
