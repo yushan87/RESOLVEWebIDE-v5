@@ -8,7 +8,7 @@
         <div class="card card-outline-secondary">
             <h5 class="card-header text-xs-center">Edit Your User Profile</h5>
 
-            @helper.form(action = controllers.common.profile.routes.EditProfile.index()) {
+            @helper.form(action = controllers.common.profile.routes.EditProfile.handleSubmit()) {
                 @CSRF.formField
                 <div class="card-block">
                     <div class="card-deck-wrapper">

@@ -1,8 +1,11 @@
 package controllers.common.profile;
 
+import java.util.concurrent.CompletionStage;
 import models.common.database.User;
+import play.db.jpa.Transactional;
 import play.filters.csrf.AddCSRFToken;
 import play.filters.csrf.CSRF;
+import play.filters.csrf.RequireCSRFCheck;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.common.profile.editProfile;
@@ -18,6 +21,10 @@ public class EditProfile extends Controller {
 
     // ===========================================================
     // Global Variables
+    // ===========================================================
+
+    // ===========================================================
+    // Public Methods
     // ===========================================================
 
     /**
@@ -40,6 +47,18 @@ public class EditProfile extends Controller {
         }
 
         return redirect(controllers.common.security.routes.Security.index());
+    }
+
+    /**
+     * <p>This handles the {@link PasswordRecoveryForm} submission for the WebIDE.</p>
+     *
+     * @return The result of rendering the page.
+     */
+    @AddCSRFToken
+    @RequireCSRFCheck
+    @Transactional
+    public CompletionStage<Result> handleSubmit() {
+        return null;
     }
 
 }
