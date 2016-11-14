@@ -33,6 +33,7 @@ public class EditProfile extends Controller {
      * @return The result of rendering the page.
      */
     @AddCSRFToken
+    @Transactional(readOnly = true)
     public Result index() {
         // Retrieve the current user (if logged in)
         String email = session("connected");
