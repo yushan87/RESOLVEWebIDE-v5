@@ -1,8 +1,10 @@
 package controllers.common.profile;
 
 import java.util.concurrent.CompletionStage;
+import javax.inject.Inject;
 import models.common.database.User;
 import models.common.form.UpdateProfileForm;
+import play.data.FormFactory;
 import play.db.jpa.Transactional;
 import play.filters.csrf.AddCSRFToken;
 import play.filters.csrf.CSRF;
@@ -24,6 +26,10 @@ public class EditProfile extends Controller {
     // Global Variables
     // ===========================================================
 
+    /** <p>Form factory</p> */
+    @Inject
+    private FormFactory myFormFactory;
+
     // ===========================================================
     // Public Methods
     // ===========================================================
@@ -44,7 +50,7 @@ public class EditProfile extends Controller {
             if (currentUser != null) {
                 String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
 
-                return ok(editProfile.render(currentUser, token));
+                return ok(editProfile.render(currentUser, myFormFactory.form(UpdateProfileForm.class), token));
             }
         }
 

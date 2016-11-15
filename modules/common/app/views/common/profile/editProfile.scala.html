@@ -1,10 +1,11 @@
 @import helper._
 @import models.common.database.User
+@import models.common.form.UpdateProfileForm
 
-@(currentUser: User, token: String)
+@(currentUser: User, form: play.data.Form[UpdateProfileForm], token: String)
 
 @views.html.common.main("RESOLVEWebIDE - Edit User Profile", currentUser) {
-    <div class="container py-2">
+    <div class="container-fluid py-2">
         <div class="card card-outline-secondary">
             <h5 class="card-header text-xs-center">Edit Your User Profile</h5>
 
@@ -14,24 +15,82 @@
                     <div class="card-deck-wrapper">
                         <div class="card-deck">
                             <div class="card">
+                                <h6 class="card-header text-xs-center">General</h6>
                                 <div class="card-block">
-                                    <h4 class="card-title">Card title</h4>
-                                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                    <div class="form-group row @if(form.error("firstName") != null) {has-danger}">
+                                        <label for="inputFirstName" class="col-xs-3 col-form-label">First Name</label>
+                                        <div class="col-xs-9">
+                                            <input type="text" class="form-control @if(form.error("firstName") != null) {form-control-danger}" id="inputFirstName" name="firstName" placeholder="First Name" @if(form.field("firstName").value() != null) {value="@form.field("firstName").value()"}>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row @if(form.error("lastName") != null) {has-danger}">
+                                        <label for="inputLastName" class="col-xs-3 col-form-label">Last Name</label>
+                                        <div class="col-xs-9">
+                                            <input type="text" class="form-control @if(form.error("lastName") != null) {form-control-danger}" id="inputLastName" name="lastName" placeholder="Last Name" @if(form.field("lastName").value() != null) {value="@form.field("lastName").value()"}>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row @if((form.error("email") != null) || (form.error("registeredEmail") != null)) {has-danger}">
+                                        <label for="inputEmail" class="col-xs-3 col-form-label">Email</label>
+                                        <div class="col-xs-9">
+                                            <input type="email" class="form-control @if((form.error("email") != null) || (form.error("registeredEmail") != null)) {form-control-danger}" id="inputEmail" name="email" placeholder="Email" @if(form.field("email").value() != null) {value="@form.field("email").value()"}>
+                                            @if(form.error("registeredEmail") != null) {
+                                                <div class="form-control-feedback">
+                                                    Sorry, email already in use. Try completing the <a href="@controllers.common.passwordrecovery.routes.PasswordRecovery.index()">Password Reset</a>
+                                                    form instead.
+                                                </div>
+                                            }
+                                            <small id="emailHelpInline" class="text-muted">
+                                                Must be a valid email.
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row @if((form.error("password") != null) || (form.error("passwordLength") != null)) {has-danger}">
+                                        <label for="inputPassword" class="col-xs-3 col-form-label">Password</label>
+                                        <div class="col-xs-9">
+                                            <input type="password" class="form-control @if((form.error("password") != null) || (form.error("passwordLength") != null)) {form-control-danger}" id="inputPassword" name="password" placeholder="Password">
+                                            @if(form.error("passwordLength") != null) {
+                                                <div class="form-control-feedback">
+                                                @form.error("passwordLength").message()
+                                                </div>
+                                            }
+                                            <small id="passwordHelpInline" class="text-muted">
+                                                Must be 6-20 characters long.
+                                            </small>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card">
+                                <h6 class="card-header text-xs-center">Verification Settings</h6>
                                 <div class="card-block">
-                                    <h4 class="card-title">Card title</h4>
-                                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title">Card title</h4>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                    <div class="form-group row @if(form.error("timeoutSize") != null) {has-danger}">
+                                        <label for="inputTimeout" class="col-xs-3 col-form-label">Prover Timeout</label>
+                                        <div class="col-xs-9">
+                                            <input type="number" class="form-control @if(form.error("timeoutSize") != null) {form-control-danger}" id="inputTimeout" name="timeout" placeholder="5" min="1" max="30">
+                                            @if(form.error("timeoutSize") != null) {
+                                                <div class="form-control-feedback">
+                                                @form.error("timeoutSize").message()
+                                                </div>
+                                            }
+                                            <small id="timeoutHelpInline" class="text-muted">
+                                                Must be a number between 1-30 (time in seconds).
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row @if(form.error("numTriesSize") != null) {has-danger}">
+                                        <label for="inputNumTries" class="col-xs-3 col-form-label">Max Failed VCs</label>
+                                        <div class="col-xs-9">
+                                            <input type="number" class="form-control @if(form.error("numTriesSize") != null) {form-control-danger}" id="inputNumTries" name="numTries" placeholder="3" min="1" max="10">
+                                            @if(form.error("numTriesSize") != null) {
+                                                <div class="form-control-feedback">
+                                                @form.error("numTriesSize").message()
+                                                </div>
+                                            }
+                                            <small id="numTriesHelpInline" class="text-muted">
+                                                Must be a number between 1-10.
+                                            </small>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
