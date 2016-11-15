@@ -41,6 +41,35 @@ public class UpdateProfileForm {
     public int numTries;
 
     // ===========================================================
+    // Constructor
+    // ===========================================================
+
+    /**
+     * <p>Default constructor.</p>
+     */
+    public UpdateProfileForm() {}
+
+    /**
+     * <p>This generates a new form with the specified values.</p>
+     *
+     * @param firstName User first name
+     * @param lastName User last name
+     * @param email User email
+     * @param password User password
+     * @param timeout Timeout value
+     * @param numTries Number of tries value
+     */
+    public UpdateProfileForm(String firstName, String lastName, String email,
+                             String password, int timeout, int numTries) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.timeout = timeout;
+        this.numTries = numTries;
+    }
+
+    // ===========================================================
     // Public Methods
     // ===========================================================
 

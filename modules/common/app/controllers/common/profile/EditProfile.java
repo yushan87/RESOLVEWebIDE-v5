@@ -4,6 +4,7 @@ import java.util.concurrent.CompletionStage;
 import javax.inject.Inject;
 import models.common.database.User;
 import models.common.form.UpdateProfileForm;
+import play.data.Form;
 import play.data.FormFactory;
 import play.db.jpa.Transactional;
 import play.filters.csrf.AddCSRFToken;
@@ -49,8 +50,11 @@ public class EditProfile extends Controller {
             User currentUser = User.findByEmail(email);
             if (currentUser != null) {
                 String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+                Form<UpdateProfileForm> userForm = myFormFactory.form(UpdateProfileForm.class);
+                userForm = userForm.fill(new UpdateProfileForm(currentUser.firstName, currentUser. lastName,
+                        currentUser.email, "", currentUser.timeout, currentUser.numTries));
 
-                return ok(editProfile.render(currentUser, myFormFactory.form(UpdateProfileForm.class), token));
+                return ok(editProfile.render(currentUser, userForm, token));
             }
         }
 
