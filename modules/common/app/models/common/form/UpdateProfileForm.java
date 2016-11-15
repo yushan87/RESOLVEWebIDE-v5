@@ -32,12 +32,20 @@ public class UpdateProfileForm {
     @Constraints.Required
     public String password;
 
+    /** <p>Timeout flag</p> */
+    @Constraints.Required
+    public int timeout;
+
+    /** <p>Number of tries flag</p> */
+    @Constraints.Required
+    public int numTries;
+
     // ===========================================================
     // Public Methods
     // ===========================================================
 
     /**
-     * <p>First name field in the registration form.</p>
+     * <p>First name field in the user profile update form.</p>
      *
      * @return A string.
      */
@@ -55,7 +63,7 @@ public class UpdateProfileForm {
     }
 
     /**
-     * <p>Last name field in the registration form.</p>
+     * <p>Last name field in the user profile update form.</p>
      *
      * @return A string.
      */
@@ -73,7 +81,7 @@ public class UpdateProfileForm {
     }
 
     /**
-     * <p>Email field in the registration form.</p>
+     * <p>Email field in the user profile update form.</p>
      *
      * @return A string.
      */
@@ -91,7 +99,7 @@ public class UpdateProfileForm {
     }
 
     /**
-     * <p>Password field in the registration form./p>
+     * <p>Password field in the user profile update form./p>
      *
      * @return A string.
      */
@@ -106,6 +114,42 @@ public class UpdateProfileForm {
      */
     public final void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * <p>Timeout field in the user profile update form./p>
+     *
+     * @return An integer value.
+     */
+    public final int getTimeout() {
+        return timeout;
+    }
+
+    /**
+     * <p>Stores the timeout field.</p>
+     *
+     * @param timeout Timeout for the Prover
+     */
+    public final void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
+
+    /**
+     * <p>Number of tries field in the user profile update form./p>
+     *
+     * @return An integer value.
+     */
+    public final int getNumTries() {
+        return numTries;
+    }
+
+    /**
+     * <p>Stores the number of tries field.</p>
+     *
+     * @param numTries Number of tries for the Prover
+     */
+    public final void setNumTries(int numTries) {
+        this.numTries = numTries;
     }
 
 }

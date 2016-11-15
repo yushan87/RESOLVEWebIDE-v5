@@ -2,6 +2,7 @@ package controllers.common.profile;
 
 import java.util.concurrent.CompletionStage;
 import models.common.database.User;
+import models.common.form.UpdateProfileForm;
 import play.db.jpa.Transactional;
 import play.filters.csrf.AddCSRFToken;
 import play.filters.csrf.CSRF;
@@ -51,7 +52,7 @@ public class EditProfile extends Controller {
     }
 
     /**
-     * <p>This handles the {@link PasswordRecoveryForm} submission for the WebIDE.</p>
+     * <p>This handles the {@link UpdateProfileForm} submission for the WebIDE.</p>
      *
      * @return The result of rendering the page.
      */
