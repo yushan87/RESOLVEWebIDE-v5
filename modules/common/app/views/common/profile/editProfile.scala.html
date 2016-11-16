@@ -15,22 +15,20 @@
                     <div class="card-deck-wrapper">
                         <div class="card-deck">
                             <div class="card">
-                                <div class="card-header">
-                                    <h5 class="card-title text-xs-center">General</h5>
-                                    <div class="card-subtitle">
-                                        <span class="tag tag-default">
-                                            Account Type:
-                                        </span>
-                                        <h6 class="text-muted">
-                                        @currentUser.userType match {
-                                            case 0 => {User}
-                                            case 1 => {Super User}
-                                            case 2 => {Administrator}
-                                        }
-                                        </h6>
-                                    </div>
-                                </div>
+                                <h5 class="card-header text-xs-center">General</h5>
                                 <div class="card-block">
+                                    <div class="form-group row">
+                                        <label for="inputFirstName" class="col-xs-3 col-form-label">Account Type</label>
+                                        <div class="col-xs-9">
+                                            <p class="form-control-static mb-0">
+                                            @currentUser.userType match {
+                                                case 0 => {User}
+                                                case 1 => {Super User}
+                                                case 2 => {Administrator}
+                                            }
+                                            </p>
+                                        </div>
+                                    </div>
                                     <div class="form-group row @if(form.error("firstName") != null) {has-danger}">
                                         <label for="inputFirstName" class="col-xs-3 col-form-label">First Name</label>
                                         <div class="col-xs-9">
