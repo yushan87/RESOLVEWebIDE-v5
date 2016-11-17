@@ -9,20 +9,16 @@
         <div class="card card-outline-secondary">
             <h4 class="card-header text-xs-center text-uppercase">Edit Your User Profile</h4>
             @if(form.hasErrors) {
-                <div class="card-block">
-                    <div class="alert alert-danger" role="alert">
-                        <strong>Error(s) detected!</strong> Please correct the errors and submit the form again.
-                    </div>
+                <div class="alert alert-danger" role="alert">
+                    <strong>Error(s) detected!</strong> Please correct the errors and submit the form again.
                 </div>
             }
             @if(updateSuccess) {
-                <div class="card-block">
-                    <div class="alert alert-success alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>Success!</strong> Your user profile has been updated successfully.
-                    </div>
+                <div class="alert alert-success alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Success!</strong> Your user profile has been updated successfully.
                 </div>
             }
             @helper.form(action = controllers.common.profile.routes.EditProfile.handleSubmit()) {
