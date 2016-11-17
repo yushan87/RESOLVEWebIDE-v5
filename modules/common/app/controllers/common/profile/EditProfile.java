@@ -3,8 +3,6 @@ package controllers.common.profile;
 import controllers.common.email.EmailGenerator;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 import javax.inject.Inject;
 import models.common.database.User;
 import models.common.form.UpdateProfileForm;
@@ -16,11 +14,9 @@ import play.db.jpa.Transactional;
 import play.filters.csrf.AddCSRFToken;
 import play.filters.csrf.CSRF;
 import play.filters.csrf.RequireCSRFCheck;
-import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.common.profile.editProfile;
-import views.html.common.profile.editProfileSuccess;
 
 /**
  * <p>This class serves as a controller class for editing your
@@ -67,7 +63,7 @@ public class EditProfile extends Controller {
             userForm = userForm.fill(new UpdateProfileForm(currentUser.firstName, currentUser.lastName,
                     currentUser.email, currentUser.timeout, currentUser.numTries));
 
-            return ok(editProfile.render(currentUser, userForm, token));
+            return ok(editProfile.render(currentUser, userForm, token, false));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
@@ -91,7 +87,7 @@ public class EditProfile extends Controller {
 
             // Perform the basic validation checks.
             if (userForm.hasErrors()) {
-                return badRequest(editProfile.render(currentUser, userForm, token));
+                return badRequest(editProfile.render(currentUser, userForm, token, false));
             } else {
                 UpdateProfileForm form = userForm.get();
 
@@ -103,7 +99,7 @@ public class EditProfile extends Controller {
                     for (ValidationError error : result) {
                         userForm.reject(error);
                     }
-                    return badRequest(editProfile.render(currentUser, userForm, token));
+                    return badRequest(editProfile.render(currentUser, userForm, token, false));
                 } else {
                     // Check to see if there is a change
                     Form<UpdateProfileForm> currentUserForm = myFormFactory.form(UpdateProfileForm.class);
@@ -111,7 +107,7 @@ public class EditProfile extends Controller {
                             currentUser.lastName, currentUser.email, currentUser.timeout, currentUser.numTries));
                     UpdateProfileForm cuForm = currentUserForm.get();
                     if (form.equals(cuForm)) {
-                        return ok(editProfile.render(currentUser, userForm, token));
+                        return ok(editProfile.render(currentUser, userForm, token, false));
                     }
                     else {
                         // Store the email addresses for future use.
@@ -133,7 +129,7 @@ public class EditProfile extends Controller {
                             session("connected", newEmail);
                         }
 
-                        return ok(editProfileSuccess.render(updatedUser));
+                        return ok(editProfile.render(updatedUser, userForm, token, true));
                     }
                 }
             }
