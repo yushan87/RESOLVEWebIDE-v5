@@ -131,7 +131,7 @@ public class EditProfile extends Controller {
                             session("connected", updatedUser.email);
                         }
 
-                        return ok(editProfile.render(updatedUser, updatedForm, token, true));
+                        return created(editProfile.render(updatedUser, updatedForm, token, true));
                     }
                 }, myHttpExecutionContext.current());
             }
