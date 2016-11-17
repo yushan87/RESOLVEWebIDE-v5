@@ -177,9 +177,9 @@ public class User {
     }
 
     /**
-     * <p>Edits the user specified by the {@code userEmail}.</p>
+     * <p>Edits the {@code currentUser}.</p>
      *
-     * @param userEmail Original user email.
+     * @param currentUser Current user.
      * @param firstName Updated user first name.
      * @param lastName Updated user last name.
      * @param email Updated user email.
@@ -189,17 +189,16 @@ public class User {
      * @return The updated user.
      */
     @Transactional
-    public static User editUserProfile(String userEmail, String firstName, String lastName, String email,
-                                       int timeout, int numTries) {
-        User u = findByEmail(userEmail);
-        u.email = email;
-        u.firstName = firstName;
-        u.lastName = lastName;
-        u.timeout = timeout;
-        u.numTries = numTries;
-        u.save();
+    public static User editUserProfile(User currentUser, String firstName, String lastName,
+                                       String email, int timeout, int numTries) {
+        currentUser.email = email;
+        currentUser.firstName = firstName;
+        currentUser.lastName = lastName;
+        currentUser.timeout = timeout;
+        currentUser.numTries = numTries;
+        currentUser.save();
 
-        return u;
+        return currentUser;
     }
 
     /**

@@ -117,7 +117,7 @@ public class EditProfile extends Controller {
                         // "withTransaction()".
                         // Note 2: It is possible that that this will fail if we fail to
                         // retrieve data from the database. We are ignoring this for now.
-                        final User updatedUser = myJpaApi.withTransaction(() -> User.editUserProfile(connectedUserEmail,
+                        final User updatedUser = myJpaApi.withTransaction(() -> User.editUserProfile(currentUser,
                                 form.getFirstName(), form.getLastName(), form.getEmail(),
                                 form.getTimeout(), form.getNumTries()));
 
