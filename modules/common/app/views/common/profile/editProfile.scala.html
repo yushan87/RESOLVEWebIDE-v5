@@ -8,7 +8,6 @@
     <div class="container-fluid py-2">
         <div class="card card-outline-secondary">
             <h4 class="card-header text-xs-center text-uppercase">Edit Your User Profile</h4>
-
             @if(form.hasErrors) {
                 <div class="card-block">
                     <div class="alert alert-danger" role="alert">
@@ -16,7 +15,6 @@
                     </div>
                 </div>
             }
-
             @if(updateSuccess) {
                 <div class="card-block">
                     <div class="alert alert-success" role="alert">
@@ -24,7 +22,6 @@
                     </div>
                 </div>
             }
-
             @helper.form(action = controllers.common.profile.routes.EditProfile.handleSubmit()) {
                 @CSRF.formField
                 <div class="card-block">
