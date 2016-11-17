@@ -193,7 +193,7 @@ public class User {
                                        String email, int timeout, int numTries) {
         Query query = JPA.em().createQuery("update User u set u.email = :email, u.firstName = :firstName, " +
                 "u.lastName = :lastName, u.timeout = :timeout, u.numTries = :numTries " +
-                "where u.email = :currentUserEmail", User.class);
+                "where u.email = :currentUserEmail");
         query.setParameter("email", email);
         query.setParameter("firstName", firstName);
         query.setParameter("lastName", lastName);
