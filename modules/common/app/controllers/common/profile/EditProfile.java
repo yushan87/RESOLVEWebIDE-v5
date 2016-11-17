@@ -67,7 +67,7 @@ public class EditProfile extends Controller {
         if (currentUser != null) {
             String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
             Form<UpdateProfileForm> userForm = myFormFactory.form(UpdateProfileForm.class);
-            userForm = userForm.fill(new UpdateProfileForm(currentUser.firstName, currentUser. lastName,
+            userForm = userForm.fill(new UpdateProfileForm(currentUser.firstName, currentUser.lastName,
                     currentUser.email, "", currentUser.timeout, currentUser.numTries));
 
             return ok(editProfile.render(currentUser, userForm, token));
@@ -86,7 +86,8 @@ public class EditProfile extends Controller {
     @Transactional
     public CompletionStage<Result> handleSubmit() {
         // Check to see if it is a valid user and is connected.
-        User currentUser = getUser(session("connected"));
+        String connectedUserEmail = session("connected");
+        User currentUser = getUser(connectedUserEmail);
         if (currentUser != null) {
             Form<UpdateProfileForm> userForm = myFormFactory.form(UpdateProfileForm.class).bindFromRequest();
 
@@ -103,8 +104,8 @@ public class EditProfile extends Controller {
                 // If there are no errors, we display the success page.
                 CompletionStage<List<ValidationError>> resultPromise = validate(form);
                 return resultPromise.thenApplyAsync(result -> {
+                    String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
                     if (result != null) {
-                        String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
                         for (ValidationError error : result) {
                             userForm.reject(error);
                         }
@@ -116,11 +117,15 @@ public class EditProfile extends Controller {
                         // "withTransaction()".
                         // Note 2: It is possible that that this will fail if we fail to
                         // retrieve data from the database. We are ignoring this for now.
-                        /*User user = myJpaApi.withTransaction(() -> User.addUser(
-                                form.getEmail(), form.getPassword(), form.getFirstName(), form.getLastName()));
-                        myEmailGenerator.generateConfirmationEmail(user.firstName, user.email, user.confirmationCode);
+                        User updatedUser = myJpaApi.withTransaction(() -> User.editUserProfile(connectedUserEmail,
+                                form.getFirstName(), form.getLastName(), form.getEmail(), form.getPassword(),
+                                form.getTimeout(), form.getNumTries()));
 
-                        return ok(editProfile.render());*/
+                        Form<UpdateProfileForm> updatedForm = myFormFactory.form(UpdateProfileForm.class);
+                        updatedForm = userForm.fill(new UpdateProfileForm(updatedUser.firstName, updatedUser.lastName,
+                                updatedUser.email, "", updatedUser.timeout, updatedUser.numTries));
+
+                        return ok(editProfile.render(updatedUser, updatedForm, token));
                     }
                 }, myHttpExecutionContext.current());
             }
