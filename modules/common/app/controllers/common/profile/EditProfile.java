@@ -173,8 +173,8 @@ public class EditProfile extends Controller {
      * @param connectedUserEmail The current connected user's email.
      * @param form The current user profile form we are processing.
      *
-     * @return A {@link CompletionStage} with a list of {@link ValidationError}
-     * if there are errors in the user profile form, {@code null} otherwise.
+     * @return A list of {@link ValidationError} if there are errors in the user profile form,
+     * {@code null} otherwise.
      */
     @Transactional(readOnly = true)
     private List<ValidationError> validate(String connectedUserEmail, UpdateProfileForm form) {

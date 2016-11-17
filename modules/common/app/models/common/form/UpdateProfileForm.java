@@ -51,7 +51,6 @@ public class UpdateProfileForm {
      * @param firstName User first name
      * @param lastName User last name
      * @param email User email
-     * @param password User password
      * @param timeout Timeout value
      * @param numTries Number of tries value
      */
@@ -156,6 +155,44 @@ public class UpdateProfileForm {
      */
     public final void setNumTries(int numTries) {
         this.numTries = numTries;
+    }
+
+    /**
+     * <p>This method overrides the default equals method implementation.</p>
+     *
+     * @param o Object to be compared.
+     *
+     * @return {@code true} if all the fields are equal, {@code false} otherwise.
+     */
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UpdateProfileForm that = (UpdateProfileForm) o;
+
+        if (timeout != that.timeout) return false;
+        if (numTries != that.numTries) return false;
+        if (!firstName.equals(that.firstName)) return false;
+        if (!lastName.equals(that.lastName)) return false;
+
+        return email.equals(that.email);
+    }
+
+    /**
+     * <p>This method overrides the default {@code hashCode} method implementation.</p>
+     *
+     * @return The hash code associated with the object.
+     */
+    @Override
+    public final int hashCode() {
+        int result = firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + timeout;
+        result = 31 * result + numTries;
+
+        return result;
     }
 
 }
