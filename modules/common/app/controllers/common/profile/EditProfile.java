@@ -85,56 +85,51 @@ public class EditProfile extends Controller {
     @AddCSRFToken
     @RequireCSRFCheck
     @Transactional
-    public CompletionStage<Result> handleSubmit() {
+    public Result handleSubmit() {
         // Check to see if it is a valid user and is connected.
         String connectedUserEmail = session("connected");
+        String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
         User currentUser = getUser(connectedUserEmail);
         if (currentUser != null) {
             Form<UpdateProfileForm> userForm = myFormFactory.form(UpdateProfileForm.class).bindFromRequest();
 
             // Perform the basic validation checks.
             if (userForm.hasErrors()) {
-                String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
-                return CompletableFuture.supplyAsync(() -> badRequest(editProfile.render(currentUser, userForm, token)),
-                        myHttpExecutionContext.current());
+                return badRequest(editProfile.render(currentUser, userForm, token));
             } else {
                 UpdateProfileForm form = userForm.get();
 
                 // Perform our own validation checks. If we detect errors, then
                 // we display the registration page with the errors highlighted.
                 // If there are no errors, we display the success page.
-                CompletionStage<List<ValidationError>> resultPromise = validate(connectedUserEmail, form);
-                return resultPromise.thenApplyAsync(result -> {
-                    String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
-                    if (result != null) {
-                        for (ValidationError error : result) {
-                            userForm.reject(error);
-                        }
-                        return badRequest(editProfile.render(currentUser, userForm, token));
-                    } else {
-                        // Edit the user entry in the database.
-                        // Note 1: "editUserProfile" expects a JPA entity manager,
-                        // which is not present if we don't wrap the call using
-                        // "withTransaction()".
-                        // Note 2: It is possible that that this will fail if we fail to
-                        // retrieve data from the database. We are ignoring this for now.
-                        final User updatedUser = myJpaApi.withTransaction(() -> editUserProfile(connectedUserEmail, form));
-
-                        // Update the session
-                        if (!connectedUserEmail.equals(updatedUser.email)) {
-                            myEmailGenerator.generateUpdateAccountEmail(updatedUser.firstName,
-                                    connectedUserEmail, updatedUser.email);
-                            session("connected", updatedUser.email);
-                        }
-
-                        return ok(editProfileSuccess.render(updatedUser));
+                List<ValidationError> result = validate(connectedUserEmail, form);
+                if (result != null) {
+                    for (ValidationError error : result) {
+                        userForm.reject(error);
                     }
-                }, myHttpExecutionContext.current());
+                    return badRequest(editProfile.render(currentUser, userForm, token));
+                } else {
+                    // Edit the user entry in the database.
+                    // Note 1: "editUserProfile" expects a JPA entity manager,
+                    // which is not present if we don't wrap the call using
+                    // "withTransaction()".
+                    // Note 2: It is possible that that this will fail if we fail to
+                    // retrieve data from the database. We are ignoring this for now.
+                    final User updatedUser = editUserProfile(connectedUserEmail, form);
+
+                    // Update the session
+                    if (!connectedUserEmail.equals(updatedUser.email)) {
+                        myEmailGenerator.generateUpdateAccountEmail(updatedUser.firstName,
+                                connectedUserEmail, updatedUser.email);
+                        session("connected", updatedUser.email);
+                    }
+
+                    return ok(editProfileSuccess.render(updatedUser));
+                }
             }
         }
 
-        return CompletableFuture.supplyAsync(() -> redirect(controllers.common.security.routes.Security.index()),
-                myHttpExecutionContext.current());
+        return redirect(controllers.common.security.routes.Security.index());
     }
 
     // ===========================================================
@@ -186,30 +181,28 @@ public class EditProfile extends Controller {
      * if there are errors in the user profile form, {@code null} otherwise.
      */
     @Transactional(readOnly = true)
-    private CompletionStage<List<ValidationError>> validate(String connectedUserEmail, UpdateProfileForm form) {
-        return CompletableFuture.supplyAsync(() -> {
-            List<ValidationError> errors = new ArrayList<>();
+    private List<ValidationError> validate(String connectedUserEmail, UpdateProfileForm form) {
+        List<ValidationError> errors = new ArrayList<>();
 
-            // Check for a registered user with the same email.
-            if (!connectedUserEmail.equals(form.getEmail())) {
-                final User otherUser = myJpaApi.withTransaction(() -> getUser(form.getEmail()));
-                if (otherUser != null) {
-                    errors.add(new ValidationError("registeredEmail", "This e-mail is already in use by another user."));
-                }
+        // Check for a registered user with the same email.
+        if (!connectedUserEmail.equals(form.getEmail())) {
+            final User otherUser = myJpaApi.withTransaction(() -> getUser(form.getEmail()));
+            if (otherUser != null) {
+                errors.add(new ValidationError("registeredEmail", "This e-mail is already in use by another user."));
             }
+        }
 
-            // Check that we have a valid prover timeout
-            if (form.getTimeout() < 1 || form.getTimeout() > 30) {
-                errors.add(new ValidationError("timeoutSize", "Must be a number between 1-30 (time in seconds)."));
-            }
+        // Check that we have a valid prover timeout
+        if (form.getTimeout() < 1 || form.getTimeout() > 30) {
+            errors.add(new ValidationError("timeoutSize", "Must be a number between 1-30 (time in seconds)."));
+        }
 
-            // Check that we have a valid number of tries before quiting.
-            if (form.getNumTries() < 1 || form.getTimeout() > 10) {
-                errors.add(new ValidationError("numTriesSize", "Must be a number between 1-10."));
-            }
+        // Check that we have a valid number of tries before quiting.
+        if (form.getNumTries() < 1 || form.getTimeout() > 10) {
+            errors.add(new ValidationError("numTriesSize", "Must be a number between 1-10."));
+        }
 
-            return errors.isEmpty() ? null : errors;
-        }, myHttpExecutionContext.current());
+        return errors.isEmpty() ? null : errors;
     }
 
 }
