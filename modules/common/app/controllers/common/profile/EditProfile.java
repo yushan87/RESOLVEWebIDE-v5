@@ -131,7 +131,8 @@ public class EditProfile extends Controller {
             }
         }
 
-        return redirect(controllers.common.security.routes.Security.index());
+        return CompletableFuture.supplyAsync(() -> redirect(controllers.common.security.routes.Security.index()),
+                myHttpExecutionContext.current());
     }
 
     // ===========================================================
