@@ -102,7 +102,7 @@ public class EditProfile extends Controller {
                 // Perform our own validation checks. If we detect errors, then
                 // we display the registration page with the errors highlighted.
                 // If there are no errors, we display the success page.
-                CompletionStage<List<ValidationError>> resultPromise = validate(form);
+                CompletionStage<List<ValidationError>> resultPromise = validate(connectedUserEmail, form);
                 return resultPromise.thenApplyAsync(result -> {
                     String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
                     if (result != null) {
@@ -159,13 +159,14 @@ public class EditProfile extends Controller {
     /**
      * <p>Our own custom validation method for the user profile form.</p>
      *
+     * @param connectedUserEmail The current connected user's email.
      * @param form The current user profile form we are processing.
      *
      * @return A {@link CompletionStage} with a list of {@link ValidationError}
      * if there are errors in the user profile form, {@code null} otherwise.
      */
     @Transactional(readOnly = true)
-    private CompletionStage<List<ValidationError>> validate(UpdateProfileForm form) {
+    private CompletionStage<List<ValidationError>> validate(String connectedUserEmail, UpdateProfileForm form) {
         return CompletableFuture.supplyAsync(() -> {
             List<ValidationError> errors = new ArrayList<>();
 
@@ -174,8 +175,8 @@ public class EditProfile extends Controller {
             // which is not present if we don't wrap the call using
             // "withTransaction()".
             ValidationError emailError = myJpaApi.withTransaction(() -> {
-                if (User.findByEmail(form.getEmail()) != null) {
-                    return new ValidationError("registeredEmail", "This e-mail is already in use.");
+                if (!connectedUserEmail.equals(form.getEmail()) && User.findByEmail(form.getEmail()) != null) {
+                    return new ValidationError("registeredEmail", "This e-mail is already in use by another user.");
                 }
 
                 return null;
