@@ -156,6 +156,7 @@ public class EditProfile extends Controller {
      *
      * @return A {@link User} if it is a valid user, {@code null} otherwise.
      */
+    @Transactional(readOnly = true)
     private User getUser(String email) {
         User user = null;
         if (email != null) {
