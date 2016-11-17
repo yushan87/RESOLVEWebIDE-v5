@@ -177,6 +177,34 @@ public class User {
     }
 
     /**
+     * <p>Edits the user specified by the {@code userEmail}.</p>
+     *
+     * @param userEmail Original user email.
+     * @param firstName Updated user first name.
+     * @param lastName Updated user last name.
+     * @param email Updated user email.
+     * @param password Updated password.
+     * @param timeout Updated timeout flag.
+     * @param numTries Updated number of tries flag.
+     *
+     * @return The updated user.
+     */
+    @Transactional
+    public static User editUserProfile(String userEmail, String firstName, String lastName, String email,
+                                       String password, int timeout, int numTries) {
+        User u = findByEmail(userEmail);
+        u.email = email;
+        u.firstName = firstName;
+        u.lastName = lastName;
+        u.password = ModelUtilities.encryptPassword(password);
+        u.timeout = timeout;
+        u.numTries = numTries;
+        u.save();
+
+        return u;
+    }
+
+    /**
      * <p>Find a user by email.</p>
      *
      * @param email User email.
