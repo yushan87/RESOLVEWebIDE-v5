@@ -105,22 +105,32 @@ public class EditProfile extends Controller {
                     }
                     return badRequest(editProfile.render(currentUser, userForm, token));
                 } else {
-                    // Edit the user entry in the database.
-                    // Note 1: "editUserProfile" expects a JPA entity manager,
-                    // which is not present if we don't wrap the call using
-                    // "withTransaction()".
-                    // Note 2: It is possible that that this will fail if we fail to
-                    // retrieve data from the database. We are ignoring this for now.
-                    final User updatedUser = editUserProfile(connectedUserEmail, form);
-
-                    // Update the session
-                    if (!connectedUserEmail.equals(updatedUser.email)) {
-                        myEmailGenerator.generateUpdateAccountEmail(updatedUser.firstName,
-                                connectedUserEmail, updatedUser.email);
-                        session("connected", updatedUser.email);
+                    // Check to see if there is a change
+                    Form<UpdateProfileForm> currentUserForm = myFormFactory.form(UpdateProfileForm.class);
+                    currentUserForm = currentUserForm.fill(new UpdateProfileForm(currentUser.firstName,
+                            currentUser.lastName, currentUser.email, currentUser.timeout, currentUser.numTries));
+                    UpdateProfileForm cuForm = currentUserForm.get();
+                    if (form.equals(cuForm)) {
+                        return ok(editProfile.render(currentUser, userForm, token));
                     }
+                    else {
+                        // Edit the user entry in the database.
+                        // Note 1: "editUserProfile" expects a JPA entity manager,
+                        // which is not present if we don't wrap the call using
+                        // "withTransaction()".
+                        // Note 2: It is possible that that this will fail if we fail to
+                        // retrieve data from the database. We are ignoring this for now.
+                        final User updatedUser = editUserProfile(connectedUserEmail, form);
 
-                    return ok(editProfileSuccess.render(updatedUser));
+                        // Update the session
+                        if (!connectedUserEmail.equals(updatedUser.email)) {
+                            myEmailGenerator.generateUpdateAccountEmail(updatedUser.firstName,
+                                    connectedUserEmail, updatedUser.email);
+                            session("connected", updatedUser.email);
+                        }
+
+                        return ok(editProfileSuccess.render(updatedUser));
+                    }
                 }
             }
         }
