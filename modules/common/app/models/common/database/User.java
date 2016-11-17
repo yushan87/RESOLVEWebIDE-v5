@@ -177,9 +177,9 @@ public class User {
     }
 
     /**
-     * <p>Edits the {@code currentUser}.</p>
+     * <p>Edits the user specified by the {@code currentUserEmail}.</p>
      *
-     * @param currentUser Current user.
+     * @param currentUserEmail Current user email.
      * @param firstName Updated user first name.
      * @param lastName Updated user last name.
      * @param email Updated user email.
@@ -189,16 +189,25 @@ public class User {
      * @return The updated user.
      */
     @Transactional
-    public static User editUserProfile(User currentUser, String firstName, String lastName,
+    public static User editUserProfile(String currentUserEmail, String firstName, String lastName,
                                        String email, int timeout, int numTries) {
-        currentUser.email = email;
-        currentUser.firstName = firstName;
-        currentUser.lastName = lastName;
-        currentUser.timeout = timeout;
-        currentUser.numTries = numTries;
-        currentUser.save();
+        Query query = JPA.em().createQuery("update User u set u.email = :email, u.firstName = :firstName, " +
+                "u.lastName = :lastName, u.timeout = :timeout, u.numTries = :numTries " +
+                "where u.email = :currentUserEmail", User.class);
+        query.setParameter("email", email);
+        query.setParameter("firstName", firstName);
+        query.setParameter("lastName", lastName);
+        query.setParameter("timeout", timeout);
+        query.setParameter("numTries", numTries);
+        query.setParameter("currentUserEmail", currentUserEmail);
 
-        return currentUser;
+        List result = query.getResultList();
+        User user = null;
+        if (!result.isEmpty()) {
+            user = (User) result.get(0);
+        }
+
+        return user;
     }
 
     /**
