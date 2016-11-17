@@ -79,7 +79,7 @@ public class EmailGenerator {
     }
 
     /**
-     * <p>Generate and send a welcome email with
+     * <p>Generate and send a update account email with
      * the specified user information.</p>
      *
      * @param firstName User's first name.
