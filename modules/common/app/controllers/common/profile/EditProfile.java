@@ -118,8 +118,7 @@ public class EditProfile extends Controller {
                         // "withTransaction()".
                         // Note 2: It is possible that that this will fail if we fail to
                         // retrieve data from the database. We are ignoring this for now.
-                        editUserProfile(connectedUserEmail, form);
-                        final User updatedUser = getUser(form.getEmail());
+                        final User updatedUser = myJpaApi.withTransaction(() -> editUserProfile(connectedUserEmail, form));
 
                         // Update the session
                         if (!connectedUserEmail.equals(updatedUser.email)) {
@@ -150,11 +149,13 @@ public class EditProfile extends Controller {
      * @param form The form that contains all the updated fields.
      */
     @Transactional
-    private void editUserProfile(String connectedUserEmail, UpdateProfileForm form) {
+    private User editUserProfile(String connectedUserEmail, UpdateProfileForm form) {
         // Note: We need this helper method, because the entity manager will randomly
         // close and cause some sort of error.
         User.editUserProfile(connectedUserEmail, form.getFirstName(), form.getLastName(), form.getEmail(),
                 form.getTimeout(), form.getNumTries());
+
+        return User.findByEmail(form.getEmail());
     }
 
     /**
