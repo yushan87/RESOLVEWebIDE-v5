@@ -1,0 +1,22 @@
+@import models.common.database.User
+
+@(currentUser: User)
+
+@views.html.common.main("RESOLVEWebIDE - Edit User Profile", currentUser) {
+    <div class="container py-2">
+        <div class="card card-outline-secondary">
+            <h4 class="card-header text-xs-center">Edit Your User Profile</h4>
+            <div class="alert alert-success" role="alert">
+                <strong>Success!</strong> Your user profile has been updated successfully.
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="text-xs-center">
+                        <a class="btn btn-primary" href="@controllers.common.profile.routes.EditProfile.index()">Back to User Profile Page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

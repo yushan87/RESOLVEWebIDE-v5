@@ -20,6 +20,7 @@ import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.common.profile.editProfile;
+import views.html.common.profile.editProfileSuccess;
 
 /**
  * <p>This class serves as a controller class for editing your
@@ -70,7 +71,7 @@ public class EditProfile extends Controller {
             userForm = userForm.fill(new UpdateProfileForm(currentUser.firstName, currentUser.lastName,
                     currentUser.email, currentUser.timeout, currentUser.numTries));
 
-            return ok(editProfile.render(currentUser, userForm, token, false));
+            return ok(editProfile.render(currentUser, userForm, token));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
@@ -94,7 +95,7 @@ public class EditProfile extends Controller {
             // Perform the basic validation checks.
             if (userForm.hasErrors()) {
                 String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
-                return CompletableFuture.supplyAsync(() -> badRequest(editProfile.render(currentUser, userForm, token, false)),
+                return CompletableFuture.supplyAsync(() -> badRequest(editProfile.render(currentUser, userForm, token)),
                         myHttpExecutionContext.current());
             } else {
                 UpdateProfileForm form = userForm.get();
@@ -109,7 +110,7 @@ public class EditProfile extends Controller {
                         for (ValidationError error : result) {
                             userForm.reject(error);
                         }
-                        return badRequest(editProfile.render(currentUser, userForm, token, false));
+                        return badRequest(editProfile.render(currentUser, userForm, token));
                     } else {
                         // Edit the user entry in the database.
                         // Note 1: "editUserProfile" expects a JPA entity manager,
@@ -120,10 +121,6 @@ public class EditProfile extends Controller {
                         myJpaApi.withTransaction(() -> editUserProfile(connectedUserEmail, form));
                         final User updatedUser = myJpaApi.withTransaction(() -> getUser(form.getEmail()));
 
-                        Form<UpdateProfileForm> updatedForm = myFormFactory.form(UpdateProfileForm.class);
-                        updatedForm = updatedForm.fill(new UpdateProfileForm(updatedUser.firstName, updatedUser.lastName,
-                                updatedUser.email, updatedUser.timeout, updatedUser.numTries));
-
                         // Update the session
                         if (!connectedUserEmail.equals(updatedUser.email)) {
                             myEmailGenerator.generateUpdateAccountEmail(updatedUser.firstName,
@@ -131,7 +128,7 @@ public class EditProfile extends Controller {
                             session("connected", updatedUser.email);
                         }
 
-                        return created(editProfile.render(updatedUser, updatedForm, token, true));
+                        return ok(editProfileSuccess.render(updatedUser));
                     }
                 }, myHttpExecutionContext.current());
             }
