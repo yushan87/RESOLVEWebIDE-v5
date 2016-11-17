@@ -121,7 +121,7 @@ public class EditProfile extends Controller {
                         myJpaApi.withTransaction(() -> User.editUserProfile(connectedUserEmail,
                                 form.getFirstName(), form.getLastName(), form.getEmail(),
                                 form.getTimeout(), form.getNumTries()));
-                        final User updatedUser = getUser(form.getEmail());
+                        final User updatedUser = myJpaApi.withTransaction(() -> getUser(form.getEmail()));
 
                         Form<UpdateProfileForm> updatedForm = myFormFactory.form(UpdateProfileForm.class);
                         updatedForm = updatedForm.fill(new UpdateProfileForm(updatedUser.firstName, updatedUser.lastName,
