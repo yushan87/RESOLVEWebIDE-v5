@@ -114,19 +114,28 @@ public class EditProfile extends Controller {
                         return ok(editProfile.render(currentUser, userForm, token));
                     }
                     else {
+                        // Store the email addresses for future use.
+                        // Note: This is necessary because database changes changes the values of
+                        // currentUser and updatedUser.
+                        String oldEmail = cuForm.email;
+                        String newEmail = form.email;
+
                         // Edit the user entry in the database.
                         // Note 1: "editUserProfile" expects a JPA entity manager,
                         // which is not present if we don't wrap the call using
                         // "withTransaction()".
                         // Note 2: It is possible that that this will fail if we fail to
                         // retrieve data from the database. We are ignoring this for now.
-                        final User updatedUser = editUserProfile(connectedUserEmail, form);
+                        final User updatedUser = editUserProfile(oldEmail, form);
 
                         // Update the session
-                        if (!connectedUserEmail.equals(updatedUser.email)) {
-                            myEmailGenerator.generateUpdateAccountEmail(updatedUser.firstName,
-                                    connectedUserEmail, updatedUser.email);
-                            session("connected", updatedUser.email);
+                        System.out.println(oldEmail);
+                        System.out.println(newEmail);
+                        if (!oldEmail.equals(newEmail)) {
+                            System.out.println("here!");
+                            myEmailGenerator.generateUpdateAccountEmail(updatedUser.firstName, oldEmail, newEmail);
+                            session("connected", newEmail);
+                            System.out.println(session("connected"));
                         }
 
                         return ok(editProfileSuccess.render(updatedUser));
