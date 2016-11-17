@@ -111,16 +111,13 @@ public class EditProfile extends Controller {
                         }
                         return badRequest(editProfile.render(currentUser, userForm, token, false));
                     } else {
-
                         // Edit the user entry in the database.
                         // Note 1: "editUserProfile" expects a JPA entity manager,
                         // which is not present if we don't wrap the call using
                         // "withTransaction()".
                         // Note 2: It is possible that that this will fail if we fail to
                         // retrieve data from the database. We are ignoring this for now.
-                        myJpaApi.withTransaction(() -> User.editUserProfile(connectedUserEmail,
-                                form.getFirstName(), form.getLastName(), form.getEmail(),
-                                form.getTimeout(), form.getNumTries()));
+                        myJpaApi.withTransaction(() -> editUserProfile(connectedUserEmail, form));
                         final User updatedUser = myJpaApi.withTransaction(() -> getUser(form.getEmail()));
 
                         Form<UpdateProfileForm> updatedForm = myFormFactory.form(UpdateProfileForm.class);
@@ -147,6 +144,21 @@ public class EditProfile extends Controller {
     // ===========================================================
     // Private Methods
     // ===========================================================
+
+    /**
+     * <p>An helper method to modify the user profile for the current
+     * {@link User}.</p>
+     *
+     * @param connectedUserEmail A current user's email address.
+     * @param form The form that contains all the updated fields.
+     */
+    @Transactional
+    private void editUserProfile(String connectedUserEmail, UpdateProfileForm form) {
+        // Note: We need this helper method, because the entity manager will randomly
+        // close and cause some sort of error.
+        User.editUserProfile(connectedUserEmail, form.getFirstName(), form.getLastName(), form.getEmail(),
+                form.getTimeout(), form.getNumTries());
+    }
 
     /**
      * <p>An helper method to retrieve the {@link User} associated
