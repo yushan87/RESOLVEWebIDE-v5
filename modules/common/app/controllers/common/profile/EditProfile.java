@@ -111,15 +111,17 @@ public class EditProfile extends Controller {
                         }
                         return badRequest(editProfile.render(currentUser, userForm, token, false));
                     } else {
+
                         // Edit the user entry in the database.
                         // Note 1: "editUserProfile" expects a JPA entity manager,
                         // which is not present if we don't wrap the call using
                         // "withTransaction()".
                         // Note 2: It is possible that that this will fail if we fail to
                         // retrieve data from the database. We are ignoring this for now.
-                        final User updatedUser = myJpaApi.withTransaction(() -> User.editUserProfile(connectedUserEmail,
+                        myJpaApi.withTransaction(() -> User.editUserProfile(connectedUserEmail,
                                 form.getFirstName(), form.getLastName(), form.getEmail(),
                                 form.getTimeout(), form.getNumTries()));
+                        final User updatedUser = getUser(form.getEmail());
 
                         Form<UpdateProfileForm> updatedForm = myFormFactory.form(UpdateProfileForm.class);
                         updatedForm = updatedForm.fill(new UpdateProfileForm(updatedUser.firstName, updatedUser.lastName,

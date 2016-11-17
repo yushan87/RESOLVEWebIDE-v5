@@ -185,11 +185,9 @@ public class User {
      * @param email Updated user email.
      * @param timeout Updated timeout flag.
      * @param numTries Updated number of tries flag.
-     *
-     * @return The updated user.
      */
     @Transactional
-    public static User editUserProfile(String currentUserEmail, String firstName, String lastName,
+    public static void editUserProfile(String currentUserEmail, String firstName, String lastName,
                                        String email, int timeout, int numTries) {
         Query query = JPA.em().createQuery("update User u set u.email = :email, u.firstName = :firstName, " +
                 "u.lastName = :lastName, u.timeout = :timeout, u.numTries = :numTries " +
@@ -200,14 +198,7 @@ public class User {
         query.setParameter("timeout", timeout);
         query.setParameter("numTries", numTries);
         query.setParameter("currentUserEmail", currentUserEmail);
-
-        List result = query.getResultList();
-        User user = null;
-        if (!result.isEmpty()) {
-            user = (User) result.get(0);
-        }
-
-        return user;
+        query.executeUpdate();
     }
 
     /**
