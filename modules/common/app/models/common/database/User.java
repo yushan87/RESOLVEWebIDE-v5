@@ -183,7 +183,6 @@ public class User {
      * @param firstName Updated user first name.
      * @param lastName Updated user last name.
      * @param email Updated user email.
-     * @param password Updated password.
      * @param timeout Updated timeout flag.
      * @param numTries Updated number of tries flag.
      *
@@ -191,12 +190,11 @@ public class User {
      */
     @Transactional
     public static User editUserProfile(String userEmail, String firstName, String lastName, String email,
-                                       String password, int timeout, int numTries) {
+                                       int timeout, int numTries) {
         User u = findByEmail(userEmail);
         u.email = email;
         u.firstName = firstName;
         u.lastName = lastName;
-        u.password = ModelUtilities.encryptPassword(password);
         u.timeout = timeout;
         u.numTries = numTries;
         u.save();

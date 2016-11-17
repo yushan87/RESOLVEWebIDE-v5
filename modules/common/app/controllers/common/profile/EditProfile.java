@@ -7,7 +7,6 @@ import java.util.concurrent.CompletionStage;
 import javax.inject.Inject;
 import models.common.database.User;
 import models.common.form.UpdateProfileForm;
-import play.Configuration;
 import play.data.Form;
 import play.data.FormFactory;
 import play.data.validation.ValidationError;
@@ -64,7 +63,7 @@ public class EditProfile extends Controller {
             String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
             Form<UpdateProfileForm> userForm = myFormFactory.form(UpdateProfileForm.class);
             userForm = userForm.fill(new UpdateProfileForm(currentUser.firstName, currentUser.lastName,
-                    currentUser.email, "", currentUser.timeout, currentUser.numTries));
+                    currentUser.email, currentUser.timeout, currentUser.numTries));
 
             return ok(editProfile.render(currentUser, userForm, token, false));
         }
@@ -113,13 +112,13 @@ public class EditProfile extends Controller {
                         // "withTransaction()".
                         // Note 2: It is possible that that this will fail if we fail to
                         // retrieve data from the database. We are ignoring this for now.
-                        User updatedUser = myJpaApi.withTransaction(() -> User.editUserProfile(connectedUserEmail,
-                                form.getFirstName(), form.getLastName(), form.getEmail(), form.getPassword(),
+                        final User updatedUser = myJpaApi.withTransaction(() -> User.editUserProfile(connectedUserEmail,
+                                form.getFirstName(), form.getLastName(), form.getEmail(),
                                 form.getTimeout(), form.getNumTries()));
 
                         Form<UpdateProfileForm> updatedForm = myFormFactory.form(UpdateProfileForm.class);
                         updatedForm = updatedForm.fill(new UpdateProfileForm(updatedUser.firstName, updatedUser.lastName,
-                                updatedUser.email, "", updatedUser.timeout, updatedUser.numTries));
+                                updatedUser.email, updatedUser.timeout, updatedUser.numTries));
 
                         // Update the session
                         if (!connectedUserEmail.equals(updatedUser.email)) {
@@ -187,11 +186,6 @@ public class EditProfile extends Controller {
             // "ValidationError", then we add it to our list.
             if (emailError != null) {
                 errors.add(emailError);
-            }
-
-            // Check that the password has a minimum length of 6 and a maximum of 20
-            if (form.getPassword().length() < 6 || form.getPassword().length() > 20) {
-                errors.add(new ValidationError("passwordLength", "The password must be 6-20 characters long."));
             }
 
             // Check that we have a valid prover timeout

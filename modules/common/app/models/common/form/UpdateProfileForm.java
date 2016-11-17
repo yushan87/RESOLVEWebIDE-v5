@@ -28,10 +28,6 @@ public class UpdateProfileForm {
     @Constraints.Email
     public String email;
 
-    /** <p>User's Password (Hashed)</p> */
-    @Constraints.Required
-    public String password;
-
     /** <p>Timeout flag</p> */
     @Constraints.Required
     public int timeout;
@@ -60,11 +56,10 @@ public class UpdateProfileForm {
      * @param numTries Number of tries value
      */
     public UpdateProfileForm(String firstName, String lastName, String email,
-                             String password, int timeout, int numTries) {
+                             int timeout, int numTries) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
         this.timeout = timeout;
         this.numTries = numTries;
     }
@@ -125,24 +120,6 @@ public class UpdateProfileForm {
      */
     public final void setEmail(String email) {
         this.email = email;
-    }
-
-    /**
-     * <p>Password field in the user profile update form./p>
-     *
-     * @return A string.
-     */
-    public final String getPassword() {
-        return password;
-    }
-
-    /**
-     * <p>Stores the password field.</p>
-     *
-     * @param password Password
-     */
-    public final void setPassword(String password) {
-        this.password = password;
     }
 
     /**
