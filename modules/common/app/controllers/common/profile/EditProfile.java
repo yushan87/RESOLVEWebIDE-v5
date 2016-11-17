@@ -181,8 +181,11 @@ public class EditProfile extends Controller {
             List<ValidationError> errors = new ArrayList<>();
 
             // Check for a registered user with the same email.
-            if (!connectedUserEmail.equals(form.getEmail()) && getUser(form.getEmail()) != null) {
-                errors.add(new ValidationError("registeredEmail", "This e-mail is already in use by another user."));
+            if (!connectedUserEmail.equals(form.getEmail())) {
+                final User otherUser = myJpaApi.withTransaction(() -> getUser(form.getEmail()));
+                if (otherUser != null) {
+                    errors.add(new ValidationError("registeredEmail", "This e-mail is already in use by another user."));
+                }
             }
 
             // Check that we have a valid prover timeout
