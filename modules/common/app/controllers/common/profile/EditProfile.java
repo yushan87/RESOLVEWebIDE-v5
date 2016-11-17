@@ -121,21 +121,16 @@ public class EditProfile extends Controller {
                         String newEmail = form.email;
 
                         // Edit the user entry in the database.
-                        // Note 1: "editUserProfile" expects a JPA entity manager,
-                        // which is not present if we don't wrap the call using
-                        // "withTransaction()".
-                        // Note 2: It is possible that that this will fail if we fail to
+                        // Note: It is possible that that this will fail if we fail to
                         // retrieve data from the database. We are ignoring this for now.
-                        final User updatedUser = editUserProfile(oldEmail, form);
+                        User.editUserProfile(oldEmail, form.getFirstName(), form.getLastName(), form.getEmail(),
+                                form.getTimeout(), form.getNumTries());
+                        final User updatedUser = getUser(form.getEmail());
 
                         // Update the session
-                        System.out.println(oldEmail);
-                        System.out.println(newEmail);
                         if (!oldEmail.equals(newEmail)) {
-                            System.out.println("here!");
                             myEmailGenerator.generateUpdateAccountEmail(updatedUser.firstName, oldEmail, newEmail);
                             session("connected", newEmail);
-                            System.out.println(session("connected"));
                         }
 
                         return ok(editProfileSuccess.render(updatedUser));
@@ -150,23 +145,6 @@ public class EditProfile extends Controller {
     // ===========================================================
     // Private Methods
     // ===========================================================
-
-    /**
-     * <p>An helper method to modify the user profile for the current
-     * {@link User}.</p>
-     *
-     * @param connectedUserEmail A current user's email address.
-     * @param form The form that contains all the updated fields.
-     */
-    @Transactional
-    private User editUserProfile(String connectedUserEmail, UpdateProfileForm form) {
-        // Note: We need this helper method, because the entity manager will randomly
-        // close and cause some sort of error.
-        User.editUserProfile(connectedUserEmail, form.getFirstName(), form.getLastName(), form.getEmail(),
-                form.getTimeout(), form.getNumTries());
-
-        return User.findByEmail(form.getEmail());
-    }
 
     /**
      * <p>An helper method to retrieve the {@link User} associated
