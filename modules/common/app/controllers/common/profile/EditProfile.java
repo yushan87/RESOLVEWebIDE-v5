@@ -43,10 +43,6 @@ public class EditProfile extends Controller {
     @Inject
     private FormFactory myFormFactory;
 
-    /** <p>An executor to get the current HTTP context.</p> */
-    @Inject
-    private HttpExecutionContext myHttpExecutionContext;
-
     /** <p>JPA API</p> */
     @Inject
     private JPAApi myJpaApi;
