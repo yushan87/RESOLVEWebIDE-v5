@@ -181,23 +181,8 @@ public class EditProfile extends Controller {
             List<ValidationError> errors = new ArrayList<>();
 
             // Check for a registered user with the same email.
-            // Note that "findByEmail" expects a JPA entity manager,
-            // which is not present if we don't wrap the call using
-            // "withTransaction()".
-            if (!connectedUserEmail.equals(form.getEmail())) {
-                ValidationError emailError = myJpaApi.withTransaction(() -> {
-                    if (User.findByEmail(form.getEmail()) != null) {
-                        return new ValidationError("registeredEmail", "This e-mail is already in use by another user.");
-                    }
-
-                    return null;
-                });
-
-                // If the result from the "withTransaction" call contains a
-                // "ValidationError", then we add it to our list.
-                if (emailError != null) {
-                    errors.add(emailError);
-                }
+            if (!connectedUserEmail.equals(form.getEmail()) && getUser(form.getEmail()) != null) {
+                errors.add(new ValidationError("registeredEmail", "This e-mail is already in use by another user."));
             }
 
             // Check that we have a valid prover timeout
