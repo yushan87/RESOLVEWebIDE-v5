@@ -94,7 +94,7 @@
                                     <div class="form-group row @if(form.error("timeoutSize") != null) {has-danger}">
                                         <label for="inputTimeout" class="col-xs-3 col-form-label">Prover Timeout</label>
                                         <div class="col-xs-9">
-                                            <input type="number" class="form-control @if(form.error("timeoutSize") != null) {form-control-danger}" id="inputTimeout" name="timeout" placeholder="5" min="1" max="30" @if(form.field("timeout").value() != null) {value="@form.field("timeout").value()">
+                                            <input type="number" class="form-control @if(form.error("timeoutSize") != null) {form-control-danger}" id="inputTimeout" name="timeout" placeholder="5" min="1" max="30" @if(form.field("timeout").value() != null) {value="@form.field("timeout").value()"}>
                                             @if(form.error("timeoutSize") != null) {
                                                 <div class="form-control-feedback">
                                                 @form.error("timeoutSize").message()
@@ -108,7 +108,7 @@
                                     <div class="form-group row @if(form.error("numTriesSize") != null) {has-danger}">
                                         <label for="inputNumTries" class="col-xs-3 col-form-label">Max Failed VCs</label>
                                         <div class="col-xs-9">
-                                            <input type="number" class="form-control @if(form.error("numTriesSize") != null) {form-control-danger}" id="inputNumTries" name="numTries" placeholder="3" min="1" max="10" @if(form.field("numTries").value() != null) {value="@form.field("numTries").value()">
+                                            <input type="number" class="form-control @if(form.error("numTriesSize") != null) {form-control-danger}" id="inputNumTries" name="numTries" placeholder="3" min="1" max="10" @if(form.field("numTries").value() != null) {value="@form.field("numTries").value()"}>
                                             @if(form.error("numTriesSize") != null) {
                                                 <div class="form-control-feedback">
                                                 @form.error("numTriesSize").message()
