@@ -1,5 +1,6 @@
 package controllers.common.profile;
 
+import controllers.common.email.EmailGenerator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -32,6 +33,10 @@ public class EditProfile extends Controller {
     // ===========================================================
     // Global Variables
     // ===========================================================
+
+    /** <p>Email generator</p> */
+    @Inject
+    private EmailGenerator myEmailGenerator;
 
     /** <p>Form factory</p> */
     @Inject
@@ -122,6 +127,8 @@ public class EditProfile extends Controller {
 
                         // Update the session
                         if (!connectedUserEmail.equals(updatedUser.email)) {
+                            myEmailGenerator.generateUpdateAccountEmail(updatedUser.firstName,
+                                    connectedUserEmail, updatedUser.email);
                             session("connected", updatedUser.email);
                         }
 
