@@ -46,10 +46,6 @@ public class EditProfile extends Controller {
     @Inject
     private JPAApi myJpaApi;
 
-    /** <p>Class that retrieves configurations</p> */
-    @Inject
-    private Configuration myConfiguration;
-
     // ===========================================================
     // Public Methods
     // ===========================================================
@@ -122,8 +118,13 @@ public class EditProfile extends Controller {
                                 form.getTimeout(), form.getNumTries()));
 
                         Form<UpdateProfileForm> updatedForm = myFormFactory.form(UpdateProfileForm.class);
-                        updatedForm = userForm.fill(new UpdateProfileForm(updatedUser.firstName, updatedUser.lastName,
+                        updatedForm = updatedForm.fill(new UpdateProfileForm(updatedUser.firstName, updatedUser.lastName,
                                 updatedUser.email, "", updatedUser.timeout, updatedUser.numTries));
+
+                        // Update the session
+                        if (!connectedUserEmail.equals(updatedUser.email)) {
+                            session("connected", updatedUser.email);
+                        }
 
                         return ok(editProfile.render(updatedUser, updatedForm, token, true));
                     }
