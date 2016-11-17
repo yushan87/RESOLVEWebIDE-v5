@@ -70,7 +70,7 @@ public class EditProfile extends Controller {
             userForm = userForm.fill(new UpdateProfileForm(currentUser.firstName, currentUser.lastName,
                     currentUser.email, "", currentUser.timeout, currentUser.numTries));
 
-            return ok(editProfile.render(currentUser, userForm, token));
+            return ok(editProfile.render(currentUser, userForm, token, false));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
@@ -94,7 +94,7 @@ public class EditProfile extends Controller {
             // Perform the basic validation checks.
             if (userForm.hasErrors()) {
                 String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
-                return CompletableFuture.supplyAsync(() -> badRequest(editProfile.render(currentUser, userForm, token)),
+                return CompletableFuture.supplyAsync(() -> badRequest(editProfile.render(currentUser, userForm, token, false)),
                         myHttpExecutionContext.current());
             } else {
                 UpdateProfileForm form = userForm.get();
@@ -109,7 +109,7 @@ public class EditProfile extends Controller {
                         for (ValidationError error : result) {
                             userForm.reject(error);
                         }
-                        return badRequest(editProfile.render(currentUser, userForm, token));
+                        return badRequest(editProfile.render(currentUser, userForm, token, false));
                     } else {
                         // Edit the user entry in the database.
                         // Note 1: "editUserProfile" expects a JPA entity manager,
@@ -125,7 +125,7 @@ public class EditProfile extends Controller {
                         updatedForm = userForm.fill(new UpdateProfileForm(updatedUser.firstName, updatedUser.lastName,
                                 updatedUser.email, "", updatedUser.timeout, updatedUser.numTries));
 
-                        return ok(editProfile.render(updatedUser, updatedForm, token));
+                        return ok(editProfile.render(updatedUser, updatedForm, token, true));
                     }
                 }, myHttpExecutionContext.current());
             }

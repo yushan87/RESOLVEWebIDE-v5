@@ -2,7 +2,7 @@
 @import models.common.database.User
 @import models.common.form.UpdateProfileForm
 
-@(currentUser: User, form: play.data.Form[UpdateProfileForm], token: String)
+@(currentUser: User, form: play.data.Form[UpdateProfileForm], token: String, updateSuccess: Boolean)
 
 @views.html.common.main("RESOLVEWebIDE - Edit User Profile", currentUser) {
     <div class="container-fluid py-2">
@@ -13,6 +13,14 @@
                 <div class="card-block">
                     <div class="alert alert-danger" role="alert">
                         <strong>Error(s) detected!</strong> Please correct the errors and submit the form again.
+                    </div>
+                </div>
+            }
+
+            @if(updateSuccess) {
+                <div class="card-block">
+                    <div class="alert alert-success" role="alert">
+                        <strong>Success!</strong> Your user profile has been updated successfully.
                     </div>
                 </div>
             }
