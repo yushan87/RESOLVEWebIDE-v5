@@ -8,6 +8,7 @@ import play.mvc.Http;
 import views.html.common.email.confirmation;
 import views.html.common.email.resetPassword;
 import views.html.common.email.resetSuccess;
+import views.html.common.email.updateEmailSuccess;
 import views.html.common.email.welcome;
 
 /**
@@ -33,19 +34,6 @@ public class EmailGenerator {
     // ===========================================================
     // Public Methods
     // ===========================================================
-
-    /**
-     * <p>Generate and send a welcome email with
-     * the specified user information.</p>
-     *
-     * @param firstName User's first name.
-     * @param userEmail User's email.
-     */
-    public void generateWelcomeEmail(String firstName, String userEmail) {
-        Email email = generateEmailObject(userEmail, "Welcome to RESOLVE Web IDE",
-                welcome.render(firstName, userEmail, formBaseWebPath()).body());
-        myMailerClient.send(email);
-    }
 
     /**
      * <p>Generate and send a confirmation email with
@@ -87,6 +75,33 @@ public class EmailGenerator {
     public void generateResetSuccessEmail(String firstName, String userEmail) {
         Email email = generateEmailObject(userEmail, "RESOLVE Web IDE Password Successfully Reset",
                 resetSuccess.render(firstName, userEmail).body());
+        myMailerClient.send(email);
+    }
+
+    /**
+     * <p>Generate and send a update account email with
+     * the specified user information.</p>
+     *
+     * @param firstName User's first name.
+     * @param oldUserEmail User's old email.
+     * @param newUserEmail User's new email.
+     */
+    public void generateUpdateAccountEmail(String firstName, String oldUserEmail, String newUserEmail) {
+        Email email = generateEmailObject(oldUserEmail, "RESOLVE Web IDE Account Update",
+                updateEmailSuccess.render(firstName, oldUserEmail, newUserEmail).body());
+        myMailerClient.send(email);
+    }
+
+    /**
+     * <p>Generate and send a welcome email with
+     * the specified user information.</p>
+     *
+     * @param firstName User's first name.
+     * @param userEmail User's email.
+     */
+    public void generateWelcomeEmail(String firstName, String userEmail) {
+        Email email = generateEmailObject(userEmail, "Welcome to RESOLVE Web IDE",
+                welcome.render(firstName, userEmail, formBaseWebPath()).body());
         myMailerClient.send(email);
     }
 

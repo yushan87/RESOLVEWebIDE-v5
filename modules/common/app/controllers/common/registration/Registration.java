@@ -176,7 +176,7 @@ public class Registration extends Controller {
         // Obtain the email host from the configuration file
         String secret = myConfiguration.getString("webide.recaptchasecret");
         if (secret == null) {
-            throw new RuntimeException("Missing configuration: Email Host");
+            throw new RuntimeException("Missing configuration: reCaptcha");
         }
         String postData = "secret=" + secret + "&response=" + form.getReCaptcha();
         CompletionStage<JsonNode> responsePromise = myWSClient.url("https://www.google.com/recaptcha/api/siteverify").
