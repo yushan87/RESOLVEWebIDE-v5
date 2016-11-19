@@ -1,0 +1,10 @@
+@import models.common.database.User
+
+@(currentUser: User)(pageContent: Html)
+
+@views.html.common.main("RESOLVEWebIDE - Admin", currentUser) {
+    <div class="container-fluid py-2">
+		<!-- Content passed in gets displayed here -->
+		@pageContent
+	</div>
+}
