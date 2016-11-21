@@ -31,7 +31,7 @@
                         }
                         @if(currentUser != null && currentUser.userType == 2) {
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="@controllers.admin.routes.Admin.index()">Admin</a>
+                            <a class="dropdown-item" href="@controllers.admin.overview.routes.Overview.index()">Admin</a>
                         }
                     </div>
                 </li>
