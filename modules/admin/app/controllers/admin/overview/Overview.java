@@ -1,15 +1,15 @@
-package controllers.admin;
+package controllers.admin.overview;
 
 import models.common.database.User;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.admin.index;
+import views.html.admin.overview.index;
 
 /**
  * TODO: Write a description of this module
  */
-public class Admin extends Controller {
+public class Overview extends Controller {
 
     // ===========================================================
     // Public Methods
