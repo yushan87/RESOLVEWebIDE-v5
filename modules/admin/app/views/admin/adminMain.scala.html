@@ -3,15 +3,15 @@
 @(currentUser: User)(pageContent: Html)
 
 @views.html.common.main("RESOLVEWebIDE - Admin", currentUser) {
-    <div class="container-fluid py-2">
+    <div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
+			<div class="col-sm-3 col-md-2 py-2">
 				<nav class="nav nav-pills nav-stacked">
 					<a class="nav-link" href="@controllers.admin.overview.routes.Overview.index()">Overview</a>
 					<a class="nav-link" href="#">Link 2</a>
 				</nav>
 			</div>
-			<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
+			<div class="col-sm-9 col-md-10 py-2">
 				<!-- Content passed in gets displayed here -->
 				@pageContent
 			</div>
