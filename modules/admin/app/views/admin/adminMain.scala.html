@@ -5,11 +5,11 @@
 @views.html.common.main("RESOLVEWebIDE - Admin", currentUser) {
     <div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-3 col-md-2 py-2" role="navigation">
+			<div id="left-sidebar" class="col-sm-3 col-md-2 py-2" role="navigation">
 				<a class="btn btn-outline-primary btn-lg btn-block" href="@controllers.admin.overview.routes.Overview.index()" role="button">Overview</a>
 				<a class="btn btn-outline-primary btn-lg btn-block" href="#" role="button">Link 2</a>
 			</div>
-			<div class="col-sm-9 col-md-10 py-2">
+			<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 py-2">
 				<!-- Content passed in gets displayed here -->
 				@pageContent
 			</div>
