@@ -1,19 +1,20 @@
 /*
  * These are the CSS used by the RESOLVE WebIDE
  * Created by: Yu-Shan Sun
- * Last Modified: 11/03/2016
+ * Last Modified: 11/22/2016
  */
 
 /* Main CSS */
 html {
     position: relative;
-    min-height: 100%;
+    min-height: 100vh;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
 }
 
 body {
     display: block;
+    min-height: 100vh;
     font-size: 1.25rem;
 }
 
