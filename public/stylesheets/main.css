@@ -7,7 +7,7 @@
 /* Main CSS */
 html {
     position: relative;
-    min-height: 100vh;
+    height: 100vh;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
 }
@@ -21,6 +21,7 @@ body {
 /* CSS for header in header.scala.html */
 #page-header {
     height: 55px;
+    z-index: 1000;
     font-size: 1rem;
 }
 
@@ -29,6 +30,7 @@ body {
     position: absolute;
     bottom: 0;
     height: 40px;
+    z-index: 1000;
     font-size: 1.15rem;
 }
 
@@ -50,7 +52,10 @@ body {
 /* CSS for left sidebar */
 #left-sidebar {
     position: fixed;
-    z-index: 1000;
+    top: 55px;
+    left: 0;
+    bottom: 40px;
+    z-index: 500;
     display: block;
     overflow-x: hidden;
     overflow-y: auto;
