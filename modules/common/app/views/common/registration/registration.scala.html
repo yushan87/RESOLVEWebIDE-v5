@@ -4,10 +4,10 @@
 @(form: play.data.Form[RegistrationForm], token: String)
 
 @views.html.common.main("RESOLVEWebIDE - Registration", null) {
-    <div class="container" style="padding-top: 2.5rem;">
+    <div class="container py-2">
         <script src='https://www.google.com/recaptcha/api.js'></script>
         <div class="card card-outline-secondary">
-            <h5 class="card-header text-xs-center">Registration Form</h5>
+            <h4 class="card-header text-xs-center">Registration Form</h4>
             @if(form.hasErrors) {
                 <div class="card-block">
                     <div class="alert alert-danger" role="alert">

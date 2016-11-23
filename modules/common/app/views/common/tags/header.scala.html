@@ -2,7 +2,7 @@
 
 @(currentUser : User)
 
-<header id="page-header">
+<header id="page-header" class="w-100">
     <nav class="navbar navbar-dark bg-inverse navbar-fixed-top">
         <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#general-nav" aria-controls="general-nav" aria-expanded="false" aria-label="Toggle navigation">
                 &#9776;
@@ -17,6 +17,24 @@
                 <li class="nav-item">
                     <a class="nav-link" href="@controllers.webide.routes.Interface.index()"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="moduleListDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-th-large fa-fw" aria-hidden="true"></i> Modules</a>
+                    <div class="dropdown-menu" aria-labelledby="moduleListDropdown">
+                        <a class="dropdown-item" href="@controllers.webide.routes.Interface.index()">WebIDE</a>
+                        @if(currentUser != null && currentUser.userType >= 1) {
+                            <a class="dropdown-item" href="#">Invariant Data Analysis</a>
+                        }
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="@controllers.bydesign.core.routes.Index.index()">byDesign</a>
+                        @if(currentUser != null && currentUser.userType >= 1) {
+                            <a class="dropdown-item" href="@controllers.bydesign.dataanalysis.routes.DataAnalysis.index()">byDesign Data Analysis</a>
+                        }
+                        @if(currentUser != null && currentUser.userType == 2) {
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="@controllers.admin.routes.Admin.index()">Admin</a>
+                        }
+                    </div>
+                </li>
                 @if(currentUser == null) {
                     <li class="nav-item">
                         <a class="nav-link" href="@controllers.common.registration.routes.Registration.index()"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Register</a>
@@ -25,12 +43,9 @@
                         <a class="nav-link" href="@controllers.common.security.routes.Security.index()"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> Sign In</a>
                     </li>
                 } else {
-                    @if(currentUser.userType == 2) {
-                        <li class="nav-item">
-                            <a class="nav-link" href="@controllers.admin.routes.Admin.index()"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i>
-                                Admin</a>
-                        </li>
-                    }
+                    <li class="nav-item">
+                        <a class="nav-link" href="@controllers.common.profile.routes.EditProfile.index()"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Profile</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@controllers.common.security.routes.Security.logout()"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Logout</a>
                     </li>

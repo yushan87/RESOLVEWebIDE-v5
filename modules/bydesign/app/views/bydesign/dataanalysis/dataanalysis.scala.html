@@ -1,0 +1,151 @@
+@import helper._
+@import java.lang
+@import java.util
+@import models.common.database.ByDesignEvent
+@import models.common.database.User
+@import utils.bydesign.dataanalysis.ErrorKind
+
+@(currentUser: User, selectedFilename: lang.String, errorKind: ErrorKind,
+        eventsMap: util.Map[lang.Long, util.List[ByDesignEvent]], dateGenerated: util.Date)
+
+@views.html.common.main("RESOLVEWebIDE - byDesign", currentUser) {
+    <div class="container-fluid">
+        <div class="card mt-2 mb-3">
+            <h4 class="card-header text-xs-center text-uppercase">Data Analysis</h4>
+
+            <div class="alert alert-danger alert-dismissible fade in" role="alert" @if(errorKind == null) { style="display: none;" }>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Error:</strong> @if(errorKind != null) { @errorKind.message }
+            </div>
+
+            <nav id="data-analysis-toolbar" class="navbar navbar-full" aria-label="data-analysis-toolbar">
+                <span class="tag tag-default">
+                    Currently Analysing:
+                </span>
+                <span class="navbar-text">
+                    @selectedFilename
+                </span>
+
+                @helper.form(action = controllers.bydesign.dataanalysis.routes.DataAnalysis.upload(),
+                    'enctype -> "multipart/form-data", 'class -> "form-inline float-xs-right", 'id -> "fileUpload") {
+                    @CSRF.formField
+                    <input type="file" id="idFile" name="idFile" accept=".csv, text/csv" required>
+                    <button type="submit" class="btn btn-success">Upload</button>
+                    <a class="btn btn-danger" href="@controllers.bydesign.dataanalysis.routes.DataAnalysis.index()" role="button">Clear Analysis</a>
+                }
+            </nav>
+
+            @if(errorKind == null && !eventsMap.isEmpty) {
+                <div class="card-block row">
+                    <div class="col-xs-2">
+                        <div class="card-block px-0 pt-0">
+                            <div class="card">
+                                <h5 class="card-title text-xs-center">Filters</h5>
+                                <p class="card-text">Filter options will go here...</p>
+                            </div>
+                            <div class="card">
+                                <h5 class="card-title text-xs-center">Sorting</h5>
+                                <p class="card-text">Sorting options will go here...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-10">
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-default">
+                                <tr>
+                                    <th class="text-xs-center">Event ID</th>
+                                    <th class="text-xs-center">Author ID</th>
+                                    <th class="text-xs-center">Code</th>
+                                    <th class="text-xs-center">Correct</th>
+                                    <th class="text-xs-center">Module Name</th>
+                                    <th class="text-xs-center">Lesson Name</th>
+                                    <th class="text-xs-center">Time Spent on Lesson</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-xs-center">
+                                @for(key <- eventsMap.keySet()) {
+                                    @for(event <- eventsMap.get(key)) {
+                                        <tr>
+                                            <td>@event.id</td>
+                                            <td>@event.author</td>
+                                            <td><a class="btn btn-primary btn-sm event-code" href="@controllers.bydesign.dataanalysis.routes.DataAnalysis.getCode(event.id)" role="button" data-id="@event.id">Show Code</a></td>
+                                            <td>@event.correct</td>
+                                            <td>@event.module</td>
+                                            <td>@event.lesson</td>
+                                            <td>@event.time</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+
+            @if(dateGenerated != null) {
+                <div class="card-footer text-xs-center text-muted">
+                    <span class="font-weight-bold">Generated:</span> @dateGenerated.toString
+                </div>
+            }
+        </div>
+    </div>
+
+    <div id="code-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="code-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 id="code-modal-title" class="modal-title text-xs-center"></h4>
+                </div>
+                <div id="code-modal-body" class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js" type="text/javascript" integrity="sha256-xx76EmQ2A+LP9GzPIVjY5UDJJMbR/BSiTvMWi0as4/I=" crossorigin="anonymous"></script>
+    <script src="@controllers.common.routes.Assets.versioned("javascripts/ace-editor/mode-resolve.js")" type="text/javascript" charset="${_response_encoding}"></script>
+    <script src="@controllers.common.routes.Assets.versioned("javascripts/ace-editor/editorUpdate.js")" type="text/javascript" charset="${_response_encoding}"></script>
+    <script>
+        $(".event-code").click(function(e) {
+            // Make sure we don't navigate to the link.
+            e.preventDefault();
+
+            // Display the code modal
+            $("#code-modal-title").html( "Showing Code for Event ID " + $(this).attr('data-id'));
+            $("#code-modal-body").html( "<span class='font-weight-bold'>Loading data...</span>" );
+            $("#code-modal").modal('show');
+
+            // Retrieve the data by using AJAX get request
+            $.ajax({
+                type: 'GET',
+                url: $(this).attr('href'),
+                dataType: "text",
+                success: function(data) {
+                    $("#code-modal-body").css("height", "500px");
+                    $("#code-modal-body").html( "<div id='editor'>" + data + "</div>" );
+
+                    // ACE Editor settings
+                    var editor = ace.edit("editor");
+                    editor.setTheme("ace/theme/monokai");
+                    editor.setReadOnly(true);
+                    editor.setFontSize(18);
+
+                    // ACE Editor CSS
+                    $("#editor").css("top", "0");
+                    $("#editor").css("right", "0");
+                    $("#editor").css("bottom", "0");
+                    $("#editor").css("left", "0");
+
+                    // Set this to RESOLVE mode
+                    var ResolveMode = ace.require("ace/mode/resolve").Mode;
+                    editor.session.setMode(new ResolveMode());
+                },
+                error: function() {
+                    $("#code-modal-body").html( "<span>Unknown error has occurred.</span>" );
+                }
+            });
+        });
+    </script>
+}

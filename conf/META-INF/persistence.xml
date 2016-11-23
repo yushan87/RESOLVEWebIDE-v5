@@ -11,6 +11,7 @@
         <non-jta-data-source>DefaultDS</non-jta-data-source>
 
         <!-- All database entity classes -->
+        <class>models.common.database.ByDesignEvent</class>
         <class>models.common.database.CompilerResult</class>
         <class>models.common.database.Project</class>
         <class>models.common.database.User</class>
