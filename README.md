@@ -7,7 +7,7 @@ RESOLVE WebIDE (Version 5)
 
 ##Setting up
 
-As a first step, you will need to download Play Framework 2.5.3. 
+As a first step, you will need to download Play Framework 2.5.10. 
 Instructions on how to install Play Framework and setup your favorite development IDE can be found [here](http://www.playframework.com/).
 
 (* Add more instructions when they are needed *)
