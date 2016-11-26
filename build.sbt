@@ -50,21 +50,21 @@ headers := headers.value ++ Map(
 )
   
 lazy val common: Project = (project in file("modules/common"))
-  .enablePlugins(PlayJava)
+  .enablePlugins(PlayJava, AutomateHeaderPlugin)
   .settings(commonSettings, aggregateReverseRoutes := Seq(admin, bydesign, webide))
   
 lazy val admin = (project in file("modules/admin"))
-  .enablePlugins(PlayJava)
+  .enablePlugins(PlayJava, AutomateHeaderPlugin)
   .dependsOn(common)
   .settings(commonSettings: _*)
 
 lazy val bydesign = (project in file("modules/bydesign"))
-  .enablePlugins(PlayJava)
+  .enablePlugins(PlayJava, AutomateHeaderPlugin)
   .dependsOn(common)
   .settings(commonSettings: _*)
   
 lazy val webide = (project in file("modules/webide"))
-  .enablePlugins(PlayJava)
+  .enablePlugins(PlayJava, AutomateHeaderPlugin)
   .dependsOn(common)
   .settings(commonSettings: _*)
 
