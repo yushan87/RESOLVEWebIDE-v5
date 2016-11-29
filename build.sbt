@@ -27,6 +27,9 @@ unmanagedBase := baseDirectory.value / "custom_lib"
 
 // Use Injection
 routesGenerator := InjectedRoutesGenerator
+
+// Java Formatter
+javaFormattingSettingsFilename := "rsrg-format.xml"
   
 lazy val common: Project = (project in file("modules/common"))
   .enablePlugins(PlayJava, AutomateHeaderPlugin)
