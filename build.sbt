@@ -3,7 +3,8 @@ name := "RESOLVEWebIDE"
 version := "5.0"
 
 def commonSettings = Seq(
-  scalaVersion := "2.11.7"
+  scalaVersion := "2.11.7", // Scala version to be used in all projects
+  javaFormattingSettingsFilename := "rsrg-format.xml" // Java Formatter
 )
 
 // Scala compiler options
