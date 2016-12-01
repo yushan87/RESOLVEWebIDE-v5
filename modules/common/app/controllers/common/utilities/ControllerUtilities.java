@@ -39,7 +39,8 @@ public class ControllerUtilities {
 
         try {
             encoded = URLDecoder.decode(raw.replaceAll("%20", " "), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
@@ -73,7 +74,8 @@ public class ControllerUtilities {
 
         try {
             encoded = URLEncoder.encode(raw.replaceAll(" ", "%20"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 

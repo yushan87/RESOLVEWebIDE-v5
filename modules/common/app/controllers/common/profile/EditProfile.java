@@ -204,5 +204,4 @@ public class EditProfile extends Controller {
 
         return errors.isEmpty() ? null : errors;
     }
-
 }

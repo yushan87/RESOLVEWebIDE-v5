@@ -28,7 +28,7 @@ import play.db.jpa.Transactional;
  * @version 1.0
  */
 @Entity
-@Table(name="byDesignEvents")
+@Table(name = "byDesignEvents")
 public class ByDesignEvent {
 
     // ===========================================================
@@ -70,7 +70,7 @@ public class ByDesignEvent {
     public long time;
 
     /** <p>Date associated with this {@code byDesign} event.</p> */
-    @Column(name = "eventDate", columnDefinition="DATETIME")
+    @Column(name = "eventDate", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     public Date eventDate;
 
@@ -95,8 +95,8 @@ public class ByDesignEvent {
      * @param bdPoints The amount of points earned by the author.
      * @param bdTime The time spent on this lesson.
      */
-    private ByDesignEvent(long bdAuthor, String bdCode, boolean bdCorrect, String bdLesson,
-                          String bdModule, long bdPoints, long bdTime) {
+    private ByDesignEvent(long bdAuthor, String bdCode, boolean bdCorrect,
+            String bdLesson, String bdModule, long bdPoints, long bdTime) {
         author = bdAuthor;
         code = bdCode;
         correct = bdCorrect;
@@ -126,9 +126,12 @@ public class ByDesignEvent {
      * @return The newly created {@code byDesign} event object.
      */
     @Transactional
-    public static ByDesignEvent addByDesignEvent(long bdAuthor, String bdCode, boolean bdCorrect, String bdLesson,
-                                                 String bdModule, long bdPoints, long bdTime) {
-        ByDesignEvent bde = new ByDesignEvent(bdAuthor, bdCode, bdCorrect, bdLesson, bdModule, bdPoints, bdTime);
+    public static ByDesignEvent addByDesignEvent(long bdAuthor, String bdCode,
+            boolean bdCorrect, String bdLesson, String bdModule, long bdPoints,
+            long bdTime) {
+        ByDesignEvent bde =
+                new ByDesignEvent(bdAuthor, bdCode, bdCorrect, bdLesson,
+                        bdModule, bdPoints, bdTime);
         bde.save();
 
         return bde;
@@ -143,7 +146,11 @@ public class ByDesignEvent {
      */
     @Transactional(readOnly = true)
     public static String getUserEventCode(Long id) {
-        Query query = JPA.em().createQuery("select bde.code from ByDesignEvent bde where bde.id = :id", String.class);
+        Query query =
+                JPA.em()
+                        .createQuery(
+                                "select bde.code from ByDesignEvent bde where bde.id = :id",
+                                String.class);
         query.setParameter("id", id);
         query.setMaxResults(1);
 
@@ -160,11 +167,15 @@ public class ByDesignEvent {
      */
     @Transactional(readOnly = true)
     public static List<ByDesignEvent> getUserEvents(Long authorID) {
-        Query query = JPA.em().createQuery("from ByDesignEvent bde where bde.author = :author", ByDesignEvent.class);
+        Query query =
+                JPA.em().createQuery(
+                        "from ByDesignEvent bde where bde.author = :author",
+                        ByDesignEvent.class);
         query.setParameter("author", authorID);
         List results = query.getResultList();
 
-        return Lists.newArrayList(Iterables.filter(results, ByDesignEvent.class));
+        return Lists.newArrayList(Iterables
+                .filter(results, ByDesignEvent.class));
     }
 
     // ===========================================================

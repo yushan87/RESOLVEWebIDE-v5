@@ -50,9 +50,10 @@ public class ModelUtilities {
      *
      * @return An unique confirmation code.
      */
-    public static String generateConfirmationCode(String str1, String str2, String str3, String str4) {
+    public static String generateConfirmationCode(String str1, String str2,
+            String str3, String str4) {
         String randomID = UUID.randomUUID().toString();
-        return stringHashing(str1+str2+str3+str4+randomID);
+        return stringHashing(str1 + str2 + str3 + str4 + randomID);
     }
 
     // ===========================================================
@@ -67,7 +68,7 @@ public class ModelUtilities {
      *
      * @return Hashed string.
      */
-    private static String stringHashing(String originalString){
+    private static String stringHashing(String originalString) {
         StringBuilder sb = new StringBuilder();
 
         try {
@@ -78,9 +79,11 @@ public class ModelUtilities {
 
             // Convert the byte to hex format method 1
             for (int i = 0; i < byteData.length; i++) {
-                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16)
+                        .substring(1));
             }
-        } catch (NoSuchAlgorithmException ex) {
+        }
+        catch (NoSuchAlgorithmException ex) {
             ex.printStackTrace();
         }
 

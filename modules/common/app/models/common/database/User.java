@@ -28,7 +28,7 @@ import play.db.jpa.Transactional;
  * @version 1.0
  */
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
     // ===========================================================
@@ -62,12 +62,12 @@ public class User {
     public int userType;
 
     /** <p>Last Login Date</p> */
-    @Column(name = "lastLogin", columnDefinition="DATETIME")
+    @Column(name = "lastLogin", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     public Date lastLogin;
 
     /** <p>Account Creation Date</p> */
-    @Column(name = "createdOn", columnDefinition="DATETIME")
+    @Column(name = "createdOn", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     @Constraints.Required
     public Date createdOn;
@@ -109,7 +109,8 @@ public class User {
      * @param userFirstName User's first name.
      * @param userLastName User's last name.
      */
-    private User(String userEmail, String userPassword, String userFirstName, String userLastName) {
+    private User(String userEmail, String userPassword, String userFirstName,
+            String userLastName) {
         // User information
         email = userEmail;
         firstName = userFirstName;
@@ -124,7 +125,9 @@ public class User {
         authenticated = false;
 
         // Generate confirmation code
-        confirmationCode = ModelUtilities.generateConfirmationCode(password,email,firstName,lastName);
+        confirmationCode =
+                ModelUtilities.generateConfirmationCode(password, email,
+                        firstName, lastName);
     }
 
     // ===========================================================
@@ -142,7 +145,8 @@ public class User {
      * @return The newly created user object.
      */
     @Transactional
-    public static User addUser(String email, String password, String userFirstName, String userLastName) {
+    public static User addUser(String email, String password,
+            String userFirstName, String userLastName) {
         User u = new User(email, password, userFirstName, userLastName);
         u.save();
 
@@ -198,11 +202,15 @@ public class User {
      * @param numTries Updated number of tries flag.
      */
     @Transactional
-    public static void editUserProfile(String currentUserEmail, String firstName, String lastName,
-                                       String email, int timeout, int numTries) {
-        Query query = JPA.em().createQuery("update User u set u.email = :email, u.firstName = :firstName, " +
-                "u.lastName = :lastName, u.timeout = :timeout, u.numTries = :numTries " +
-                "where u.email = :currentUserEmail");
+    public static void editUserProfile(String currentUserEmail,
+            String firstName, String lastName, String email, int timeout,
+            int numTries) {
+        Query query =
+                JPA.em()
+                        .createQuery(
+                                "update User u set u.email = :email, u.firstName = :firstName, "
+                                        + "u.lastName = :lastName, u.timeout = :timeout, u.numTries = :numTries "
+                                        + "where u.email = :currentUserEmail");
         query.setParameter("email", email);
         query.setParameter("firstName", firstName);
         query.setParameter("lastName", lastName);
@@ -221,7 +229,10 @@ public class User {
      */
     @Transactional(readOnly = true)
     public static User findByEmail(String email) {
-        Query query = JPA.em().createQuery("select u from User u where u.email = :email", User.class);
+        Query query =
+                JPA.em().createQuery(
+                        "select u from User u where u.email = :email",
+                        User.class);
         query.setParameter("email", email);
 
         List result = query.getResultList();
@@ -270,7 +281,9 @@ public class User {
     @Transactional
     public static User setNotAuthenticated(String email) {
         User u = findByEmail(email);
-        u.confirmationCode = ModelUtilities.generateConfirmationCode(u.password, u.email, u.firstName, u.lastName);
+        u.confirmationCode =
+                ModelUtilities.generateConfirmationCode(u.password, u.email,
+                        u.firstName, u.lastName);
         u.authenticated = false;
         u.save();
 

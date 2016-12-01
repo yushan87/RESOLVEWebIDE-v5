@@ -153,16 +153,19 @@ public class Registration extends Controller {
         if (user != null) {
             if (user.confirmationCode.equals(confirmationCode)) {
                 user = User.authenticate(email);
-                myEmailGenerator.generateWelcomeEmail(user.firstName, user.email);
+                myEmailGenerator.generateWelcomeEmail(user.firstName,
+                        user.email);
 
                 // Render authentication success page
-                return ok(authenticationSuccess.render(email, user.firstName, user.lastName));
+                return ok(authenticationSuccess.render(email, user.firstName,
+                        user.lastName));
             }
             else {
                 // Render expired confirmation link page
                 return ok(expired.render());
             }
-        } else {
+        }
+        else {
             // Render the account error page
             return ok(accountError.render());
         }
@@ -235,5 +238,4 @@ public class Registration extends Controller {
             return errors.isEmpty() ? null : errors;
         }, myHttpExecutionContext.current());
     }
-
 }

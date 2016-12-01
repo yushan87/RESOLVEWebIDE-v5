@@ -26,7 +26,7 @@ import play.db.jpa.Transactional;
  * @version 1.0
  */
 @Entity
-@Table(name="compilerResults")
+@Table(name = "compilerResults")
 public class CompilerResult {
 
     // ===========================================================
@@ -47,7 +47,7 @@ public class CompilerResult {
     public int error;
 
     /** <p>Compiler Result Creation Date</p> */
-    @Column(name = "createdOn", columnDefinition="DATETIME")
+    @Column(name = "createdOn", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     @Constraints.Required
     public Date eventDate;
@@ -109,8 +109,9 @@ public class CompilerResult {
      * @param error The error information provided by the compiler (if any).
      * @param author The user that generated this event.
      */
-    private CompilerResult(String name, String parent, String pkg, String project, String fileType, String content,
-                          String eventType, String results, int error, User author){
+    private CompilerResult(String name, String parent, String pkg,
+            String project, String fileType, String content, String eventType,
+            String results, int error, User author) {
         this.name = name;
         this.pkg = pkg;
         this.project = project;
@@ -145,9 +146,14 @@ public class CompilerResult {
      * @return The newly created compiler result object.
      */
     @Transactional
-    public static CompilerResult addCompilerResult(String filename, String fileparent, String pkg, String projectName, String filetype,
-                                                   String filecontent, String eventType, String results, int error, User author) {
-        CompilerResult cr = new CompilerResult(filename, fileparent, pkg, projectName, filetype, filecontent, eventType, results, error, author);
+    public static CompilerResult addCompilerResult(String filename,
+            String fileparent, String pkg, String projectName, String filetype,
+            String filecontent, String eventType, String results, int error,
+            User author) {
+        CompilerResult cr =
+                new CompilerResult(filename, fileparent, pkg, projectName,
+                        filetype, filecontent, eventType, results, error,
+                        author);
         cr.save();
 
         return cr;

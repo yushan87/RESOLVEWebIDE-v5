@@ -32,7 +32,8 @@ public enum ErrorKind {
     /**
      * <p>Error 3: Error Retrieving Data from the Database.</p>
      */
-    DATABASE_ERROR(2, "An error occurred while retrieving data from the database.");
+    DATABASE_ERROR(2,
+            "An error occurred while retrieving data from the database.");
 
     // ===========================================================
     // Global Variables

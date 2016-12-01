@@ -26,7 +26,7 @@ import play.db.jpa.Transactional;
  * @version 1.0
  */
 @Entity
-@Table(name="userEvents")
+@Table(name = "userEvents")
 public class UserEvent {
 
     // ===========================================================
@@ -62,7 +62,7 @@ public class UserEvent {
 
     /** <p>Date associated with this user event.</p> */
     @Constraints.Required
-    @Column(name = "eventDate", columnDefinition="DATETIME")
+    @Column(name = "eventDate", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     public Date eventDate;
 
@@ -85,8 +85,8 @@ public class UserEvent {
      * @param ueContent The compiling object's content.
      * @param ueAuthor The user that generated this event.
      */
-    private UserEvent(String ueName, String uePkg, String ueProject, String ueEventType,
-                     String ueContent, User ueAuthor) {
+    private UserEvent(String ueName, String uePkg, String ueProject,
+            String ueEventType, String ueContent, User ueAuthor) {
         name = ueName;
         pkg = uePkg;
         project = ueProject;
@@ -127,9 +127,12 @@ public class UserEvent {
      * @return The newly created user event object.
      */
     @Transactional
-    public static UserEvent addCompilerEvent(String filename, String pkg, String projectName,
-                                             String eventType, String filecontent, User author) {
-        UserEvent ue = new UserEvent(filename, pkg, projectName, eventType, filecontent, author);
+    public static UserEvent addCompilerEvent(String filename, String pkg,
+            String projectName, String eventType, String filecontent,
+            User author) {
+        UserEvent ue =
+                new UserEvent(filename, pkg, projectName, eventType,
+                        filecontent, author);
         ue.save();
 
         return ue;
@@ -145,7 +148,8 @@ public class UserEvent {
      * @return The newly created user event object.
      */
     @Transactional
-    public static UserEvent addRegularEvent(String eventType, String projectName, User author) {
+    public static UserEvent addRegularEvent(String eventType,
+            String projectName, User author) {
         UserEvent ue = new UserEvent(eventType, projectName, author);
         ue.save();
 

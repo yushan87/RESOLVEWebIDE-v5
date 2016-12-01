@@ -35,7 +35,7 @@ public class Index extends Controller {
     public Result index() {
         // Retrieve the current user (if logged in)
         String email = session("connected");
-        if(email != null) {
+        if (email != null) {
             User currentUser = User.findByEmail(email);
 
             return ok(index.render(currentUser));

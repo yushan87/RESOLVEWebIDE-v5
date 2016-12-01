@@ -196,11 +196,13 @@ public class Security extends Controller {
         if (user != null) {
             // Generate a new confirmation code and send out another email.
             user = User.setNotAuthenticated(email);
-            myEmailGenerator.generateConfirmationEmail(user.firstName, user.email, user.confirmationCode);
+            myEmailGenerator.generateConfirmationEmail(user.firstName,
+                    user.email, user.confirmationCode);
 
             // Render registration success page.
             return ok(registrationSuccess.render());
-        } else {
+        }
+        else {
             // Render the account error page
             return ok(accountError.render());
         }

@@ -35,7 +35,7 @@ public class Overview extends Controller {
     public Result index() {
         // Retrieve the current user (if logged in)
         String email = session("connected");
-        if(email != null) {
+        if (email != null) {
             User currentUser = User.findByEmail(email);
 
             if (currentUser.userType != 2) {

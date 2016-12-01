@@ -322,5 +322,4 @@ public class PasswordRecovery extends Controller {
             return errors.isEmpty() ? null : errors;
         }, myHttpExecutionContext.current());
     }
-
 }

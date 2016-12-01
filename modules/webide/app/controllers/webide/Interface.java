@@ -53,13 +53,13 @@ public class Interface extends Controller {
             activeProject = myCachedObjects.getDefaultProject();
         }
         else {
-            activeProject = projectList.get(selectedProject-1);
+            activeProject = projectList.get(selectedProject - 1);
         }
 
         // Retrieve the current user (if logged in)
         String email = session("connected");
         User currentUser = null;
-        if(email != null) {
+        if (email != null) {
             currentUser = User.findByEmail(email);
         }
 
