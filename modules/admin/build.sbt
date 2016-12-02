@@ -20,9 +20,6 @@ javacOptions ++= Seq(
 // Managed Dependencies
 libraryDependencies ++= Seq()
 
-// Use Injection
-routesGenerator := InjectedRoutesGenerator
-
 // License Headers
 headers := headers.value ++ Map(
   "java" -> (

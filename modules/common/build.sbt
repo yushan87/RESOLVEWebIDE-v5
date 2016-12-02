@@ -31,9 +31,6 @@ libraryDependencies ++= Seq(
   "mysql" % "mysql-connector-java" % "5.1.39"
 )
 
-// Use Injection
-routesGenerator := InjectedRoutesGenerator
-
 // License Headers
 headers := headers.value ++ Map(
   "java" -> (

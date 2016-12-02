@@ -23,9 +23,6 @@ libraryDependencies ++= Seq(
   "org.apache.commons" % "commons-csv" % "1.4"
 )
 
-// Use Injection
-routesGenerator := InjectedRoutesGenerator
-
 // License Headers
 headers := headers.value ++ Map(
   "java" -> (
