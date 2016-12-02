@@ -4,6 +4,7 @@ version := "5.0"
 
 def commonSettings = Seq(
   scalaVersion := "2.11.7", // Scala version to be used in all projects
+  routesGenerator := InjectedRoutesGenerator, // Use Injection
   javaFormattingSettingsFilename := "rsrg-format.xml" // Java Formatter
 )
 
@@ -25,9 +26,6 @@ libraryDependencies ++= Seq()
 
 // Unmanaged Dependencies
 unmanagedBase := baseDirectory.value / "custom_lib"
-
-// Use Injection
-routesGenerator := InjectedRoutesGenerator
   
 lazy val common: Project = (project in file("modules/common"))
   .enablePlugins(PlayJava, AutomateHeaderPlugin)
