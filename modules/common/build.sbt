@@ -6,7 +6,8 @@ version := "1.0"
 
 // Scala compiler options
 scalacOptions ++= Seq(
-  "-feature" // Shows warnings in detail in the stdout
+  "-feature", // Shows warnings in detail in the stdout
+  "-language:reflectiveCalls" 
 )
 
 // Javac compiler options
