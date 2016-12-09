@@ -27,7 +27,7 @@ libraryDependencies ++= Seq(
   "mysql" % "mysql-connector-java" % "5.1.39",
 
   // Deadbolt 2 (Authenticator)
-  "be.objectify" % "deadbolt-java_2.11" % "2.5.1"
+  "be.objectify" % "deadbolt-java_2.11" % "2.5.3"
 )
 
 routesGenerator := InjectedRoutesGenerator
