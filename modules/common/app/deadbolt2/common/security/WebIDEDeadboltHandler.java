@@ -1,4 +1,4 @@
-package deadbolt2.common;
+package deadbolt2.common.security;
 
 import be.objectify.deadbolt.java.AbstractDeadboltHandler;
 import be.objectify.deadbolt.java.DeadboltHandler;
