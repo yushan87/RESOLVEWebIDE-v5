@@ -4,8 +4,6 @@ import be.objectify.deadbolt.java.ConfigKeys;
 import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.java.ExecutionContextProvider;
 import be.objectify.deadbolt.java.cache.HandlerCache;
-import deadbolt2.common.security.WebIDEDeadboltHandler;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.HashMap;
