@@ -240,7 +240,7 @@ public class User implements Subject {
     }
 
     /**
-     * <p>Get all {@link Permission}s held by this subject. Ordering is not important.</p>
+     * <p>Get all {@link Permission Permissions} held by this subject. Ordering is not important.</p>
      *
      * @return A non-null list of permissions.
      */
