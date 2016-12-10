@@ -1,5 +1,9 @@
 package models.common.database;
 
+import be.objectify.deadbolt.java.models.Permission;
+import be.objectify.deadbolt.java.models.Role;
+import be.objectify.deadbolt.java.models.Subject;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -18,7 +22,7 @@ import play.db.jpa.Transactional;
  */
 @Entity
 @Table(name="users")
-public class User {
+public class User implements Subject {
 
     // ===========================================================
     // Global Variables
@@ -220,6 +224,39 @@ public class User {
         }
 
         return user;
+    }
+
+    /**
+     * <p>Gets a unique identifier for the subject, such as a user name.
+     * This is never used by {@code Deadbolt} itself, and is present to
+     * provide an easy way of getting a useful piece of user information in,
+     * for example, dynamic checks without the need to cast the {@code Subject}.</p>
+     *
+     * @return The user ID.
+     */
+    @Override
+    public final String getIdentifier() {
+        return String.valueOf(id);
+    }
+
+    /**
+     * <p>Get all {@link Permission}s held by this subject. Ordering is not important.</p>
+     *
+     * @return A non-null list of permissions.
+     */
+    @Override
+    public final List<? extends Permission> getPermissions() {
+        return new ArrayList<>();
+    }
+
+    /**
+     * <p>Get all {@link Role Roles} held by this subject. Ordering is not important.</p>
+     *
+     * @return A non-null list of roles.
+     */
+    @Override
+    public final List<? extends Role> getRoles() {
+        return new ArrayList<>();
     }
 
     /**
