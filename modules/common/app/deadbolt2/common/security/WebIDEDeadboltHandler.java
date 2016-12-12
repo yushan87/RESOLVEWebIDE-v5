@@ -40,22 +40,6 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
     // ===========================================================
 
     /**
-     * <p>Invoked immediately before controller or view restrictions are checked.
-     * This forms the integration with any authentication actions that
-     * may need to occur.</p>
-     *
-     * @param context the HTTP context
-     *
-     * @return the action result if an action other than the delegate must be taken,
-     * otherwise null. For a case where the user is authenticated (or whatever your
-     * test condition is), this will be null otherwise the restriction won't be applied.
-     */
-    @Override
-    public final CompletionStage<Optional<Result>> beforeAuthCheck(Http.Context context) {
-        return null;
-    }
-
-    /**
      * <p>Gets the current {@link Subject}, e.g. the current user.</p>
      *
      * @param context the HTTP context
