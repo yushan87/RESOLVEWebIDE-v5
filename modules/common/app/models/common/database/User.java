@@ -3,6 +3,7 @@ package models.common.database;
 import be.objectify.deadbolt.java.models.Permission;
 import be.objectify.deadbolt.java.models.Role;
 import be.objectify.deadbolt.java.models.Subject;
+import deadbolt2.common.core.UserRole;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -256,7 +257,21 @@ public class User implements Subject {
      */
     @Override
     public final List<? extends Role> getRoles() {
-        return new ArrayList<>();
+        // Add the role based on the userType.
+        List<Role> roles = new ArrayList<>();
+        switch (userType) {
+            case 1:
+                roles.add(UserRole.SUPERUSER);
+                break;
+            case 2:
+                roles.add(UserRole.ADMIN);
+                break;
+            default:
+                roles.add(UserRole.USER);
+                break;
+        }
+
+        return roles;
     }
 
     /**
