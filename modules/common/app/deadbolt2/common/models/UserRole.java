@@ -1,4 +1,4 @@
-package deadbolt2.common.core;
+package deadbolt2.common.models;
 
 import be.objectify.deadbolt.java.models.Role;
 

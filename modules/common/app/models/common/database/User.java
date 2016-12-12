@@ -3,7 +3,7 @@ package models.common.database;
 import be.objectify.deadbolt.java.models.Permission;
 import be.objectify.deadbolt.java.models.Role;
 import be.objectify.deadbolt.java.models.Subject;
-import deadbolt2.common.core.UserRole;
+import deadbolt2.common.models.UserRole;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
