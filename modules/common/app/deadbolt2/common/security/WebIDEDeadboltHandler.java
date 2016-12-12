@@ -6,7 +6,10 @@ import be.objectify.deadbolt.java.DynamicResourceHandler;
 import be.objectify.deadbolt.java.ExecutionContextProvider;
 import be.objectify.deadbolt.java.models.Subject;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.Executor;
+import models.common.database.User;
 import play.mvc.Http;
 import play.mvc.Result;
 
@@ -42,11 +45,14 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
      *
      * @param context the HTTP context
      *
-     * @return the current subject
+     * @return A {@link User} if the user is logged in, {@code null} otherwise.
      */
     @Override
-    public final CompletionStage<Optional<? extends Subject>> getSubject(Http.Context context) {
-        return null;
+    public final CompletionStage<Optional<? extends Subject>> getSubject(final Http.Context context) {
+        // Retrieve the current user (if logged in)
+        return CompletableFuture.supplyAsync(() -> Optional.ofNullable(
+                User.findByEmail(context.session().get("connected"))),
+                (Executor) executionContextProvider.get());
     }
 
     /**
