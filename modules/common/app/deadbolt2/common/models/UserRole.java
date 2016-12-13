@@ -11,6 +11,10 @@ import be.objectify.deadbolt.java.models.Role;
  */
 public enum UserRole implements Role {
 
+    // ===========================================================
+    // Different User Roles
+    // ===========================================================
+
     /**
      * <p>This is a regular and authenticated user.</p>
      */
