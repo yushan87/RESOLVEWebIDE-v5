@@ -3,7 +3,7 @@ package deadbolt2.common.models;
 import be.objectify.deadbolt.java.models.Role;
 
 /**
- * <p>An implementation of {@link Role} that will be used
+ * <p>An implementation of {@link Role} for all users that will be used
  * by {@code Deadbolt2}.</p>
  *
  * @author Yu-Shan Sun
