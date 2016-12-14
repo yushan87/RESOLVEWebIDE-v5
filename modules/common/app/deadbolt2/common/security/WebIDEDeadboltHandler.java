@@ -4,7 +4,10 @@ import be.objectify.deadbolt.java.AbstractDeadboltHandler;
 import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.java.DynamicResourceHandler;
 import be.objectify.deadbolt.java.ExecutionContextProvider;
+import be.objectify.deadbolt.java.models.Permission;
 import be.objectify.deadbolt.java.models.Subject;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -41,6 +44,30 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
     // ===========================================================
 
     /**
+     * <p>Gets the handler used for dealing with resources restricted to specific users/groups.</p>
+     *
+     * @param context the HTTP context
+     *
+     * @return the handler for restricted resources. May be null.
+     */
+    @Override
+    public final CompletionStage<Optional<DynamicResourceHandler>> getDynamicResourceHandler(Http.Context context) {
+        return null;
+    }
+
+    /**
+     * <p>Get the permissions associated with a role.</p>
+     *
+     * @param roleName the role the permissions are associated with.
+     *
+     * @return a non-null list containing the permissions associated with the role
+     */
+    @Override
+    public final CompletionStage<List<? extends Permission>> getPermissionsForRole(String roleName) {
+        return null;
+    }
+
+    /**
      * <p>Gets the current {@link Subject}, e.g. the current user.</p>
      *
      * @param context the HTTP context
@@ -56,6 +83,16 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
     }
 
     /**
+     * <p>Gets the canonical name of the handler. Defaults to the class name.</p>
+     *
+     * @return whatever the implementor considers the canonical name of the handler to be.
+     */
+    @Override
+    public final String handlerName() {
+        return "RESOLVEWebIDE DeadboltHandler";
+    }
+
+    /**
      * <p>Invoked when an access failure is detected on <i>controllerClassName</i>.</p>
      *
      * @param context the HTTP context
@@ -67,28 +104,6 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
     @Override
     public final CompletionStage<Result> onAuthFailure(Http.Context context, Optional<String> content) {
         return null;
-    }
-
-    /**
-     * <p>Gets the handler used for dealing with resources restricted to specific users/groups.</p>
-     *
-     * @param context the HTTP context
-     *
-     * @return the handler for restricted resources. May be null.
-     */
-    @Override
-    public final CompletionStage<Optional<DynamicResourceHandler>> getDynamicResourceHandler(Http.Context context) {
-        return null;
-    }
-
-    /**
-     * <p>Gets the canonical name of the handler. Defaults to the class name.</p>
-     *
-     * @return whatever the implementor considers the canonical name of the handler to be.
-     */
-    @Override
-    public final String handlerName() {
-        return "RESOLVEWebIDE DeadboltHandler";
     }
 
 }
