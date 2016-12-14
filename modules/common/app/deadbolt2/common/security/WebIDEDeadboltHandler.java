@@ -44,18 +44,6 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
     // ===========================================================
 
     /**
-     * <p>Gets the handler used for dealing with resources restricted to specific users/groups.</p>
-     *
-     * @param context the HTTP context
-     *
-     * @return the handler for restricted resources. May be null.
-     */
-    @Override
-    public final CompletionStage<Optional<DynamicResourceHandler>> getDynamicResourceHandler(Http.Context context) {
-        return null;
-    }
-
-    /**
      * <p>Get the permissions associated with a role.</p>
      *
      * @param roleName the role the permissions are associated with.
