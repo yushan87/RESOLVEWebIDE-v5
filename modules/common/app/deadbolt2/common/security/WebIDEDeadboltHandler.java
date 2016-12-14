@@ -2,12 +2,8 @@ package deadbolt2.common.security;
 
 import be.objectify.deadbolt.java.AbstractDeadboltHandler;
 import be.objectify.deadbolt.java.DeadboltHandler;
-import be.objectify.deadbolt.java.DynamicResourceHandler;
 import be.objectify.deadbolt.java.ExecutionContextProvider;
-import be.objectify.deadbolt.java.models.Permission;
 import be.objectify.deadbolt.java.models.Subject;
-
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -42,18 +38,6 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
     // ===========================================================
     // Public Methods
     // ===========================================================
-
-    /**
-     * <p>Get the permissions associated with a role.</p>
-     *
-     * @param roleName the role the permissions are associated with.
-     *
-     * @return a non-null list containing the permissions associated with the role
-     */
-    @Override
-    public final CompletionStage<List<? extends Permission>> getPermissionsForRole(String roleName) {
-        return null;
-    }
 
     /**
      * <p>Gets the current {@link Subject}, e.g. the current user.</p>
