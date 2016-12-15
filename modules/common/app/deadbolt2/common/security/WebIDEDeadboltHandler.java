@@ -75,7 +75,8 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
      */
     @Override
     public final CompletionStage<Result> onAuthFailure(Http.Context context, Optional<String> content) {
-        return null;
+        // TODO: Change this!
+        return super.onAuthFailure(context, content);
     }
 
 }
