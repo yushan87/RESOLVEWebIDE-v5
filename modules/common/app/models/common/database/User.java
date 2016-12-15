@@ -3,6 +3,7 @@ package models.common.database;
 import be.objectify.deadbolt.java.models.Permission;
 import be.objectify.deadbolt.java.models.Role;
 import be.objectify.deadbolt.java.models.Subject;
+import deadbolt2.common.models.UserPermission;
 import deadbolt2.common.models.UserRole;
 import java.util.ArrayList;
 import java.util.Date;
@@ -247,7 +248,13 @@ public class User implements Subject {
      */
     @Override
     public final List<? extends Permission> getPermissions() {
-        return new ArrayList<>();
+        // Add the different permissions for this user.
+        List<Permission> permissions = new ArrayList<>();
+        if (authenticated) {
+            permissions.add(UserPermission.ACTIVEUSER);
+        }
+
+        return permissions;
     }
 
     /**
