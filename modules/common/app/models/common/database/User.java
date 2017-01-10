@@ -34,7 +34,7 @@ import play.db.jpa.Transactional;
  * @version 1.0
  */
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User implements Subject {
 
     // ===========================================================
@@ -289,15 +289,15 @@ public class User implements Subject {
         // Add the role based on the userType.
         List<Role> roles = new ArrayList<>();
         switch (userType) {
-            case 1:
-                roles.add(UserRole.SUPERUSER);
-                break;
-            case 2:
-                roles.add(UserRole.ADMIN);
-                break;
-            default:
-                roles.add(UserRole.USER);
-                break;
+        case 1:
+            roles.add(UserRole.SUPERUSER);
+            break;
+        case 2:
+            roles.add(UserRole.ADMIN);
+            break;
+        default:
+            roles.add(UserRole.USER);
+            break;
         }
 
         return roles;

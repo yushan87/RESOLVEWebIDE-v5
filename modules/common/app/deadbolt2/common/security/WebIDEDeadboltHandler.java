@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package deadbolt2.common.security;
 
 import be.objectify.deadbolt.java.AbstractDeadboltHandler;
@@ -74,7 +85,8 @@ public class WebIDEDeadboltHandler extends AbstractDeadboltHandler {
      * @return the action result
      */
     @Override
-    public final CompletionStage<Result> onAuthFailure(Http.Context context, Optional<String> content) {
+    public final CompletionStage<Result> onAuthFailure(Http.Context context,
+            Optional<String> content) {
         // TODO: Change this!
         return super.onAuthFailure(context, content);
     }

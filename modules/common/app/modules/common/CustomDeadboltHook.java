@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package modules.common;
 
 import be.objectify.deadbolt.java.cache.HandlerCache;
@@ -30,8 +41,10 @@ public class CustomDeadboltHook extends Module {
      * @return A sequence of bindings.
      */
     @Override
-    public final Seq<Binding<?>> bindings(final Environment environment, final Configuration configuration) {
-        return seq(bind(HandlerCache.class).to(WebIDEHandlerCache.class).in(Singleton.class));
+    public final Seq<Binding<?>> bindings(final Environment environment,
+            final Configuration configuration) {
+        return seq(bind(HandlerCache.class).to(WebIDEHandlerCache.class).in(
+                Singleton.class));
     }
 
 }
