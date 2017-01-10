@@ -11,6 +11,12 @@
  */
 package models.common.database;
 
+import be.objectify.deadbolt.java.models.Permission;
+import be.objectify.deadbolt.java.models.Role;
+import be.objectify.deadbolt.java.models.Subject;
+import deadbolt2.common.models.UserPermission;
+import deadbolt2.common.models.UserRole;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -28,8 +34,8 @@ import play.db.jpa.Transactional;
  * @version 1.0
  */
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name="users")
+public class User implements Subject {
 
     // ===========================================================
     // Global Variables
@@ -242,6 +248,59 @@ public class User {
         }
 
         return user;
+    }
+
+    /**
+     * <p>Gets a unique identifier for the subject, such as a user name.
+     * This is never used by {@code Deadbolt} itself, and is present to
+     * provide an easy way of getting a useful piece of user information in,
+     * for example, dynamic checks without the need to cast the {@code Subject}.</p>
+     *
+     * @return The user ID.
+     */
+    @Override
+    public final String getIdentifier() {
+        return String.valueOf(id);
+    }
+
+    /**
+     * <p>Get all {@link Permission Permissions} held by this subject. Ordering is not important.</p>
+     *
+     * @return A non-null list of permissions.
+     */
+    @Override
+    public final List<? extends Permission> getPermissions() {
+        // Add the different permissions for this user.
+        List<Permission> permissions = new ArrayList<>();
+        if (authenticated) {
+            permissions.add(UserPermission.ACTIVEUSER);
+        }
+
+        return permissions;
+    }
+
+    /**
+     * <p>Get all {@link Role Roles} held by this subject. Ordering is not important.</p>
+     *
+     * @return A non-null list of roles.
+     */
+    @Override
+    public final List<? extends Role> getRoles() {
+        // Add the role based on the userType.
+        List<Role> roles = new ArrayList<>();
+        switch (userType) {
+            case 1:
+                roles.add(UserRole.SUPERUSER);
+                break;
+            case 2:
+                roles.add(UserRole.ADMIN);
+                break;
+            default:
+                roles.add(UserRole.USER);
+                break;
+        }
+
+        return roles;
     }
 
     /**

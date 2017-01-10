@@ -29,7 +29,10 @@ libraryDependencies ++= Seq(
 
   // Database
   "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final",
-  "mysql" % "mysql-connector-java" % "5.1.39"
+  "mysql" % "mysql-connector-java" % "5.1.39",
+
+  // Deadbolt 2 (Authenticator)
+  "be.objectify" % "deadbolt-java_2.11" % "2.5.3"
 )
 
 // License Headers
