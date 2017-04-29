@@ -31,7 +31,7 @@
         <appender-ref ref="STDOUT" />
     </appender>
 
-    <logger name="play" level="WARN" />
+    <logger name="play" level="INFO" />
     <logger name="application" level="DEBUG" />
 
     <!-- additivity=false ensures akka log data only goes to the akka log -->

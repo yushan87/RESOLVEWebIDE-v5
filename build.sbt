@@ -28,21 +28,21 @@ libraryDependencies ++= Seq()
 unmanagedBase := baseDirectory.value / "custom_lib"
   
 lazy val common: Project = (project in file("modules/common"))
-  .enablePlugins(PlayJava, AutomateHeaderPlugin)
+  .enablePlugins(PlayJava)
   .settings(commonSettings, aggregateReverseRoutes := Seq(admin, bydesign, webide))
   
 lazy val admin = (project in file("modules/admin"))
-  .enablePlugins(PlayJava, AutomateHeaderPlugin)
+  .enablePlugins(PlayJava)
   .dependsOn(common)
   .settings(commonSettings: _*)
 
 lazy val bydesign = (project in file("modules/bydesign"))
-  .enablePlugins(PlayJava, AutomateHeaderPlugin)
+  .enablePlugins(PlayJava)
   .dependsOn(common)
   .settings(commonSettings: _*)
   
 lazy val webide = (project in file("modules/webide"))
-  .enablePlugins(PlayJava, AutomateHeaderPlugin)
+  .enablePlugins(PlayJava)
   .dependsOn(common)
   .settings(commonSettings: _*)
 
