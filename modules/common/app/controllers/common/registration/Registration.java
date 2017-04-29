@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package controllers.common.registration;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -142,16 +153,19 @@ public class Registration extends Controller {
         if (user != null) {
             if (user.confirmationCode.equals(confirmationCode)) {
                 user = User.authenticate(email);
-                myEmailGenerator.generateWelcomeEmail(user.firstName, user.email);
+                myEmailGenerator.generateWelcomeEmail(user.firstName,
+                        user.email);
 
                 // Render authentication success page
-                return ok(authenticationSuccess.render(email, user.firstName, user.lastName));
+                return ok(authenticationSuccess.render(email, user.firstName,
+                        user.lastName));
             }
             else {
                 // Render expired confirmation link page
                 return ok(expired.render());
             }
-        } else {
+        }
+        else {
             // Render the account error page
             return ok(accountError.render());
         }
@@ -224,5 +238,4 @@ public class Registration extends Controller {
             return errors.isEmpty() ? null : errors;
         }, myHttpExecutionContext.current());
     }
-
 }

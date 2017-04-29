@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package controllers.common.security;
 
 import java.util.concurrent.CompletableFuture;
@@ -185,11 +196,13 @@ public class Security extends Controller {
         if (user != null) {
             // Generate a new confirmation code and send out another email.
             user = User.setNotAuthenticated(email);
-            myEmailGenerator.generateConfirmationEmail(user.firstName, user.email, user.confirmationCode);
+            myEmailGenerator.generateConfirmationEmail(user.firstName,
+                    user.email, user.confirmationCode);
 
             // Render registration success page.
             return ok(registrationSuccess.render());
-        } else {
+        }
+        else {
             // Render the account error page
             return ok(accountError.render());
         }

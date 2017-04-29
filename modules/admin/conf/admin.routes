@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.admin.Admin.index()
+GET     /                           controllers.admin.overview.Overview.index()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.admin.Assets.versioned(path="/public", file)

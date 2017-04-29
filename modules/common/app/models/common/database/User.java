@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package models.common.database;
 
 import be.objectify.deadbolt.java.models.Permission;
@@ -23,7 +34,7 @@ import play.db.jpa.Transactional;
  * @version 1.0
  */
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User implements Subject {
 
     // ===========================================================
@@ -57,12 +68,12 @@ public class User implements Subject {
     public int userType;
 
     /** <p>Last Login Date</p> */
-    @Column(name = "lastLogin", columnDefinition="DATETIME")
+    @Column(name = "lastLogin", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     public Date lastLogin;
 
     /** <p>Account Creation Date</p> */
-    @Column(name = "createdOn", columnDefinition="DATETIME")
+    @Column(name = "createdOn", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     @Constraints.Required
     public Date createdOn;
@@ -104,7 +115,8 @@ public class User implements Subject {
      * @param userFirstName User's first name.
      * @param userLastName User's last name.
      */
-    private User(String userEmail, String userPassword, String userFirstName, String userLastName) {
+    private User(String userEmail, String userPassword, String userFirstName,
+            String userLastName) {
         // User information
         email = userEmail;
         firstName = userFirstName;
@@ -119,7 +131,9 @@ public class User implements Subject {
         authenticated = false;
 
         // Generate confirmation code
-        confirmationCode = ModelUtilities.generateConfirmationCode(password,email,firstName,lastName);
+        confirmationCode =
+                ModelUtilities.generateConfirmationCode(password, email,
+                        firstName, lastName);
     }
 
     // ===========================================================
@@ -137,7 +151,8 @@ public class User implements Subject {
      * @return The newly created user object.
      */
     @Transactional
-    public static User addUser(String email, String password, String userFirstName, String userLastName) {
+    public static User addUser(String email, String password,
+            String userFirstName, String userLastName) {
         User u = new User(email, password, userFirstName, userLastName);
         u.save();
 
@@ -193,11 +208,15 @@ public class User implements Subject {
      * @param numTries Updated number of tries flag.
      */
     @Transactional
-    public static void editUserProfile(String currentUserEmail, String firstName, String lastName,
-                                       String email, int timeout, int numTries) {
-        Query query = JPA.em().createQuery("update User u set u.email = :email, u.firstName = :firstName, " +
-                "u.lastName = :lastName, u.timeout = :timeout, u.numTries = :numTries " +
-                "where u.email = :currentUserEmail");
+    public static void editUserProfile(String currentUserEmail,
+            String firstName, String lastName, String email, int timeout,
+            int numTries) {
+        Query query =
+                JPA.em()
+                        .createQuery(
+                                "update User u set u.email = :email, u.firstName = :firstName, "
+                                        + "u.lastName = :lastName, u.timeout = :timeout, u.numTries = :numTries "
+                                        + "where u.email = :currentUserEmail");
         query.setParameter("email", email);
         query.setParameter("firstName", firstName);
         query.setParameter("lastName", lastName);
@@ -216,7 +235,10 @@ public class User implements Subject {
      */
     @Transactional(readOnly = true)
     public static User findByEmail(String email) {
-        Query query = JPA.em().createQuery("select u from User u where u.email = :email", User.class);
+        Query query =
+                JPA.em().createQuery(
+                        "select u from User u where u.email = :email",
+                        User.class);
         query.setParameter("email", email);
 
         List result = query.getResultList();
@@ -267,15 +289,15 @@ public class User implements Subject {
         // Add the role based on the userType.
         List<Role> roles = new ArrayList<>();
         switch (userType) {
-            case 1:
-                roles.add(UserRole.SUPERUSER);
-                break;
-            case 2:
-                roles.add(UserRole.ADMIN);
-                break;
-            default:
-                roles.add(UserRole.USER);
-                break;
+        case 1:
+            roles.add(UserRole.SUPERUSER);
+            break;
+        case 2:
+            roles.add(UserRole.ADMIN);
+            break;
+        default:
+            roles.add(UserRole.USER);
+            break;
         }
 
         return roles;
@@ -318,7 +340,9 @@ public class User implements Subject {
     @Transactional
     public static User setNotAuthenticated(String email) {
         User u = findByEmail(email);
-        u.confirmationCode = ModelUtilities.generateConfirmationCode(u.password, u.email, u.firstName, u.lastName);
+        u.confirmationCode =
+                ModelUtilities.generateConfirmationCode(u.password, u.email,
+                        u.firstName, u.lastName);
         u.authenticated = false;
         u.save();
 

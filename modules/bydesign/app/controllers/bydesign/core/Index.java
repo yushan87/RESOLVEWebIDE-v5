@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package controllers.bydesign.core;
 
 import models.common.database.User;
@@ -24,7 +35,7 @@ public class Index extends Controller {
     public Result index() {
         // Retrieve the current user (if logged in)
         String email = session("connected");
-        if(email != null) {
+        if (email != null) {
             User currentUser = User.findByEmail(email);
 
             return ok(index.render(currentUser));

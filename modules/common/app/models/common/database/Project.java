@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package models.common.database;
 
 import com.google.common.collect.Iterables;
@@ -17,7 +28,7 @@ import play.db.jpa.Transactional;
  * @version 1.0
  */
 @Entity
-@Table(name="projects")
+@Table(name = "projects")
 public class Project {
 
     // ===========================================================
@@ -70,7 +81,8 @@ public class Project {
      * @param projOpenProject Boolean that indicates if this is an open project.
      * @param projStandardHidden Boolean that indicates if the standard facilities are hidden or not.
      */
-    private Project(String projName, String projOwnerEmail, boolean projOpenProject, boolean projStandardHidden){
+    private Project(String projName, String projOwnerEmail,
+            boolean projOpenProject, boolean projStandardHidden) {
         name = projName;
         ownerEmail = projOwnerEmail;
         jsonRep = "";
@@ -95,7 +107,8 @@ public class Project {
      * @return The newly created project object.
      */
     @Transactional
-    public static Project addProject(String name, String email, boolean isOpenProject, boolean isStandardHidden) {
+    public static Project addProject(String name, String email,
+            boolean isOpenProject, boolean isStandardHidden) {
         Project p = new Project(name, email, isOpenProject, isStandardHidden);
         p.save();
 
@@ -109,7 +122,11 @@ public class Project {
      */
     @Transactional(readOnly = true)
     public static Project getDefault() {
-        Query query = JPA.em().createQuery("select p from Project p where p.defaultProject = true", Project.class);
+        Query query =
+                JPA.em()
+                        .createQuery(
+                                "select p from Project p where p.defaultProject = true",
+                                Project.class);
 
         List result = query.getResultList();
         Project defaultProject = null;
@@ -126,8 +143,11 @@ public class Project {
      * @return List of all open project object.
      */
     @Transactional(readOnly = true)
-    public static List<Project> getOpenProjects(){
-        Query query = JPA.em().createQuery("from Project p where p.openProject = true", Project.class);
+    public static List<Project> getOpenProjects() {
+        Query query =
+                JPA.em().createQuery(
+                        "from Project p where p.openProject = true",
+                        Project.class);
         List results = query.getResultList();
 
         return Lists.newArrayList(Iterables.filter(results, Project.class));
@@ -140,7 +160,11 @@ public class Project {
      */
     @Transactional(readOnly = true)
     public static List<Project> getPrivateProjects() {
-        Query query = JPA.em().createQuery("from Project p where p.email != null and p.openProject = false", Project.class);
+        Query query =
+                JPA.em()
+                        .createQuery(
+                                "from Project p where p.email != null and p.openProject = false",
+                                Project.class);
         List results = query.getResultList();
 
         return Lists.newArrayList(Iterables.filter(results, Project.class));
@@ -156,7 +180,11 @@ public class Project {
      */
     @Transactional(readOnly = true)
     public static Project getProject(String name, String email) {
-        Query query = JPA.em().createQuery("select p from Project p where p.name = :name and p.email = :email", Project.class);
+        Query query =
+                JPA.em()
+                        .createQuery(
+                                "select p from Project p where p.name = :name and p.email = :email",
+                                Project.class);
         query.setParameter("name", name);
         query.setParameter("email", email);
 
@@ -179,7 +207,11 @@ public class Project {
      */
     @Transactional(readOnly = true)
     public static List<Project> getUserProjects(String email) {
-        Query query = JPA.em().createQuery("from Project p where p.email = :email and p.openProject = false", Project.class);
+        Query query =
+                JPA.em()
+                        .createQuery(
+                                "from Project p where p.email = :email and p.openProject = false",
+                                Project.class);
         query.setParameter("email", email);
         List results = query.getResultList();
 

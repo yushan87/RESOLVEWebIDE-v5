@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package controllers.common.email;
 
 import javax.inject.Inject;
@@ -43,10 +54,15 @@ public class EmailGenerator {
      * @param userEmail User's email.
      * @param confirmationCode User's generated confirmation code.
      */
-    public void generateConfirmationEmail(String firstName, String userEmail, String confirmationCode) {
-        String link = formBaseWebPath() + "common/registration/confirm?c_code=" + confirmationCode + "&email=" + userEmail;
-        Email email = generateEmailObject(userEmail, "RESOLVE Web IDE Registration Confirmation",
-                confirmation.render(firstName, link).body());
+    public void generateConfirmationEmail(String firstName, String userEmail,
+            String confirmationCode) {
+        String link =
+                formBaseWebPath() + "common/registration/confirm?c_code="
+                        + confirmationCode + "&email=" + userEmail;
+        Email email =
+                generateEmailObject(userEmail,
+                        "RESOLVE Web IDE Registration Confirmation",
+                        confirmation.render(firstName, link).body());
         myMailerClient.send(email);
     }
 
@@ -58,10 +74,15 @@ public class EmailGenerator {
      * @param userEmail User's email.
      * @param confirmationCode User's generated confirmation code.
      */
-    public void generateResetPasswordEmail(String firstName, String userEmail, String confirmationCode) {
-        String link = formBaseWebPath() + "common/passwordrecovery/reset?c_code=" + confirmationCode + "&email=" + userEmail;
-        Email email = generateEmailObject(userEmail, "RESOLVE Web IDE Password Recovery",
-                resetPassword.render(firstName, link).body());
+    public void generateResetPasswordEmail(String firstName, String userEmail,
+            String confirmationCode) {
+        String link =
+                formBaseWebPath() + "common/passwordrecovery/reset?c_code="
+                        + confirmationCode + "&email=" + userEmail;
+        Email email =
+                generateEmailObject(userEmail,
+                        "RESOLVE Web IDE Password Recovery", resetPassword
+                                .render(firstName, link).body());
         myMailerClient.send(email);
     }
 
@@ -73,8 +94,10 @@ public class EmailGenerator {
      * @param userEmail User's email.
      */
     public void generateResetSuccessEmail(String firstName, String userEmail) {
-        Email email = generateEmailObject(userEmail, "RESOLVE Web IDE Password Successfully Reset",
-                resetSuccess.render(firstName, userEmail).body());
+        Email email =
+                generateEmailObject(userEmail,
+                        "RESOLVE Web IDE Password Successfully Reset",
+                        resetSuccess.render(firstName, userEmail).body());
         myMailerClient.send(email);
     }
 
@@ -86,9 +109,13 @@ public class EmailGenerator {
      * @param oldUserEmail User's old email.
      * @param newUserEmail User's new email.
      */
-    public void generateUpdateAccountEmail(String firstName, String oldUserEmail, String newUserEmail) {
-        Email email = generateEmailObject(oldUserEmail, "RESOLVE Web IDE Account Update",
-                updateEmailSuccess.render(firstName, oldUserEmail, newUserEmail).body());
+    public void generateUpdateAccountEmail(String firstName,
+            String oldUserEmail, String newUserEmail) {
+        Email email =
+                generateEmailObject(oldUserEmail,
+                        "RESOLVE Web IDE Account Update", updateEmailSuccess
+                                .render(firstName, oldUserEmail, newUserEmail)
+                                .body());
         myMailerClient.send(email);
     }
 
@@ -100,8 +127,10 @@ public class EmailGenerator {
      * @param userEmail User's email.
      */
     public void generateWelcomeEmail(String firstName, String userEmail) {
-        Email email = generateEmailObject(userEmail, "Welcome to RESOLVE Web IDE",
-                welcome.render(firstName, userEmail, formBaseWebPath()).body());
+        Email email =
+                generateEmailObject(userEmail, "Welcome to RESOLVE Web IDE",
+                        welcome.render(firstName, userEmail, formBaseWebPath())
+                                .body());
         myMailerClient.send(email);
     }
 
@@ -130,7 +159,8 @@ public class EmailGenerator {
             context = "";
         }
 
-        return protocol + Http.Context.current().request().host() + context + "/";
+        return protocol + Http.Context.current().request().host() + context
+                + "/";
     }
 
     /**
@@ -142,7 +172,8 @@ public class EmailGenerator {
      *
      * @return A new email object with the sender and recipient information.
      */
-    private Email generateEmailObject(String emailAddress, String subject, String body) {
+    private Email generateEmailObject(String emailAddress, String subject,
+            String body) {
         // Obtain the email host from the configuration file
         String host = myConfiguration.getString("webide.emailhost");
         if (host == null) {

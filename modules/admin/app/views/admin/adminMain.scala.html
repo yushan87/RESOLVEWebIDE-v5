@@ -1,0 +1,24 @@
+@import models.common.database.User
+
+@(currentUser: User)(pageContent: Html)
+
+@views.html.common.main("RESOLVEWebIDE - Admin", currentUser) {
+    <div class="container-fluid">
+		<div class="row">
+			<div id="left-sidebar" class="col-sm-3 col-md-2 py-2" role="navigation">
+				<ul class="nav nav-stacked">
+					<li class="nav-item text-xs-center pb-1">
+						<a class="btn btn-outline-primary btn-lg btn-block" href="@controllers.admin.overview.routes.Overview.index()" role="button">Overview</a>
+					</li>
+					<li class="nav-item text-xs-center pb-1">
+						<a class="btn btn-outline-primary btn-lg btn-block" href="#" role="button">Link 2</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 py-2">
+				<!-- Content passed in gets displayed here -->
+				@pageContent
+			</div>
+		</div>
+	</div>
+}

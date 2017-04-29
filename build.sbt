@@ -3,25 +3,28 @@ name := "RESOLVEWebIDE"
 version := "5.0"
 
 def commonSettings = Seq(
-  scalaVersion := "2.11.7"
+  scalaVersion := "2.11.7", // Scala version to be used in all projects
+  routesGenerator := InjectedRoutesGenerator, // Use Injection
+  javaFormattingSettingsFilename := "rsrg-format.xml" // Java Formatter
 )
 
+// Scala compiler options
 scalacOptions ++= Seq(
   "-feature", // Shows warnings in detail in the stdout
   "-language:reflectiveCalls" 
 )
 
-// Javac compiler warning
+// Javac compiler options
 javacOptions ++= Seq(
   "-Xlint:unchecked",
   "-Xlint:deprecation",
   "-Xdiags:verbose"
 )
 
+// Managed Dependencies
 libraryDependencies ++= Seq()
 
-routesGenerator := InjectedRoutesGenerator
-
+// Unmanaged Dependencies
 unmanagedBase := baseDirectory.value / "custom_lib"
   
 lazy val common: Project = (project in file("modules/common"))
@@ -44,7 +47,7 @@ lazy val webide = (project in file("modules/webide"))
   .settings(commonSettings: _*)
 
 lazy val main = (project in file("."))
-  .enablePlugins(PlayJava)
+  .enablePlugins(PlayJava, AutomateHeaderPlugin)
   .dependsOn(common, admin, bydesign, webide)
   .aggregate(common, admin, bydesign, webide)
   .settings(commonSettings: _*)

@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package models.common.form;
 
 import play.data.validation.Constraints;
@@ -55,7 +66,7 @@ public class UpdateProfileForm {
      * @param numTries Number of tries value
      */
     public UpdateProfileForm(String firstName, String lastName, String email,
-                             int timeout, int numTries) {
+            int timeout, int numTries) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -166,15 +177,21 @@ public class UpdateProfileForm {
      */
     @Override
     public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         UpdateProfileForm that = (UpdateProfileForm) o;
 
-        if (timeout != that.timeout) return false;
-        if (numTries != that.numTries) return false;
-        if (!firstName.equals(that.firstName)) return false;
-        if (!lastName.equals(that.lastName)) return false;
+        if (timeout != that.timeout)
+            return false;
+        if (numTries != that.numTries)
+            return false;
+        if (!firstName.equals(that.firstName))
+            return false;
+        if (!lastName.equals(that.lastName))
+            return false;
 
         return email.equals(that.email);
     }

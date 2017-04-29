@@ -1,15 +1,26 @@
-package controllers.admin;
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
+package controllers.admin.overview;
 
 import models.common.database.User;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.admin.index;
+import views.html.admin.overview.index;
 
 /**
  * TODO: Write a description of this module
  */
-public class Admin extends Controller {
+public class Overview extends Controller {
 
     // ===========================================================
     // Public Methods
@@ -24,7 +35,7 @@ public class Admin extends Controller {
     public Result index() {
         // Retrieve the current user (if logged in)
         String email = session("connected");
-        if(email != null) {
+        if (email != null) {
             User currentUser = User.findByEmail(email);
 
             if (currentUser.userType != 2) {

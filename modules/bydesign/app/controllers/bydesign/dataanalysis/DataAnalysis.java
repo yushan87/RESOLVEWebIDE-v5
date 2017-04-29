@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package controllers.bydesign.dataanalysis;
 
 import models.common.database.ByDesignEvent;
@@ -42,7 +53,8 @@ public class DataAnalysis extends Controller {
         if (email != null) {
             User currentUser = User.findByEmail(email);
 
-            return ok(dataanalysis.render(currentUser, "", null, new HashMap<>(), null));
+            return ok(dataanalysis.render(currentUser, "", null,
+                    new HashMap<>(), null));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
@@ -90,7 +102,8 @@ public class DataAnalysis extends Controller {
             Map<Long, List<ByDesignEvent>> eventsMap = new HashMap<>();
 
             // Retrieve the file that was posted to the backend
-            MultipartFormData<File> body = request().body().asMultipartFormData();
+            MultipartFormData<File> body =
+                    request().body().asMultipartFormData();
             FilePart<File> idFile = body.getFile("idFile");
             if (idFile != null) {
                 // Obtain the extension from the file
@@ -99,7 +112,8 @@ public class DataAnalysis extends Controller {
                 fileName = idFile.getFilename();
                 int lastDotIndex = fileName.lastIndexOf(".");
                 if (lastDotIndex > 0) {
-                    extension = fileName.substring(lastDotIndex, fileName.length());
+                    extension =
+                            fileName.substring(lastDotIndex, fileName.length());
                 }
 
                 // Only deal with CSV files
@@ -152,7 +166,8 @@ public class DataAnalysis extends Controller {
 
                         // No error detected
                         lastGeneratedDate = new Date();
-                    } catch (IOException | IllegalArgumentException e) {
+                    }
+                    catch (IOException | IllegalArgumentException e) {
                         // If we encounter any kind of exception, then we
                         // render the error alert and don't display a file name
                         // as the file we are currently analyzing.
@@ -162,7 +177,8 @@ public class DataAnalysis extends Controller {
                 }
             }
 
-            return ok(dataanalysis.render(currentUser, fileName, errorKind, eventsMap, lastGeneratedDate));
+            return ok(dataanalysis.render(currentUser, fileName, errorKind,
+                    eventsMap, lastGeneratedDate));
         }
 
         return redirect(controllers.common.security.routes.Security.index());
@@ -206,7 +222,9 @@ public class DataAnalysis extends Controller {
         if (result) {
             // Check to see if the content type is either "application/vnd.ms-excel"
             // if the client is using Windows or "text/csv" on MacOS/Linux.
-            result = contentType.equals("application/vnd.ms-excel") || contentType.equals("text/csv");
+            result =
+                    contentType.equals("application/vnd.ms-excel")
+                            || contentType.equals("text/csv");
         }
 
         return result;
@@ -227,15 +245,18 @@ public class DataAnalysis extends Controller {
      * from {@link IllegalArgumentException}) is thrown when the file is not consistent with the
      * column headers or if we contain anything other than strings of long values.
      */
-    private List<Long> parseIDFile(File idFile) throws IOException, IllegalArgumentException {
+    private List<Long> parseIDFile(File idFile)
+            throws IOException,
+                IllegalArgumentException {
         List<Long> idList = new LinkedList<>();
 
         // We perform the following transformations to the provided CSVFormat
         // 1. Manually set the header to ID.
         // 2. We check to see if each line is consistent with the header provided.
         //    (ie. It is an error if it contains more values on the same line.)
-        Iterable<CSVRecord> csvRecords = CSVFormat.RFC4180
-                .withHeader("ID").parse(new FileReader(idFile));
+        Iterable<CSVRecord> csvRecords =
+                CSVFormat.RFC4180.withHeader("ID")
+                        .parse(new FileReader(idFile));
         for (CSVRecord record : csvRecords) {
             // Make sure we only have one column
             if (!record.isConsistent()) {

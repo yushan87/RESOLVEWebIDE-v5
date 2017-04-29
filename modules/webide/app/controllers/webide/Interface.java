@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package controllers.webide;
 
 import java.util.List;
@@ -42,13 +53,13 @@ public class Interface extends Controller {
             activeProject = myCachedObjects.getDefaultProject();
         }
         else {
-            activeProject = projectList.get(selectedProject-1);
+            activeProject = projectList.get(selectedProject - 1);
         }
 
         // Retrieve the current user (if logged in)
         String email = session("connected");
         User currentUser = null;
-        if(email != null) {
+        if (email != null) {
             currentUser = User.findByEmail(email);
         }
 

@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package utils.bydesign.dataanalysis;
 
 /**
@@ -21,7 +32,8 @@ public enum ErrorKind {
     /**
      * <p>Error 3: Error Retrieving Data from the Database.</p>
      */
-    DATABASE_ERROR(2, "An error occurred while retrieving data from the database.");
+    DATABASE_ERROR(2,
+            "An error occurred while retrieving data from the database.");
 
     // ===========================================================
     // Global Variables

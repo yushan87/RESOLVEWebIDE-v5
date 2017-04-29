@@ -2,6 +2,11 @@
 # Derived files #
 #################
 
+# Activator Files
+.sbtserver/
+project/.sbtserver
+project/.sbtserver.lock
+
 # Play Generated Files
 tmp/
 modules/*/target/

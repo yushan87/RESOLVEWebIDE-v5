@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package controllers.common.utilities;
 
 /* Libraries */
@@ -28,7 +39,8 @@ public class ControllerUtilities {
 
         try {
             encoded = URLDecoder.decode(raw.replaceAll("%20", " "), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
@@ -62,7 +74,8 @@ public class ControllerUtilities {
 
         try {
             encoded = URLEncoder.encode(raw.replaceAll(" ", "%20"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 

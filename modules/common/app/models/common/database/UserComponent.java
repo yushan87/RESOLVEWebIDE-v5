@@ -1,3 +1,14 @@
+/**
+ * ---------------------------------
+ * Copyright (c) 2016
+ * RESOLVE Software Research Group
+ * School of Computing
+ * Clemson University
+ * All rights reserved.
+ * ---------------------------------
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
 package models.common.database;
 
 import java.util.Date;
@@ -16,7 +27,7 @@ import play.db.jpa.Transactional;
  * @version 1.0
  */
 @Entity
-@Table(name="userComponents")
+@Table(name = "userComponents")
 public class UserComponent {
 
     // ===========================================================
@@ -50,7 +61,7 @@ public class UserComponent {
     public User author;
 
     /** <p>User component creation date.</p> */
-    @Column(name = "createdAt", columnDefinition="DATETIME")
+    @Column(name = "createdAt", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     public Date createdAt;
 
@@ -76,7 +87,8 @@ public class UserComponent {
      * @param ucContent User component's content.
      * @param ucType The type of file for this user component.
      */
-    private UserComponent(String ucName, String ucAuthor, String ucPkg, String ucProject, String ucContent, String ucType) {
+    private UserComponent(String ucName, String ucAuthor, String ucPkg,
+            String ucProject, String ucContent, String ucType) {
         name = ucName;
         pkg = ucPkg;
         project = ucProject;
@@ -103,8 +115,12 @@ public class UserComponent {
      * @return The newly created user component object.
      */
     @Transactional
-    public static UserComponent addUserComponent(String ucName, String ucAuthor, String ucPkg, String ucProject, String ucContent, String ucType) {
-        UserComponent uc = new UserComponent(ucName, ucAuthor, ucPkg, ucProject, ucContent, ucType);
+    public static UserComponent addUserComponent(String ucName,
+            String ucAuthor, String ucPkg, String ucProject, String ucContent,
+            String ucType) {
+        UserComponent uc =
+                new UserComponent(ucName, ucAuthor, ucPkg, ucProject,
+                        ucContent, ucType);
         uc.save();
 
         return uc;
@@ -117,7 +133,7 @@ public class UserComponent {
      * @return A formatted JSON string that contains all the relevant
      * information about this user component.
      */
-    public String toJson(){
+    public String toJson() {
         StringBuilder json = new StringBuilder();
 
         // Content
