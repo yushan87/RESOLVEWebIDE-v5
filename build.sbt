@@ -3,9 +3,25 @@ name := "RESOLVEWebIDE"
 version := "5.0"
 
 def commonSettings = Seq(
-  scalaVersion := "2.11.7", // Scala version to be used in all projects
-  routesGenerator := InjectedRoutesGenerator, // Use Injection
-  javaFormattingSettingsFilename := "rsrg-format.xml" // Java Formatter
+  // Scala version to be used in all projects
+  scalaVersion := "2.11.7",
+  // Use Injection
+  routesGenerator := InjectedRoutesGenerator,
+  // Java Formatter
+  javaFormattingSettingsFilename := "rsrg-format.xml",
+  // License Headers
+  headerMappings := headerMappings.value + (HeaderFileType.java -> HeaderCommentStyle.CStyleBlockComment),
+  headerLicense := Some(HeaderLicense.Custom(
+    """| ---------------------------------
+       | Copyright (c) 2017
+       | RESOLVE Software Research Group
+       | School of Computing
+       | Clemson University
+       | All rights reserved.
+       | ---------------------------------
+       | This file is subject to the terms and conditions defined in
+       | file 'LICENSE.txt', which is part of this source code package.""".stripMargin
+  ))
 )
 
 // Scala compiler options
