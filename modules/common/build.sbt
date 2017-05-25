@@ -1,5 +1,3 @@
-import de.heikoseeberger.sbtheader.HeaderPattern
-
 name := "RESOLVEWebIDE-common"
 
 version := "1.0"
@@ -33,23 +31,4 @@ libraryDependencies ++= Seq(
 
   // Deadbolt 2 (Authenticator)
   "be.objectify" % "deadbolt-java_2.11" % "2.5.3"
-)
-
-// License Headers
-headers := headers.value ++ Map(
-  "java" -> (
-    HeaderPattern.cStyleBlockComment,
-    """|/**
-       | * ---------------------------------
-       | * Copyright (c) 2016
-       | * RESOLVE Software Research Group
-       | * School of Computing
-       | * Clemson University
-       | * All rights reserved.
-       | * ---------------------------------
-       | * This file is subject to the terms and conditions defined in
-       | * file 'LICENSE.txt', which is part of this source code package.
-       | */
-       |""".stripMargin
-  )
 )
