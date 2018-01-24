@@ -1,26 +1,25 @@
 /*
  * These are the CSS used by the RESOLVE WebIDE
  * Created by: Yu-Shan Sun
- * Last Modified: 11/22/2016
+ * Last Modified: 01/24/2018
  */
 
-/* Main CSS */
+/* General CSS */
 html {
     position: relative;
-    height: 100vh;
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
+    min-height: 100%;
 }
 
 body {
-    display: block;
-    min-height: 100vh;
+    /* Leaving space for footer */
+    margin-bottom: 40px;
+    background-color: #fdfdfd !important;
     font-size: 1.25rem;
 }
 
-/* CSS for header in header.scala.html */
+/* Header-Related CSS */
 #page-header {
-    height: 55px;
+    min-height: 55px;
     z-index: 1000;
     font-size: 1rem;
 }
