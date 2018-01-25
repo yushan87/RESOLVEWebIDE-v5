@@ -1,7 +1,7 @@
 /*
  * These are the CSS used by the RESOLVE WebIDE
  * Created by: Yu-Shan Sun
- * Last Modified: 01/24/2018
+ * Last Modified: 01/25/2018
  */
 
 /* General CSS */
@@ -20,7 +20,10 @@ body {
 /* Header-Related CSS */
 #page-header {
     min-height: 55px;
+    background-color: #f66733 !important;
+    opacity: 0.75;
     z-index: 1000;
+    color: #fdfdfd !important;
     font-size: 1rem;
 }
 
