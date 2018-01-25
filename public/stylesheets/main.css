@@ -24,12 +24,16 @@ body {
     font-size: 1rem;
 }
 
-/* CSS for footer in footer.scala.html */
+/* Footer-Related CSS */
 #page-footer {
+    /* Sticky footer */
     position: absolute;
     bottom: 0;
     height: 40px;
+    background-color: #522d80 !important;
+    opacity: 0.75;
     z-index: 1000;
+    color: #fdfdfd !important;
     font-size: 1.15rem;
 }
 
