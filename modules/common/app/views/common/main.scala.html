@@ -35,14 +35,14 @@
         <!-- Page Header -->
         @views.html.common.tags.header(currentUser)
 
-        <!-- Code to display the main content -->
-        <section id="page-main">
+        <!-- Page Content -->
+        <main id="page-content" role="main">
             <!-- Content passed in gets displayed here -->
             @content
 
             <!-- Code to display the help modal -->
             @views.html.common.tags.help()
-        </section>
+        </main>
 
         <!-- Code to display the footer -->
         @views.html.common.tags.footer()
