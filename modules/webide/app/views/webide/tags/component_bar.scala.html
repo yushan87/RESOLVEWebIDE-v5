@@ -10,21 +10,19 @@
                 <button class="btn btn-secondary" type="button">
                     <a href="?p=@activeProject.id" style="text-decoration: none;">@activeProject.name</a>
                 </button>
+                @if(projects.size > 1) {
                 <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="workspace-ids">
-                @if(projects.size == 1) {
-                    <p class="text-center">None Available</p>
-                } else {
                     @for(p <- projects) {
                         @if(p.name != activeProject.name) {
                             <a class="dropdown-item" href="?p=@p.id">@p.name</a>
                         }
                     }
-                }
                 </div>
+                }
             </div>
         </li>
         <li class="nav-item">
