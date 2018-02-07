@@ -1,7 +1,7 @@
 /*
  * These are the CSS used by the RESOLVE WebIDE
  * Created by: Yu-Shan Sun
- * Last Modified: 01/26/2018
+ * Last Modified: 02/07/2018
  */
 
 /* General CSS */
@@ -14,17 +14,16 @@ body {
     /* Leaving space for footer */
     margin-bottom: 40px;
     background-color: #fdfdfd !important;
-    font-size: 1.25rem;
+    font-size: 1rem;
 }
 
 /* Header-Related CSS */
 #page-header {
     min-height: 55px;
-    background-color: #f66733 !important;
+    background-color: #522d80 !important;
     opacity: 0.75;
     z-index: 1000;
     color: #fdfdfd !important;
-    font-size: 1rem;
 }
 
 /* Main Content-Related CSS */
@@ -44,8 +43,11 @@ body {
     background-color: #522d80 !important;
     opacity: 0.75;
     z-index: 1000;
+}
+
+#footer-content {
+    background-color: #522d80 !important;
     color: #fdfdfd !important;
-    font-size: 1.15rem;
 }
 
 /* CSS for Ace Editor */
