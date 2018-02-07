@@ -2,17 +2,15 @@
 
 @(currentUser : User)
 
-<header id="page-header" class="d-flex flex-row">
-    <nav class="navbar navbar-expand navbar-dark" role="navigation">
+<header id="page-header" class="d-flex flex-column">
+    <nav class="navbar navbar-expand navbar-dark flex-column flex-md-row" role="navigation">
+        <span class="text-center align-bottom">Welcome @if(currentUser != null) {@currentUser.firstName} else {User}.</span>
         <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#general-nav" aria-controls="general-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div id="general-nav" class="collapse navbar-toggleable-xs">
-            <div class="navbar-brand">
-                Welcome @if(currentUser != null) {<b>@currentUser.firstName</b>} else {<b>User</b>}.
-            </div>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="@controllers.webide.routes.Interface.index()"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home</a>
