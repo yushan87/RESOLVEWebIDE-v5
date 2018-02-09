@@ -1,7 +1,7 @@
 /*
  * These are the CSS used by the RESOLVE WebIDE
  * Created by: Yu-Shan Sun
- * Last Modified: 02/07/2018
+ * Last Modified: 02/09/2018
  */
 
 /* General CSS */
@@ -17,7 +17,7 @@ body {
     font-size: 1rem;
 }
 
-/* Header-Related CSS */
+/* Header-Related CSS (header.scala.html) */
 #page-header {
     min-height: 55px;
     background-color: #522d80 !important;
@@ -26,7 +26,7 @@ body {
     color: #fdfdfd !important;
 }
 
-/* Main Content-Related CSS */
+/* Main Content-Related CSS (main.scala.html) */
 #page-content {
     position: relative;
     top: 0;
@@ -34,7 +34,7 @@ body {
     min-height: calc(100vh - 95px);
 }
 
-/* Footer-Related CSS */
+/* Footer-Related CSS (footer.scala.html) */
 #page-footer {
     /* Sticky footer */
     position: absolute;
@@ -50,6 +50,12 @@ body {
     color: #fdfdfd !important;
 }
 
+/* Help Modal CSS (help.scala.html) */
+#help-modal .modal-body {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
 /* CSS for Ace Editor */
 #editor {
     position: absolute;
@@ -57,12 +63,6 @@ body {
     bottom: 45px;
     right: 15px;
     left: 15px;
-}
-
-/* CSS for help modal in help.scala.html */
-.modal .modal-body {
-    max-height: 425px;
-    overflow-y: auto;
 }
 
 /* CSS for left sidebar */
