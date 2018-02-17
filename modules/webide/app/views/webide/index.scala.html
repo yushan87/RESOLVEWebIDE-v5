@@ -5,14 +5,16 @@
 @(projects: util.List[Project], activeProject: Project, currentUser: User)
 
 @views.html.common.main("RESOLVEWebIDE", currentUser) {
-    <!-- Code to display components bar -->
-    @views.html.webide.tags.component_bar(projects, activeProject)
+    <div class="container-fluid py-1">
+        <!-- Code to display components bar -->
+        @views.html.webide.tags.component_bar(projects, activeProject)
 
-    <!-- Code to display ace editor -->
-    <div id="editor">function foo(items) {
+        <!-- Code to display ace editor -->
+        <div id="editor">function foo(items) {
     var x = "All this is syntax highlighted";
     return x;
 }</div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js" type="text/javascript" integrity="sha256-U//RSeH3TR3773Rk+1lAufJnRjEaG5LcdbvGV72kHEM=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/theme-chrome.js" type="text/javascript" integrity="sha256-2jUy9rC6tFAo+szqQ4aLVd5dyICBOH+FBV8CUU8VyZs=" crossorigin="anonymous"></script>
