@@ -3,7 +3,14 @@
 
 @(projects: util.List[Project], activeProject: Project)
 
-<nav id="components-toolbar" class="navbar" aria-label="components-toolbar">
+<div id="components-toolbar" class="btn-toolbar" role="toolbar" aria-label="components-toolbar">
+    <div class="btn-group" role="group" aria-label="components-button-group">
+        <button type="button" class="btn btn-outline-primary mr-2">5</button>
+        <button type="button" class="btn btn-outline-primary">8</button>
+    </div>
+</div>
+
+<nav class="navbar" aria-label="components-toolbar">
     <ul class="navbar-nav">
         <li class="nav-item dropdown">
             <div class="btn-group" role="group">
