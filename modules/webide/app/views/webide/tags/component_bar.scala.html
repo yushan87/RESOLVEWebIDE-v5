@@ -5,8 +5,10 @@
 
 <div id="components-toolbar" class="btn-toolbar" role="toolbar" aria-label="components-toolbar">
     <div class="btn-group btn-group-sm mr-3" role="group" aria-label="project-button-group">
-        <button type="button" class="btn btn-outline-primary">5</button>
-        <button type="button" class="btn btn-outline-primary">8</button>
+        <a class="btn btn-outline-primary" href="?p=@activeProject.id" role="button">@activeProject.name</a>
+        <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
     </div>
     <div class="btn-group btn-group-sm" role="group" aria-label="components-button-group">
         <a class="btn btn-outline-primary" href="#" role="button">Components</a>
