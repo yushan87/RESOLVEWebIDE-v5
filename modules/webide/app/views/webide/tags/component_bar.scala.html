@@ -5,10 +5,9 @@
 
 <div id="components-toolbar" class="btn-toolbar" role="toolbar" aria-label="components-toolbar">
     <div class="btn-group btn-group-sm mr-3" role="group" aria-label="project-button-group">
-        <a class="btn btn-outline-primary" href="?p=@activeProject.id" role="button">@activeProject.name</a>
         @if(projects.size > 1) {
-        <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="sr-only">Toggle Dropdown</span>
+        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @activeProject.name
         </button>
         <div class="dropdown-menu" aria-labelledby="workspace-ids">
         @for(p <- projects) {
