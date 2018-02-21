@@ -19,19 +19,19 @@
                 @CSRF.formField
                 <div class="card-body">
                     <div class="form-group row @if(form.error("firstName") != null) {has-danger}">
-                        <label for="inputFirstName" class="col-xs-2 col-form-label">First Name</label>
+                        <label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>
                         <div class="col-xs-10">
                             <input type="text" class="form-control @if(form.error("firstName") != null) {form-control-danger}" id="inputFirstName" name="firstName" placeholder="First Name" @if(form.field("firstName").value() != null) {value="@form.field("firstName").value()"}>
                         </div>
                     </div>
                     <div class="form-group row @if(form.error("lastName") != null) {has-danger}">
-                        <label for="inputLastName" class="col-xs-2 col-form-label">Last Name</label>
+                        <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
                         <div class="col-xs-10">
                             <input type="text" class="form-control @if(form.error("lastName") != null) {form-control-danger}" id="inputLastName" name="lastName" placeholder="Last Name" @if(form.field("lastName").value() != null) {value="@form.field("lastName").value()"}>
                         </div>
                     </div>
                     <div class="form-group row @if((form.error("email") != null) || (form.error("registeredEmail") != null)) {has-danger}">
-                        <label for="inputEmail" class="col-xs-2 col-form-label">Email</label>
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-xs-10">
                             <input type="email" class="form-control @if((form.error("email") != null) || (form.error("registeredEmail") != null)) {form-control-danger}" id="inputEmail" name="email" placeholder="Email" @if(form.field("email").value() != null) {value="@form.field("email").value()"}>
                             @if(form.error("registeredEmail") != null) {
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="form-group row @if((form.error("password") != null) || (form.error("passwordLength") != null)) {has-danger}">
-                        <label for="inputPassword" class="col-xs-2 col-form-label">Password</label>
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-xs-10">
                             <input type="password" class="form-control @if((form.error("password") != null) || (form.error("passwordLength") != null)) {form-control-danger}" id="inputPassword" name="password" placeholder="Password">
                             @if(form.error("passwordLength") != null) {
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="form-group row @if((form.error("confirmPassword") != null) || (form.error("notSamePassword") != null)) {has-danger}">
-                        <label for="inputConfirmPassword" class="col-xs-2 col-form-label">Confirm Password</label>
+                        <label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm Password</label>
                         <div class="col-xs-10">
                             <input type="password" class="form-control @if((form.error("confirmPassword") != null) || (form.error("notSamePassword") != null)) {form-control-danger}" id="inputConfirmPassword" name="confirmPassword" placeholder="Confirm Password">
                             @if(form.error("notSamePassword") != null) {
