@@ -17,16 +17,16 @@
 
             @helper.form(action = controllers.common.security.routes.Security.login()) {
                 @CSRF.formField
-                <div class="card-body">
-                    <div class="form-group row">
-                        <div class="input-group col-sm-7">
-                            <span class="input-group-addon" id="fa-user-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                <div class="card-body text-center">
+                    <div class="form-group row justify-content-center">
+                        <div class="input-group col-sm-5">
+                            <span class="input-group-addon mr-2" id="fa-user-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
                             <input type="email" class="form-control @if(form.hasErrors) {is-invalid}" id="inputEmail" name="email" placeholder="Email Address" @if(form.field("email").value() != null) {value="@form.field("email").value()"}>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="input-group col-sm-7">
-                            <span class="input-group-addon" id="fa-lock-icon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                    <div class="form-group row justify-content-center">
+                        <div class="input-group col-sm-5">
+                            <span class="input-group-addon mr-2" id="fa-lock-icon"><i class="fa fa-lock" aria-hidden="true"></i></span>
                             <input type="password" class="form-control @if(form.hasErrors) {is-invalid}" id="inputPassword" name="password" placeholder="Password">
                         </div>
                     </div>
@@ -39,15 +39,11 @@
                 </div>
 
                 <div class="card-footer text-center">
-                    <div class="row">
-                        <button type="submit" class="btn btn-sm btn-success">Sign In</button>
-                        <a class="btn btn-sm btn-danger" href="@controllers.webide.routes.Interface.index()">Cancel</a>
-                    </div>
-                    <hr class="my-1">
-                    <div class="row">
-                        <a href="@controllers.common.passwordrecovery.routes.PasswordRecovery.index()">Forgot password?</a>
-                        Click <a href="@controllers.common.registration.routes.Registration.index()">HERE</a> to register.
-                    </div>
+                    <button type="submit" class="btn btn-sm btn-success">Sign In</button>
+                    <a class="btn btn-sm btn-danger" href="@controllers.webide.routes.Interface.index()">Cancel</a>
+                    <hr class="my-2">
+                    <a href="@controllers.common.passwordrecovery.routes.PasswordRecovery.index()">Forgot password?</a>
+                    Click <a href="@controllers.common.registration.routes.Registration.index()">HERE</a> to register.
                 </div>
             }
         </div>
