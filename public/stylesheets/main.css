@@ -22,7 +22,6 @@ body {
     min-height: 55px;
     background-color: #522d80 !important;
     opacity: 0.75;
-    z-index: 1000;
     color: #fdfdfd !important;
 }
 
@@ -42,7 +41,6 @@ body {
     height: 40px;
     background-color: #522d80 !important;
     opacity: 0.75;
-    z-index: 1000;
 }
 
 #footer-content {
