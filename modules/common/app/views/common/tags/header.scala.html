@@ -3,7 +3,7 @@
 @(currentUser : User)
 
 <header id="page-header" class="d-flex flex-column">
-    <nav class="navbar navbar-expand navbar-dark flex-column flex-md-row" role="navigation">
+    <nav class="navbar navbar-expand-md navbar-dark flex-row justify-content-between" role="navigation">
         <span class="text-center align-bottom">Welcome @if(currentUser != null) {@currentUser.firstName} else {User}.</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#general-nav" aria-controls="general-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
