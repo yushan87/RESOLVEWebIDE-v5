@@ -3,18 +3,14 @@
 @views.html.common.main("RESOLVEWebIDE - Password Recovery", null) {
     <div class="container py-2">
         <div class="card card-outline-secondary">
-            <h4 class="card-header text-xs-center">RESOLVE Web IDE Password Recovery</h4>
-            <div class="card-block">
+            <h5 class="card-header text-center">RESOLVE Web IDE Password Recovery</h5>
+            <div class="card-body">
                 <p class="card-text">Your password has been successfully reset for the following account: <b>@email</b>.
                     An email has been sent to this email address confirming this action.</p>
             </div>
 
-            <div class="card-footer">
-                <div class="row">
-                    <div class="text-xs-center">
-                        <a class="btn btn-primary" href="@controllers.webide.routes.Interface.index()">Back to RESOLVE Web IDE's Home Page</a>
-                    </div>
-                </div>
+            <div class="card-footer text-center">
+                <a class="btn btn-sm btn-primary" href="@controllers.webide.routes.Interface.index()">Back to RESOLVE Web IDE's Home Page</a>
             </div>
         </div>
     </div>
