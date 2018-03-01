@@ -7,18 +7,22 @@
 @views.html.common.main("RESOLVEWebIDE - Edit User Profile", currentUser) {
     <div class="container-fluid py-2">
         <div class="card card-outline-secondary">
-            <h4 class="card-header text-xs-center text-uppercase">Edit Your User Profile</h4>
+            <h5 class="card-header text-center">Edit Your User Profile</h5>
             @if(form.hasErrors) {
-                <div class="alert alert-danger" role="alert">
-                    <strong>Error(s) detected!</strong> Please correct the errors and submit the form again.
+                <div class="card-body">
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Error(s) detected!</strong> Please correct the errors and submit the form again.
+                    </div>
                 </div>
             }
             @if(updateSuccess) {
-                <div class="alert alert-success alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong>Success!</strong> Your user profile has been updated successfully.
+                <div class="card-body">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Success!</strong> Your user profile has been updated successfully.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </div>
             }
             @helper.form(action = controllers.common.profile.routes.EditProfile.handleSubmit()) {
