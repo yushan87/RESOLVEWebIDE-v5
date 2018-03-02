@@ -27,15 +27,15 @@
             }
             @helper.form(action = controllers.common.profile.routes.EditProfile.handleSubmit()) {
                 @CSRF.formField
-                <div class="card-block">
+                <div class="card-body">
                     <div class="card-deck-wrapper">
                         <div class="card-deck">
                             <div class="card">
-                                <h5 class="card-header text-xs-center">General</h5>
-                                <div class="card-block">
+                                <h6 class="card-header text-center">General</h6>
+                                <div class="card-body">
                                     <div class="form-group row">
-                                        <label for="inputFirstName" class="col-xs-3 col-form-label">Account Type</label>
-                                        <div class="col-xs-9">
+                                        <label for="inputFirstName" class="col-sm-3 col-form-label">Account Type</label>
+                                        <div class="col-sm-9">
                                             <p class="form-control-static mb-0 text-muted">
                                             @currentUser.userType match {
                                                 case 0 => {User}
@@ -45,24 +45,24 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="form-group row @if(form.error("firstName") != null) {has-danger}">
-                                        <label for="inputFirstName" class="col-xs-3 col-form-label">First Name</label>
-                                        <div class="col-xs-9">
-                                            <input type="text" class="form-control @if(form.error("firstName") != null) {form-control-danger}" id="inputFirstName" name="firstName" placeholder="First Name" @if(form.field("firstName").value() != null) {value="@form.field("firstName").value()"}>
+                                    <div class="form-group row">
+                                        <label for="inputFirstName" class="col-sm-3 col-form-label">First Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control @if(form.error("firstName") != null) {is-invalid}" id="inputFirstName" name="firstName" placeholder="First Name" @if(form.field("firstName").value() != null) {value="@form.field("firstName").value()"}>
                                         </div>
                                     </div>
-                                    <div class="form-group row @if(form.error("lastName") != null) {has-danger}">
-                                        <label for="inputLastName" class="col-xs-3 col-form-label">Last Name</label>
-                                        <div class="col-xs-9">
-                                            <input type="text" class="form-control @if(form.error("lastName") != null) {form-control-danger}" id="inputLastName" name="lastName" placeholder="Last Name" @if(form.field("lastName").value() != null) {value="@form.field("lastName").value()"}>
+                                    <div class="form-group row">
+                                        <label for="inputLastName" class="col-sm-3 col-form-label">Last Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control @if(form.error("lastName") != null) {is-invalid}" id="inputLastName" name="lastName" placeholder="Last Name" @if(form.field("lastName").value() != null) {value="@form.field("lastName").value()"}>
                                         </div>
                                     </div>
-                                    <div class="form-group row @if((form.error("email") != null) || (form.error("registeredEmail") != null)) {has-danger}">
-                                        <label for="inputEmail" class="col-xs-3 col-form-label">Email</label>
-                                        <div class="col-xs-9">
-                                            <input type="email" class="form-control @if((form.error("email") != null) || (form.error("registeredEmail") != null)) {form-control-danger}" id="inputEmail" name="email" placeholder="Email" @if(form.field("email").value() != null) {value="@form.field("email").value()"}>
+                                    <div class="form-group row">
+                                        <label for="inputEmail" class="col-sm-3 col-form-label">Email</label>
+                                        <div class="col-sm-9">
+                                            <input type="email" class="form-control @if((form.error("email") != null) || (form.error("registeredEmail") != null)) {is-invalid}" id="inputEmail" name="email" placeholder="Email" @if(form.field("email").value() != null) {value="@form.field("email").value()"}>
                                             @if(form.error("registeredEmail") != null) {
-                                                <div class="form-control-feedback">
+                                                <div class="invalid-feedback">
                                                     @form.error("registeredEmail").message()
                                                 </div>
                                             }
@@ -74,15 +74,15 @@
                                 </div>
                             </div>
                             <div class="card">
-                                <h5 class="card-header text-xs-center">Verification Settings</h5>
-                                <div class="card-block">
-                                    <div class="form-group row @if(form.error("timeoutSize") != null) {has-danger}">
-                                        <label for="inputTimeout" class="col-xs-3 col-form-label">Prover Timeout</label>
-                                        <div class="col-xs-9">
-                                            <input type="number" class="form-control @if(form.error("timeoutSize") != null) {form-control-danger}" id="inputTimeout" name="timeout" placeholder="5" min="1" max="30" @if(form.field("timeout").value() != null) {value="@form.field("timeout").value()"}>
+                                <h6 class="card-header text-center">Verification Settings</h6>
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label for="inputTimeout" class="col-sm-3 col-form-label">Prover Timeout</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control @if(form.error("timeoutSize") != null) {is-invalid}" id="inputTimeout" name="timeout" placeholder="5" min="1" max="30" @if(form.field("timeout").value() != null) {value="@form.field("timeout").value()"}>
                                             @if(form.error("timeoutSize") != null) {
-                                                <div class="form-control-feedback">
-                                                @form.error("timeoutSize").message()
+                                                <div class="invalid-feedback">
+                                                    @form.error("timeoutSize").message()
                                                 </div>
                                             }
                                             <small id="timeoutHelpInline" class="text-muted">
@@ -90,13 +90,13 @@
                                             </small>
                                         </div>
                                     </div>
-                                    <div class="form-group row @if(form.error("numTriesSize") != null) {has-danger}">
-                                        <label for="inputNumTries" class="col-xs-3 col-form-label">Max Failed VCs</label>
-                                        <div class="col-xs-9">
-                                            <input type="number" class="form-control @if(form.error("numTriesSize") != null) {form-control-danger}" id="inputNumTries" name="numTries" placeholder="3" min="1" max="10" @if(form.field("numTries").value() != null) {value="@form.field("numTries").value()"}>
+                                    <div class="form-group row">
+                                        <label for="inputNumTries" class="col-sm-3 col-form-label">Max Failed VCs</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control @if(form.error("numTriesSize") != null) {is-invalid}" id="inputNumTries" name="numTries" placeholder="3" min="1" max="10" @if(form.field("numTries").value() != null) {value="@form.field("numTries").value()"}>
                                             @if(form.error("numTriesSize") != null) {
-                                                <div class="form-control-feedback">
-                                                @form.error("numTriesSize").message()
+                                                <div class="invalid-feedback">
+                                                    @form.error("numTriesSize").message()
                                                 </div>
                                             }
                                             <small id="numTriesHelpInline" class="text-muted">
