@@ -34,15 +34,18 @@
                                 <h6 class="card-header text-center">General</h6>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label for="inputFirstName" class="col-sm-3 col-form-label">Account Type</label>
+                                        <label for="accountType" class="col-sm-3 col-form-label">Account Type</label>
                                         <div class="col-sm-9">
-                                            <p class="form-control-static mb-0 text-muted">
+                                            <p class="form-control-plaintext">
                                             @currentUser.userType match {
                                                 case 0 => {User}
                                                 case 1 => {Super User}
                                                 case 2 => {Administrator}
                                             }
                                             </p>
+                                            <small id="accountTypeHelpInline" class="text-muted">
+                                                See an <strong>Administrator</strong> if you need to change your account type.
+                                            </small>
                                         </div>
                                     </div>
                                     <div class="form-group row">
