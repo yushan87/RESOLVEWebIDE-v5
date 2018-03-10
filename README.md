@@ -1,6 +1,7 @@
 RESOLVE WebIDE (Version 5)
 ==============
 [![Build Status](https://travis-ci.org/ClemsonRSRG/RESOLVEWebIDE-v5.svg?branch=master)](https://travis-ci.org/ClemsonRSRG/RESOLVEWebIDE-v5)
+[![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/ClemsonRSRG/RESOLVEWebAPI/master/LICENSE.txt)
 <img align="right" src="public/images/resolve_logo.png"/>
 
 (* Description of RESOLVE WebIDE goes here *)
@@ -31,19 +32,20 @@ generation to proving are performed in-house, while RESOLVE programs are
 translated to Java and run on the JVM.
 
 ## Authors and major contributors
+
 The creation and continual evolution of the RESOLVE language is owed to an
 ongoing joint effort between Clemson University, The Ohio State University, and
 countless educators and researchers from a variety of [other](https://www.cs.clemson.edu/resolve/about.html) 
 institutions.
 
-Developers of this particular test/working-iteration of the RESOLVE compiler
+Developers of this particular test/working-iteration of the RESOLVE WebIDE
 include:
 
 * [RESOLVE Software Research Group (RSRG)](https://www.cs.clemson.edu/resolve/) - School of Computing, Clemson University
 
 ## Copyright and license
 
-Copyright © 2017, [RESOLVE Software Research Group (RSRG)](https://www.cs.clemson.edu/resolve/). All rights reserved. 
+Copyright © 2018, [RESOLVE Software Research Group (RSRG)](https://www.cs.clemson.edu/resolve/). All rights reserved. 
 The use and distribution terms for this software are covered by the BSD 3-clause 
 license which can be found in the file `LICENSE.txt` at the root of this repository.
 By using this software in any fashion, you are agreeing to be bound by the terms
