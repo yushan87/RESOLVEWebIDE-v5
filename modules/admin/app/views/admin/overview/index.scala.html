@@ -3,5 +3,29 @@
 @(currentUser: User)
 
 @views.html.admin.adminMain(currentUser) {
-    Admin Page
+    <h5>Overview</h5>
+    <hr>
+    <section class="row">
+        <div class="card-deck m-auto text-center">
+            <div class="card m-2 border-success user-card">
+                <div class="card-body">
+                    <h5 class="card-title text-success">Total # of Users</h5>
+                    <p class="card-text">?</p>
+                </div>
+            </div>
+            <div class="card m-2 border-info user-card">
+                <div class="card-body">
+                    <h5 class="card-title text-info">Total # of Super Users</h5>
+                    <p class="card-text">?</p>
+                </div>
+            </div>
+            <div class="card m-2 border-success user-card">
+                <div class="card-body">
+                    <h5 class="card-title text-success">Total # of Administrators</h5>
+                    <p class="card-text">?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
 }

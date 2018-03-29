@@ -6,9 +6,9 @@
 @views.html.common.main("RESOLVEWebIDE - Login", null) {
     <div class="container py-2">
         <div class="card card-outline-secondary">
-            <h4 class="card-header text-xs-center">Login</h4>
+            <h5 class="card-header text-center">Login</h5>
             @if(form.hasErrors) {
-                <div class="card-block">
+                <div class="card-body">
                     <div class="alert alert-danger" role="alert">
                         <strong>Error(s) detected!</strong> Unknown username or password.
                     </div>
@@ -17,17 +17,17 @@
 
             @helper.form(action = controllers.common.security.routes.Security.login()) {
                 @CSRF.formField
-                <div class="card-block">
-                    <div class="form-group row @if(form.hasErrors) {has-danger}">
-                        <div class="input-group col-xs-7">
-                            <span class="input-group-addon" id="fa-user-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                            <input type="email" class="form-control @if(form.hasErrors) {form-control-danger}" id="inputEmail" name="email" placeholder="Email Address" @if(form.field("email").value() != null) {value="@form.field("email").value()"}>
+                <div class="card-body text-center">
+                    <div class="form-group row justify-content-center">
+                        <div class="input-group col-sm-5">
+                            <span class="input-group-addon mr-2" id="fa-user-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                            <input type="email" class="form-control @if(form.hasErrors) {is-invalid}" id="inputEmail" name="email" placeholder="Email Address" @if(form.field("email").value() != null) {value="@form.field("email").value()"}>
                         </div>
                     </div>
-                    <div class="form-group row @if(form.hasErrors) {has-danger}">
-                        <div class="input-group col-xs-7">
-                            <span class="input-group-addon" id="fa-lock-icon"><i class="fa fa-lock" aria-hidden="true"></i></span>
-                            <input type="password" class="form-control @if(form.hasErrors) {form-control-danger}" id="inputPassword" name="password" placeholder="Password">
+                    <div class="form-group row justify-content-center">
+                        <div class="input-group col-sm-5">
+                            <span class="input-group-addon mr-2" id="fa-lock-icon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control @if(form.hasErrors) {is-invalid}" id="inputPassword" name="password" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-check">
@@ -38,18 +38,12 @@
                     </div>
                 </div>
 
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="text-xs-center">
-                            <button type="submit" class="btn btn-success">Sign In</button>
-                            <a class="btn btn-danger" href="@controllers.webide.routes.Interface.index()">Cancel</a>
-                        </div>
-                    </div>
-                    <hr class="m-y-1">
-                    <div class="row text-xs-center">
-                        <a href="@controllers.common.passwordrecovery.routes.PasswordRecovery.index()">Forgot password?</a>
-                        Click <a href="@controllers.common.registration.routes.Registration.index()">HERE</a> to register.
-                    </div>
+                <div class="card-footer text-center">
+                    <button type="submit" class="btn btn-sm btn-success">Sign In</button>
+                    <a class="btn btn-sm btn-danger" href="@controllers.webide.routes.Interface.index()">Cancel</a>
+                    <hr class="my-2">
+                    <a href="@controllers.common.passwordrecovery.routes.PasswordRecovery.index()">Forgot password?</a>
+                    Click <a href="@controllers.common.registration.routes.Registration.index()">HERE</a> to register.
                 </div>
             }
         </div>

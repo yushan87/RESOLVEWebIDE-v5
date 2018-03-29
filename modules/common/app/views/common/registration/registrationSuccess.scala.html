@@ -1,19 +1,15 @@
 @views.html.common.main("RESOLVEWebIDE - Registration", null) {
     <div class="container py-2">
         <div class="card card-outline-secondary">
-            <h4 class="card-header text-xs-center">RESOLVE Web IDE Registration</h4>
-            <div class="card-block">
+            <h5 class="card-header text-center">RESOLVE Web IDE Registration</h5>
+            <div class="card-body">
                 <p class="card-text">Thank you for registering.
                     An email has been sent to the email address you provided with a confirmation link.
                     Please click the link or copy and paste it into your browser's address bar to complete the registration process.</p>
             </div>
 
-            <div class="card-footer">
-                <div class="row">
-                    <div class="text-xs-center">
-                        <a class="btn btn-primary" href="@controllers.webide.routes.Interface.index()">Back to RESOLVE Web IDE's Home Page</a>
-                    </div>
-                </div>
+            <div class="card-footer text-center">
+                <a class="btn btn-sm btn-primary" href="@controllers.webide.routes.Interface.index()">Back to RESOLVE Web IDE's Home Page</a>
             </div>
         </div>
     </div>
