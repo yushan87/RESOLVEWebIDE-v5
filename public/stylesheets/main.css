@@ -1,7 +1,7 @@
 /*
  * These are the CSS used by the RESOLVE WebIDE
  * Created by: Yu-Shan Sun
- * Last Modified: 02/26/2018
+ * Last Modified: 03/29/2018
  */
 
 /* General CSS */
@@ -114,4 +114,9 @@ body {
     #page-sidebar {
         border-bottom: 1px solid rgba(0,0,0,.1);
     }
+}
+
+/* Admin-Overview-Related CSS (admin/index.scala.html) */
+.user-card {
+    width: 300px;
 }
