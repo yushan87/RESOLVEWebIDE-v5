@@ -70,7 +70,7 @@ public class EditProfile extends Controller {
         // Check to see if it is a valid user and is connected.
         User currentUser = getUser(session("connected"));
         if (currentUser != null) {
-            String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+            String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
             Form<UpdateProfileForm> userForm = myFormFactory.form(UpdateProfileForm.class);
             userForm = userForm.fill(new UpdateProfileForm(currentUser.firstName, currentUser.lastName,
                     currentUser.email, currentUser.timeout, currentUser.numTries));
@@ -92,7 +92,7 @@ public class EditProfile extends Controller {
     public Result handleSubmit() {
         // Check to see if it is a valid user and is connected.
         String connectedUserEmail = session("connected");
-        String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+        String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
         User currentUser = getUser(connectedUserEmail);
         if (currentUser != null) {
             Form<UpdateProfileForm> userForm = myFormFactory.form(UpdateProfileForm.class).bindFromRequest();

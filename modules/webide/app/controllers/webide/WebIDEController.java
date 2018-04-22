@@ -12,6 +12,7 @@
 
 package controllers.webide;
 
+import controllers.webide.utilities.CachedProjectNames;
 import java.util.List;
 import javax.inject.Inject;
 import models.common.database.Project;
@@ -22,9 +23,12 @@ import play.mvc.Result;
 import views.html.webide.index;
 
 /**
- * TODO: Write a description of this module
+ * <p>This is the application's main entry point.</p>
+ *
+ * @author Yu-Shan Sun
+ * @version 1.0
  */
-public class Interface extends Controller {
+public class WebIDEController extends Controller {
 
     // ===========================================================
     // Global Variables

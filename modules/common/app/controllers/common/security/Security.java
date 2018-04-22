@@ -12,14 +12,14 @@
 
 package controllers.common.security;
 
+import com.typesafe.config.Config;
+import controllers.common.email.EmailGenerator;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import javax.inject.Inject;
-import controllers.common.email.EmailGenerator;
 import models.common.database.User;
 import models.common.database.UserEvent;
 import models.common.form.LoginForm;
-import play.Configuration;
 import play.data.Form;
 import play.data.FormFactory;
 import play.data.validation.ValidationError;
@@ -67,7 +67,7 @@ public class Security extends Controller {
 
     /** <p>Class that retrieves configurations</p> */
     @Inject
-    private Configuration myConfiguration;
+    private Config myConfiguration;
 
     // ===========================================================
     // Public Methods
@@ -95,7 +95,7 @@ public class Security extends Controller {
         }
         else {
             // Render the page with the login form
-            String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+            String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
             return ok(index.render(myFormFactory.form(LoginForm.class), token));
         }
     }
@@ -114,7 +114,7 @@ public class Security extends Controller {
         // Perform the basic validation checks.
         if (userForm.hasErrors()) {
             // Render the page with the login form with the errors fields
-            String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+            String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
             return CompletableFuture.supplyAsync(() -> badRequest(index.render(userForm, token)),
                     myHttpExecutionContext.current());
         }
@@ -161,7 +161,7 @@ public class Security extends Controller {
                 userForm.reject(new ValidationError("loginError", "Could not login."));
 
                 // Render the page with the login form with the errors fields
-                String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+                String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
                 return CompletableFuture.supplyAsync(() -> badRequest(index.render(userForm, token)),
                         myHttpExecutionContext.current());
             }

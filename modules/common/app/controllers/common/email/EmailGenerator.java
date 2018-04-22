@@ -12,8 +12,8 @@
 
 package controllers.common.email;
 
+import com.typesafe.config.Config;
 import javax.inject.Inject;
-import play.Configuration;
 import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 import play.mvc.Http;
@@ -41,7 +41,7 @@ public class EmailGenerator {
 
     /** <p>Class that retrieves configurations</p> */
     @Inject
-    private Configuration myConfiguration;
+    private Config myConfiguration;
 
     // ===========================================================
     // Public Methods

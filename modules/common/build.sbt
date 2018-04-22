@@ -20,7 +20,7 @@ libraryDependencies ++= Seq(
   // Play Framework
   javaJdbc,
   javaJpa,
-  cache,
+  cacheApi,
   filters,
   javaWs,
   "com.typesafe.play" %% "play-mailer" % "6.0.1",

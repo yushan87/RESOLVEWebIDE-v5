@@ -13,6 +13,7 @@
 package controllers.common.passwordrecovery;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.typesafe.config.Config;
 import controllers.common.email.EmailGenerator;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,6 @@ import javax.inject.Inject;
 import models.common.database.User;
 import models.common.form.PasswordRecoveryForm;
 import models.common.form.UpdatePasswordForm;
-import play.Configuration;
 import play.data.Form;
 import play.data.FormFactory;
 import play.data.validation.ValidationError;
@@ -77,7 +77,7 @@ public class PasswordRecovery extends Controller {
 
     /** <p>Class that retrieves configurations</p> */
     @Inject
-    private Configuration myConfiguration;
+    private Config myConfiguration;
 
     // ===========================================================
     // Public Methods
@@ -91,7 +91,7 @@ public class PasswordRecovery extends Controller {
      */
     @AddCSRFToken
     public Result index() {
-        String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+        String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
         return ok(passwordRecovery.render(myFormFactory.form(PasswordRecoveryForm.class), token));
     }
 
@@ -108,7 +108,7 @@ public class PasswordRecovery extends Controller {
 
         // Perform the basic validation checks.
         if (userForm.hasErrors()) {
-            String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+            String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
             return CompletableFuture.supplyAsync(() -> badRequest(passwordRecovery.render(userForm, token)),
                     myHttpExecutionContext.current());
         } else {
@@ -120,7 +120,7 @@ public class PasswordRecovery extends Controller {
             CompletionStage<List<ValidationError>> resultPromise = validate(form);
             return resultPromise.thenApplyAsync(result -> {
                 if (result != null) {
-                    String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+                    String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
                     for (ValidationError error : result) {
                         userForm.reject(error);
                     }
@@ -152,7 +152,7 @@ public class PasswordRecovery extends Controller {
     @AddCSRFToken
     @Transactional(readOnly = true)
     public Result updatePassword(String confirmationCode, String email) {
-        String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+        String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
 
         // Check to see if the email exists. If it does not return
         // a valid "User" or the confirmation code does not match, then we
@@ -195,7 +195,7 @@ public class PasswordRecovery extends Controller {
             CompletionStage<List<ValidationError>> resultPromise = validate(form);
             return resultPromise.thenApplyAsync(result -> {
                 if (result != null) {
-                    String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+                    String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
                     for (ValidationError error : result) {
                         userForm.reject(error);
                     }

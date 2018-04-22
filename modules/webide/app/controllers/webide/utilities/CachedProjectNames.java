@@ -10,13 +10,13 @@
  * file 'LICENSE.txt', which is part of this source code package.
  */
 
-package controllers.webide;
+package controllers.webide.utilities;
 
 import models.common.database.Project;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import play.cache.CacheApi;
+import play.cache.SyncCacheApi;
 import play.db.jpa.Transactional;
 
 /**
@@ -35,7 +35,7 @@ public class CachedProjectNames {
 
     /** <p>Cache to store session values</p> */
     @Inject
-    private CacheApi myCache;
+    private SyncCacheApi myCache;
 
     // ===========================================================
     // Public Methods
@@ -48,7 +48,7 @@ public class CachedProjectNames {
      */
     @Transactional(readOnly = true)
     public Project getDefaultProject() {
-        return myCache.getOrElse("defaultProject", () -> storeDefaultProjectInCache());
+        return myCache.getOrElseUpdate("defaultProject", this::storeDefaultProjectInCache);
     }
 
     /**
@@ -58,7 +58,7 @@ public class CachedProjectNames {
      */
     @Transactional(readOnly = true)
     public List<Project> getProjects() {
-        return myCache.getOrElse("projects", () -> storeProjectsInCache());
+        return myCache.getOrElseUpdate("projects", this::storeProjectsInCache);
     }
 
     // ===========================================================

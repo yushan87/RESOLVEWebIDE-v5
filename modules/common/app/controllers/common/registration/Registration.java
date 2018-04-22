@@ -13,6 +13,7 @@
 package controllers.common.registration;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.typesafe.config.Config;
 import controllers.common.email.EmailGenerator;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,6 @@ import java.util.concurrent.CompletionStage;
 import javax.inject.Inject;
 import models.common.database.User;
 import models.common.form.RegistrationForm;
-import play.Configuration;
 import play.data.Form;
 import play.data.FormFactory;
 import play.data.validation.ValidationError;
@@ -75,7 +75,7 @@ public class Registration extends Controller {
 
     /** <p>Class that retrieves configurations</p> */
     @Inject
-    private Configuration myConfiguration;
+    private Config myConfiguration;
 
     // ===========================================================
     // Public Methods
@@ -88,7 +88,7 @@ public class Registration extends Controller {
      */
     @AddCSRFToken
     public Result index() {
-        String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+        String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
         return ok(registration.render(myFormFactory.form(RegistrationForm.class), token));
     }
 
@@ -105,7 +105,7 @@ public class Registration extends Controller {
 
         // Perform the basic validation checks.
         if (userForm.hasErrors()) {
-            String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+            String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
             return CompletableFuture.supplyAsync(() -> badRequest(registration.render(userForm, token)),
                     myHttpExecutionContext.current());
         } else {
@@ -117,7 +117,7 @@ public class Registration extends Controller {
             CompletionStage<List<ValidationError>> resultPromise = validate(form);
             return resultPromise.thenApplyAsync(result -> {
                 if (result != null) {
-                    String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+                    String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
                     for (ValidationError error : result) {
                         userForm.reject(error);
                     }
