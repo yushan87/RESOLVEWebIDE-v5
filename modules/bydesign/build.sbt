@@ -18,5 +18,5 @@ javacOptions ++= Seq(
 // Managed Dependencies
 libraryDependencies ++= Seq(
   // Apache Commons CSV
-  "org.apache.commons" % "commons-csv" % "1.4"
+  "org.apache.commons" % "commons-csv" % "1.5"
 )

@@ -23,12 +23,12 @@ libraryDependencies ++= Seq(
   cache,
   filters,
   javaWs,
-  "com.typesafe.play" %% "play-mailer" % "5.0.0",
+  "com.typesafe.play" %% "play-mailer" % "6.0.1",
 
   // Database
-  "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final",
-  "mysql" % "mysql-connector-java" % "5.1.39",
+  "org.hibernate" % "hibernate-core" % "5.2.16.Final",
+  "mysql" % "mysql-connector-java" % "8.0.11",
 
   // Deadbolt 2 (Authenticator)
-  "be.objectify" % "deadbolt-java_2.11" % "2.5.3"
+  "be.objectify" % "deadbolt-java_2.12" % "2.6.4"
 )

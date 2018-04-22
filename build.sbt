@@ -4,13 +4,13 @@ version := "5.0"
 
 def commonSettings = Seq(
   // Scala version to be used in all projects
-  scalaVersion := "2.11.7",
+  scalaVersion := "2.12.5",
   // Use Injection
   routesGenerator := InjectedRoutesGenerator,
   // Java Formatter
   javaFormattingSettingsFilename := "rsrg-format.xml",
   // License Headers
-  headerMappings := headerMappings.value + (HeaderFileType.java -> HeaderCommentStyle.CStyleBlockComment),
+  headerMappings := headerMappings.value + (HeaderFileType.java -> HeaderCommentStyle.cStyleBlockComment),
   headerLicense := Some(HeaderLicense.Custom(
     """|---------------------------------
        |Copyright (c) 2018
