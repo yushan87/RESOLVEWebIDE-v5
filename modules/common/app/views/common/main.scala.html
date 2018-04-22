@@ -14,14 +14,14 @@
         <title>@title</title>
 
         <!-- Favicon -->
-        <link rel="icon" type="image/png" href="@controllers.common.routes.Assets.versioned("images/resolve_logo.png")">
+        <link rel="icon" type="image/png" href="@controllers.common.routes.AssetsManager.versioned("images/resolve_logo.png")">
 
         <!-- CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
             integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"
             integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
-        <link rel="stylesheet" media="screen" href="@controllers.common.routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@controllers.common.routes.AssetsManager.versioned("stylesheets/main.css")">
     </head>
     <body>
         <!-- JavaScript Libraries -->
@@ -48,7 +48,7 @@
         @views.html.common.tags.footer()
 
         <!-- Our Own JavaScripts -->
-        <script src="@controllers.common.routes.Assets.versioned("javascripts/main.js")" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@controllers.common.routes.AssetsManager.versioned("javascripts/main.js")" type="text/javascript" charset="${_response_encoding}"></script>
         <script type="text/javascript">
             var tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
