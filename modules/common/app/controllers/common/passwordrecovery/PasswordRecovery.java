@@ -183,7 +183,7 @@ public class PasswordRecovery extends Controller {
 
         // Perform the basic validation checks.
         if (userForm.hasErrors()) {
-            String token = CSRF.getToken(request()).map(t -> t.value()).orElse("no token");
+            String token = CSRF.getToken(request()).map(CSRF.Token::value).orElse("no token");
             return CompletableFuture.supplyAsync(() -> badRequest(updatePassword.render(userForm, token, email)),
                     myHttpExecutionContext.current());
         } else {
