@@ -4,7 +4,7 @@ version := "5.0"
 
 def commonSettings = Seq(
   // Scala version to be used in all projects
-  scalaVersion := "2.12.5",
+  scalaVersion := "2.12.6",
   // Use Injection
   routesGenerator := InjectedRoutesGenerator,
   // Java Formatter
@@ -38,7 +38,10 @@ javacOptions ++= Seq(
 )
 
 // Managed Dependencies
-libraryDependencies ++= Seq()
+libraryDependencies ++= Seq(
+  guice,
+  "com.google.code.findbugs" % "jsr305" % "1.3.9"
+)
 
 // Unmanaged Dependencies
 unmanagedBase := baseDirectory.value / "custom_lib"

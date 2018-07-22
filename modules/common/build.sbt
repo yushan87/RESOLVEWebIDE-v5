@@ -26,7 +26,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-mailer" % "6.0.1",
 
   // Database
-  "org.hibernate" % "hibernate-core" % "5.2.16.Final",
+  "org.hibernate" % "hibernate-core" % "5.3.2.Final",
   "mysql" % "mysql-connector-java" % "8.0.11",
 
   // Deadbolt 2 (Authenticator)
